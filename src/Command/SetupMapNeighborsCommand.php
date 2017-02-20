@@ -7,7 +7,7 @@ use Prokki\Warlight2BotTemplate\Exception\ParserException;
 /**
  * Class SettingsTimebankCommand to set/get the timebank of your bot.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 class SetupMapNeighborsCommand extends ReceivableCommand implements ApplicableCommand
 {

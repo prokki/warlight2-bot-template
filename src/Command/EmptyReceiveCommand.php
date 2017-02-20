@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 /**
  * Class EmptyReceiveCommand
  *
- * @package Prokki\Warlight2BotTemplate\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 class EmptyReceiveCommand extends Command implements ApplicableCommand
 {

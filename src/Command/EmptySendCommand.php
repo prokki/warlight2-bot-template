@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 /**
  * Class PickStartingRegionCommand to initialize the super regions.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 class EmptySendCommand extends Command implements SendableCommand
 {

@@ -7,7 +7,7 @@ use Prokki\Warlight2BotTemplate\Game\RegionState;
 /**
  * Class SetupMapOpponentStartingRegionsCommand to initialize the super regions.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 class SetupMapOpponentStartingRegionsListCommand extends ReceivableIntListCommand implements ApplicableCommand
 {

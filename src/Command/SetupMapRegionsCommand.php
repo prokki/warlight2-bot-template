@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 /**
  * Class SetupMapSuperRegionsCommand to initialize the super regions.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  *
  *             * the super regions as associative array:
  *

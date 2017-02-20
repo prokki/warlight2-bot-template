@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 
 /**
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 abstract class ReceivableStringCommand extends ReceivableCommand
 {

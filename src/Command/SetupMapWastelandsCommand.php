@@ -6,7 +6,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 /**
  * Class SetupMapWastelandsCommand to initialize the super regions.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 class SetupMapWastelandsListCommand extends ReceivableIntListCommand implements ApplicableCommand
 {

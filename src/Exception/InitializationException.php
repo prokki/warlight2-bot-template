@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Exception;
 /**
  * Class RuntimeException
  *
- * @package Warlight2Bot\Exception
+ * @package Prokki\Warlight2BotTemplate
  */
 class InitializationException extends \Exception
 {

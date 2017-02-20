@@ -6,11 +6,21 @@ use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
 use Prokki\Warlight2BotTemplate\Util\Client;
 
 /**
- * Class GoAttackTransferCommand to initialize the super regions.
+ * Class GoAttackTransferCommand handles
+ * - the request to return his attack and/or transfer moves and
+ * - the response all attack/transfer moves.
  *
- * See command `[-b attack/transfer -i -i -i] ...`
+ * Request: `go attack/transfer -t` with time to set the armies
  *
- * @package Warlight2Bot\Command
+ * Response: `[-b attack/transfer -i -i -i, ...]` with bot name, source region, target region, number of armies
+ *
+ * Example:
+ * ```go attack/transfer 10000
+ * player1 attack/transfer 1 2 3, player1 attack/transfer 2 3 8```
+ *
+ * @package Prokki\Warlight2BotTemplate
+ *
+ * @todo    test is missing
  */
 class GoAttackTransferCommand extends ReceivableIntCommand implements ApplicableCommand, SendableCommand
 {

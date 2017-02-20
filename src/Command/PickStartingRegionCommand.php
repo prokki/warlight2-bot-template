@@ -7,11 +7,19 @@ use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 
 /**
- * Class PickStartingRegionCommand to pick a region from a list.
+ * Class PickStartingRegionCommand handles
+ * - the request to be chose a starting region and
+ * - the response to place armies.
  *
- * See server command `pick_starting_regions`.
+ * Request: `pick_starting_region -t [-i ...]` with time to place the armies and a list of region ids to chose from
  *
- * @package Warlight2Bot\Command
+ * Response: `-i` the chosen id of a region
+ *
+ * Example:
+ * ```pick_starting_region 10000 2 4
+ * 4```
+ *
+ * @package Prokki\Warlight2BotTemplate
  */
 class PickStartingRegionCommand extends ReceivableCommand implements ApplicableCommand, SendableCommand
 {

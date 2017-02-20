@@ -7,7 +7,7 @@ use Prokki\Warlight2BotTemplate\Exception\ParserException;
 /**
  * Class IntTupelCommand to initialize the super regions.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 abstract class ReceivableTupleIntListCommand extends ReceivableCommand
 {

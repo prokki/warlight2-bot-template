@@ -8,7 +8,7 @@ use Prokki\Warlight2BotTemplate\Game\Region;
 /**
  * Class UpdateMapCommand to initialize the super regions.
  *
- * @package Warlight2Bot\Command
+ * @package Prokki\Warlight2BotTemplate
  */
 class UpdateMapCommand extends ReceivableCommand implements ApplicableCommand
 {
