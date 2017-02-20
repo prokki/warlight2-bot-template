@@ -1,11 +1,16 @@
 {
   "name": "prokki/warlight2-bot-template",
+  "description": "Bot template for Warlight AI Challenge 2",
   "homepage": "https://github.com/prokki/warlight2-bot",
   "type": "library",
+  "keywords": [
+	"ai",
+	"challenge",
+	"conquest"
+  ],
   "license": "MIT",
-  "type": "project",
   "require": {
-	"php": ">=5.6.0"
+	"php": ">=5.6.13"
   },
   "authors": [
 	{

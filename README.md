@@ -1,6 +1,10 @@
-## Warlight2Bot
+## Warlight2BotTemplate
 
-[![license](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/prokki/warlight2-bot/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/prokki/warlight2-bot/blob/master/LICENSE)
+
+[![Packagist](https://img.shields.io/badge/Packagist-0.0.1-blue.svg?style=flat)](https://packagist.org/packages/prokki/warlight2-bot-template)
+
+[![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D5.6.13-8892BF.svg)](https://php.net/)
 
 This is the php bot template for Warlight AI Challenge 2 (http://theaigames.com/competitions/warlight-ai-challenge-2). 
 
@@ -8,9 +12,9 @@ Create a new project and install the template via Composer using the following c
 
     composer require prokki/warlight2-bot-template
     
-Create your own bot implementing the **Prokki\Warlight2BotTemplate\GamePlay\AIable** interface.
+Create your own bot implementing the [Prokki\Warlight2BotTemplate\GamePlay\AIable](https://github.com/prokki/warlight2-bot-template/blob/master/src/GamePlay/AIable.php) interface.
 
-Take a look to class **Prokki\Warlight2BotTemplate\GamePlay\RandomAI** for further informations.
+Take a look to example class [RandomAI](https://github.com/prokki/warlight2-bot-template/blob/master/src/GamePlay/RandomAI.php) for further informations.
 
     class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
     {

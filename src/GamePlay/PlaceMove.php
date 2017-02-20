@@ -26,8 +26,23 @@ class PlaceMove
 		$this->_armies              = $armies;
 	}
 
-	public function __toString()
+	/**
+	 * @return integer
+	 *
+	 * @author Falko Matthies <falko.ma@web.de>
+	 */
+	public function getDestinationRegionId()
 	{
-		return sprintf("%d %d", $this->_destinationRegionId, $this->_armies);
+		return $this->_destinationRegionId;
+	}
+
+	/**
+	 * @return integer
+	 *
+	 * @author Falko Matthies <falko.ma@web.de>
+	 */
+	public function getArmies()
+	{
+		return $this->_armies;
 	}
 }

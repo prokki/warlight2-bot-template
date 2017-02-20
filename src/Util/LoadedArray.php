@@ -16,7 +16,6 @@ class LoadedArray extends \ArrayObject
 
 	/**
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 *
 	 * @param callable $callable
 	 *

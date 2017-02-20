@@ -2,13 +2,19 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
+use Prokki\Warlight2BotTemplate\GamePlay\AIable;
+
 /**
  * @since  2017-02-14
- * @author Falko Matthies <falko.m@web.de>
  *
  */
 class Player
 {
+	/**
+	 * @var AIable
+	 */
+	protected $_ai = null;
+
 	/**
 	 * @var Setting
 	 */
@@ -25,8 +31,7 @@ class Player
 	protected $_globalTime = 0;
 
 	/**
-	 * Warlight2Bot constructor.
-	 *
+	 * Player constructor.
 	 */
 	public function __construct()
 	{
@@ -37,7 +42,6 @@ class Player
 	/**
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getSetting()
 	{
@@ -47,11 +51,33 @@ class Player
 	/**
 	 * @return Map
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getMap()
 	{
 		return $this->_map;
+	}
+
+	/**
+	 * @return AIable
+	 *
+	 * @author Falko Matthies <falko.ma@web.de>
+	 */
+	public function getAi()
+	{
+		return $this->_ai;
+	}
+
+	/**
+	 * @param AIable $ai
+	 *
+	 * @return static
+	 *
+	 * @author Falko Matthies <falko.ma@web.de>
+	 */
+	protected function _assignAI($ai)
+	{
+		$this->_ai = $ai;
+		return $this;
 	}
 
 	/**

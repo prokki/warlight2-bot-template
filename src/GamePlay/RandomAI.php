@@ -2,13 +2,12 @@
 
 namespace Prokki\Warlight2BotTemplate\GamePlay;
 
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
+use Prokki\Warlight2BotTemplate\Util\LoadedArray;
 
 /**
  * @since  2017-02-15
- * @author Falko Matthies <falko.m@web.de>
  */
 class RandomAI implements AIable
 {
@@ -27,12 +26,88 @@ class RandomAI implements AIable
 		return $region->getId();
 	}
 
+	protected static function _ChooseIndexes($length)
+	{
+		if( $length < 1 )
+		{
+			return array();
+		}
+
+		$moves = rand(
+			max(1, floor(log($length, M_E))),
+			max(1, ceil(log($length, 2)))
+		);
+
+		$moves = min($moves, $length);
+
+		$chosen_indexes = array();
+
+		do
+		{
+			do
+			{
+				$_chosen_index = rand(0, $length - 1);
+			}
+			while( in_array($_chosen_index, $chosen_indexes) );
+
+			array_push($chosen_indexes, $_chosen_index);
+		}
+		while( count($chosen_indexes) < $moves );
+
+		return $chosen_indexes;
+	}
+
 	/**
 	 * @inheritdoc
 	 */
 	public function getAttackTransferMoves($player)
 	{
-		return array();
+		$source_regions = $player->getMap()->getRegions(RegionState::OWNER_ME);
+
+		$chosen_source_seq = self::_ChooseIndexes(count($source_regions));
+
+		$seq_region = 0;
+
+		$moves = array();
+
+		foreach( $source_regions as $_source_region )
+		{
+
+			/** @var Region $_source_region */
+			if( $_source_region->getState()->getArmies() <= 1 || !in_array($seq_region, $chosen_source_seq) )
+			{
+				++$seq_region;
+
+				continue;
+			}
+
+			/** @var LoadedArray $_destination_regions */
+			$_destination_regions = $_source_region->getNeighbors();
+
+			$_chosen_destination_seq = self::_ChooseIndexes(count($_destination_regions));
+
+			$_seq_destination = 0;
+
+			foreach( $_destination_regions as $__destination_region )
+			{
+				/** @var Region $__destination_region */
+				if( !in_array($_seq_destination, $_chosen_destination_seq) )
+				{
+					continue;
+				}
+
+				array_push($moves, ( $__destination_region->getState()->getOwner() === RegionState::OWNER_ME ) ?
+					new TransferMove($_source_region->getId(), $__destination_region->getId(), $_source_region->getState()->getArmies() - 1) :
+					new AttackMove($_source_region->getId(), $__destination_region->getId(), $_source_region->getState()->getArmies() - 1)
+				);
+
+				++$_seq_destination;
+			}
+
+			++$seq_region;
+		}
+
+		return $moves;
 	}
 
 	/**

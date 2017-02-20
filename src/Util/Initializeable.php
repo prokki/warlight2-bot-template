@@ -12,7 +12,6 @@ trait Initializeable
 
 	/**
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setInitialized()
 	{
@@ -22,7 +21,6 @@ trait Initializeable
 	/**
 	 * @return boolean
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function isInitialized()
 	{

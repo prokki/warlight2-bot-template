@@ -4,7 +4,6 @@ namespace Prokki\Warlight2BotTemplate\Game;
 
 /**
  * @since  2017-02-14
- * @author Falko Matthies <falko.m@web.de>
  */
 class Setting
 {
@@ -70,7 +69,6 @@ class Setting
 	 *
 	 * @return string
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getName()
 	{
@@ -82,7 +80,6 @@ class Setting
 	 *
 	 * @return string name of the bot
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getNameOpponent()
 	{
@@ -94,7 +91,6 @@ class Setting
 	 *
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getTimebank()
 	{
@@ -104,7 +100,6 @@ class Setting
 	/**
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getStartingArmies()
 	{
@@ -116,7 +111,6 @@ class Setting
 	 *
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getTimePerMove()
 	{
@@ -128,7 +122,6 @@ class Setting
 	 *
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getMaxRounds()
 	{
@@ -140,7 +133,6 @@ class Setting
 	 *
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getStartingPickAmount()
 	{
@@ -167,7 +159,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setName($name)
 	{
@@ -182,7 +173,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setNameOpponent($name)
 	{
@@ -198,7 +188,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setTimebank($time)
 	{
@@ -212,7 +201,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setStartingArmies($startingArmies)
 	{
@@ -227,7 +215,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setTimePerMove($time)
 	{
@@ -242,7 +229,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setMaxRounds($amount)
 	{
@@ -257,7 +243,6 @@ class Setting
 	 *
 	 * @return Setting
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function setStartingPickAmount($amount)
 	{

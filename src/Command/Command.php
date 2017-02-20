@@ -19,8 +19,8 @@ namespace Prokki\Warlight2BotTemplate\Command;
  * OK update_map [-i -b -i ...]    Visible map for the bot is given like this: region id; player owning region; number of armies.
  * OK opponent_moves [‑m ...]    all the visible moves the opponent has done are given in consecutive order. -m can be any move and has the same format as in the table below
  * OK pick_starting_region -t [-i ...]    Starting regions to be chosen from are given, one region id is to be returned by your bot
- * @todo go place_armies -t    Request for the bot to return his place armies moves.
- * @todo go attack/transfer -t    Request for the bot to return his attack and/or transfer moves
+ * OK go place_armies -t    Request for the bot to return his place armies moves.
+ * OK go attack/transfer -t    Request for the bot to return his attack and/or transfer moves
  *
  * Output from bot    Description
  *  -i    A single id of a region, returned when the pick_starting_region request has been made.

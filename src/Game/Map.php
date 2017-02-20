@@ -34,7 +34,6 @@ class Map
 	 *
 	 * @return boolean
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function hasRegion($id)
 	{
@@ -52,7 +51,6 @@ class Map
 	 *
 	 * @throws RuntimeException
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getRegion($id)
 	{
@@ -72,7 +70,6 @@ class Map
 	 *
 	 * @return LoadedArray
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getRegions($owner = null)
 	{
@@ -96,7 +93,6 @@ class Map
 	 *
 	 * @return boolean
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function hasSuperRegion($id)
 	{
@@ -110,7 +106,6 @@ class Map
 	 *
 	 * @return SuperRegion
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getSuperRegion($id)
 	{

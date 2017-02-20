@@ -49,7 +49,6 @@ abstract class ReceivableCommand extends Command
 	 *
 	 * @return Command
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	abstract protected function _parseArguments($input, $arguments);
 }

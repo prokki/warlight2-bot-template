@@ -12,7 +12,7 @@ class EmptySendCommand extends Command implements SendableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, $player)
+	public function compute($player)
 	{
 		return '';
 	}

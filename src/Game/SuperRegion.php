@@ -34,7 +34,6 @@ class SuperRegion
 	/**
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getBonusArmies()
 	{
@@ -44,7 +43,6 @@ class SuperRegion
 	/**
 	 * @return integer
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getId()
 	{
@@ -54,7 +52,6 @@ class SuperRegion
 	/**
 	 * @param Region $region
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function addRegion(Region $region)
 	{

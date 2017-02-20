@@ -7,7 +7,9 @@ use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 
 /**
- * Class PickStartingRegionCommand to initialize the super regions.
+ * Class PickStartingRegionCommand to pick a region from a list.
+ *
+ * See server command `pick_starting_regions`.
  *
  * @package Warlight2Bot\Command
  */
@@ -79,9 +81,9 @@ class PickStartingRegionCommand extends ReceivableCommand implements ApplicableC
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, $player)
+	public function compute($player)
 	{
-		$picked_region_id = $ai->pickStartingRegion($player, $this->_region_ids);
+		$picked_region_id = $player->getAi()->pickStartingRegion($player, $this->_region_ids);
 
 		return $picked_region_id;
 	}

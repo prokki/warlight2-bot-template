@@ -6,13 +6,17 @@ use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Command\SendableCommand;
 use Prokki\Warlight2BotTemplate\Game\Player;
 
-define('PROKKIBOT_MAX_SERVER_TIMEOUT', 30); // [s]
+define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
 
 /**
  * Class Client
  *
  * @package Prokki\Warlight2Bot
  *
+ * @todo    Compability to vers. 1!
+ * @todo    Comment all commands!
+ * @todo    History / Moves / Map for each round ?
+ * @todo    Extend Unittests!
  * @todo    implement opponent_moves?
  */
 class Client extends Player
@@ -48,11 +52,6 @@ class Client extends Player
 	protected $_argv = array();
 
 	/**
-	 * @var AIable
-	 */
-	protected $_ai = null;
-
-	/**
 	 * @param string $string
 	 *
 	 * @author Falko Matthies <falko.ma@web.de>
@@ -83,6 +82,13 @@ class Client extends Player
 		$this->_parser = Parser::Init();
 
 		parent::__construct();
+		$this->_assignAI($ai);
+	}
+
+	protected static function _Convert($size)
+	{
+		$unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+		return @round($size / pow(1024, ( $i = floor(log($size, 1024)) )), 2) . ' ' . $unit[ $i ];
 	}
 
 	/**
@@ -95,7 +101,8 @@ class Client extends Player
 	public function run()
 	{
 		// streams
-		$read   = [$this->_input];
+		$read = [$this->_input];
+
 		$write  = null;
 		$except = null;
 
@@ -109,12 +116,14 @@ class Client extends Player
 
 			if( false === $changed_streams )
 			{
-				self::Debug("ERROR!!!");
 				die();
 			}
 
 			foreach( $read as $_handle )
 			{
+
+				$time_start = self::_GetMicrotimeFloat();
+
 				$string = trim(fgets($_handle));
 
 				if( empty($string) )
@@ -128,6 +137,9 @@ class Client extends Player
 				$eof = feof($_handle);
 
 				$command = $this->_parser->run($string);
+
+//				self::Debug(get_class($command) . "\n");
+
 
 				if( $command->isApplicable() )
 				{
@@ -144,17 +156,32 @@ class Client extends Player
 					/** @var SendableCommand $command */
 					$send = $command->compute($this);
 
+					$duration = ( self::_GetMicrotimeFloat() - $time_start );
+//					Client::Debug("TIME: " . $duration . "\n");
+
+					if( $duration < 5000 )
+					{
+						usleep(5000 - $duration); // wait until at least 1ms are gone
+
+//						$duration = ( self::_GetMicrotimeFloat() - $time_start );
+//						Client::Debug("TIME: " . $duration . "\n");
+					}
+
 					fwrite($this->_output, $send . "\n");
 
 					self::Debug(sprintf("send: %s\n", $send));
 				}
+
 			}
 		}
 		while( !$eof && !empty($changed_streams) );
 
-		self::Debug("END1!\n");
+		self::Debug("MEM: " . self::_Convert(memory_get_usage(true)) . "\n");
+
+		self::Debug("END!\n");
 
 		fclose($this->_input);
+
 
 		if( is_resource(self::$_DebugFileHandler) )
 		{
@@ -163,14 +190,10 @@ class Client extends Player
 
 	}
 
-	/**
-	 * @return AIable
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
-	 */
-	public function getAi()
+	protected static function _GetMicrotimeFloat()
 	{
-		return $this->_ai;
+		list($usec, $sec) = explode(" ", microtime());
+		return ( (float) $usec + (float) $sec );
 	}
 
 	/**

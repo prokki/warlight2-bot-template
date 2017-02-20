@@ -2,8 +2,13 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
+use Prokki\Warlight2BotTemplate\Util\Client;
+
 /**
  * Class GoAttackTransferCommand to initialize the super regions.
+ *
+ * See command `[-b attack/transfer -i -i -i] ...`
  *
  * @package Warlight2Bot\Command
  */
@@ -20,8 +25,21 @@ class GoAttackTransferCommand extends ReceivableIntCommand implements Applicable
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, $player)
+	public function compute($player)
 	{
-		return sprintf("%s attack/transfer %s", $player->getSetting()->getName(), implode($ai->getAttackTransferMoves($player)));
+		$moves = array();
+
+		foreach( $player->getAi()->getAttackTransferMoves($player) as $_move )
+		{
+			/** @var TransferMove $_move */
+			array_push($moves, sprintf("%s attack/transfer %d %d %d",
+				$player->getSetting()->getName(),
+				$_move->getSourceRegionId(),
+				$_move->getDestinationRegionId(),
+				$_move->getArmies()
+			));
+		}
+
+		return empty($moves) ? 'No moves' : implode(', ', $moves);
 	}
 }

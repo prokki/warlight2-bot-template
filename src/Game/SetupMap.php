@@ -134,7 +134,6 @@ class SetupMap extends Map
 	 *
 	 * @throws InitializationException
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function addRegion($id, $super_region_id)
 	{
@@ -154,7 +153,6 @@ class SetupMap extends Map
 	 *
 	 * @throws InitializationException
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function addSuperRegion($id, $bonus_armies = 0)
 	{
@@ -181,7 +179,6 @@ class SetupMap extends Map
 	 * 
 	 * @return LoadedArray
 	 * 
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getNeighbors()
 	{
@@ -191,7 +188,6 @@ class SetupMap extends Map
 	/**
 	 * @param integer $id id of the wasteland region
 	 *
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function addWasteland($id)
 	{
@@ -201,7 +197,6 @@ class SetupMap extends Map
 	/**
 	 * @return LoadedArray
 	 * 
-	 * @author Falko Matthies <falko.m@web.de>
 	 */
 	public function getWastelands()
 	{

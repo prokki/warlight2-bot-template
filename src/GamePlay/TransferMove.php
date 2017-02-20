@@ -21,4 +21,14 @@ class TransferMove extends PlaceMove
 		$this->_sourceRegionId = $source_region_id;
 		parent::__construct($destination_region_id, $armies);
 	}
+
+	/**
+	 * @return integer
+	 *
+	 * @author Falko Matthies <falko.ma@web.de>
+	 */
+	public function getSourceRegionId()
+	{
+		return $this->_sourceRegionId;
+	}
 }
