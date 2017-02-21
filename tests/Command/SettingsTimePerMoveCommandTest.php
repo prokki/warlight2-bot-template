@@ -9,7 +9,7 @@ use Prokki\Warlight2BotTemplate\Game\Player;
 class SettingsTimePerMoveCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SettingsTimePerMoveCommand
+	 * @return SettingsTimePerMoveCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -17,6 +17,17 @@ class SettingsTimePerMoveCommandTest extends CommandTest
 	}
 
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
@@ -25,6 +36,9 @@ class SettingsTimePerMoveCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsTimePerMoveCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()

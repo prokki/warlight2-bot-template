@@ -11,15 +11,15 @@ use Prokki\Warlight2BotTemplate\Command\SettingsMaxRoundsCommand;
 use Prokki\Warlight2BotTemplate\Command\SettingsOpponentBotCommand;
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingArmiesCommand;
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingPickAmountCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsListCommand;
+use Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsCommand;
 use Prokki\Warlight2BotTemplate\Command\SettingsTimebankCommand;
 use Prokki\Warlight2BotTemplate\Command\SettingsTimePerMoveCommand;
 use Prokki\Warlight2BotTemplate\Command\SettingsYourBotCommand;
 use Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsListCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsListCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsListCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsListCommand;
+use Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsCommand;
+use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand;
+use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand;
+use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand;
 use Prokki\Warlight2BotTemplate\Command\UpdateMapCommand;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
 
@@ -137,7 +137,7 @@ class Parser
 		}
 		elseif( 1 === preg_match('/^\s*settings\s+starting_regions\s+(.*)$/si', $string, $matches) )
 		{
-			return new SettingsStartingRegionsListCommand($matches[ 0 ], trim($matches[ 1 ]));
+			return new SettingsStartingRegionsCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
 		else
 		{
@@ -158,11 +158,11 @@ class Parser
 
 		if( 1 === preg_match('/^\s*setup_map\s+super_regions\s+(.*)$/si', $string, $matches) )
 		{
-			return new SetupMapSuperRegionsListCommand($matches[ 0 ], trim($matches[ 1 ]));
+			return new SetupMapSuperRegionsCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
 		elseif( 1 === preg_match('/^\s*setup_map\s+regions\s+(.*)$/si', $string, $matches) )
 		{
-			return new SetupMapRegionsListCommand($matches[ 0 ], trim($matches[ 1 ]));
+			return new SetupMapRegionsCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
 		elseif( 1 === preg_match('/^\s*setup_map\s+neighbors\s+(.*)$/si', $string, $matches) )
 		{
@@ -170,11 +170,11 @@ class Parser
 		}
 		elseif( 1 === preg_match('/^\s*setup_map\s+wastelands\s+(.*)$/si', $string, $matches) )
 		{
-			return new SetupMapWastelandsListCommand($matches[ 0 ], trim($matches[ 1 ]));
+			return new SetupMapWastelandsCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
 		elseif( 1 === preg_match('/^\s*setup_map\s+opponent_starting_regions\s+(.*)$/si', $string, $matches) )
 		{
-			return new SetupMapOpponentStartingRegionsListCommand($matches[ 0 ], trim($matches[ 1 ]));
+			return new SetupMapOpponentStartingRegionsCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
 		else
 		{

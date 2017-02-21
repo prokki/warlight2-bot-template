@@ -11,7 +11,7 @@ use Prokki\Warlight2BotTemplate\Game\Player;
 class UpdateMapCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand
+	 * @return UpdateMapCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -19,6 +19,17 @@ class UpdateMapCommandTest extends CommandTest
 	}
 
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
@@ -27,6 +38,8 @@ class UpdateMapCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_parseArguments()
+	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
@@ -36,6 +49,8 @@ class UpdateMapCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_parseArguments()
+	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
@@ -45,6 +60,9 @@ class UpdateMapCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
@@ -65,10 +83,10 @@ class UpdateMapCommandTest extends CommandTest
 
 		self::assertEquals(RegionState::OWNER_ME, $player->getMap()->getRegion(1)->getState()->getOwner());
 		self::assertEquals(6, $player->getMap()->getRegion(1)->getState()->getArmies());
-		
+
 		self::assertEquals(RegionState::OWNER_OPPONENT, $player->getMap()->getRegion(3)->getState()->getOwner());
 		self::assertEquals(2, $player->getMap()->getRegion(3)->getState()->getArmies());
-		
+
 		self::assertEquals(RegionState::OWNER_NEUTRAL, $player->getMap()->getRegion(4)->getState()->getOwner());
 		self::assertEquals(7, $player->getMap()->getRegion(4)->getState()->getArmies());
 	}

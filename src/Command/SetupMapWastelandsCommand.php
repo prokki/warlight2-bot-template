@@ -8,7 +8,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SetupMapWastelandsListCommand extends ReceivableIntListCommand implements ApplicableCommand
+class SetupMapWastelandsCommand extends ReceivableIntListCommand implements ApplicableCommand
 {
 	/**
 	 * @inheritdoc

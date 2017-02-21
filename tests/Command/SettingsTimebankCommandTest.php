@@ -17,6 +17,17 @@ class SettingsTimebankCommandTest extends CommandTest
 	}
 
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
@@ -25,6 +36,9 @@ class SettingsTimebankCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsTimebankCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()

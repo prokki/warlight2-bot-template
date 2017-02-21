@@ -9,7 +9,7 @@ use Prokki\Warlight2BotTemplate\Game\Player;
 class SettingsYourBotCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SettingsYourBotCommand
+	 * @return SettingsYourBotCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -17,6 +17,17 @@ class SettingsYourBotCommandTest extends CommandTest
 	}
 
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+	
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableStringCommand::_parseArguments()
+	 * 
 	 * @inheritdoc
 	 */
 	public function testParser()
@@ -25,6 +36,9 @@ class SettingsYourBotCommandTest extends CommandTest
 	}
 	
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsYourBotCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableStringCommand::_parseArguments()
+	 * 
 	 * @inheritdoc
 	 */
 	public function testApply()

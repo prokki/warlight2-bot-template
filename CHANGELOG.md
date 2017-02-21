@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### [Unreleased]
 #### Fixed
  - Commands `opponent_moves`, `go place_armies` and `go attack/transfer` fixed
+ - some command class names
  - `composer.json`: set type to `library`
 #### Changed
  - divided `Player` and `Client` class
@@ -14,6 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 #### Added
  - CHANGELOG file
  - ignore `composer.lock`
+ - add configuration file and @covers annotations for code coverage
  
 ### [0.0.1] - 2017-02-17
 #### Added

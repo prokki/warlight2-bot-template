@@ -2,14 +2,14 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
-use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsListCommand;
+use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
 
 class SetupMapRegionsCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SetupMapRegionsListCommand
+	 * @return SetupMapRegionsCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -17,14 +17,27 @@ class SetupMapRegionsCommandTest extends CommandTest
 	}
 
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
 	{
-		self::assertEquals(SetupMapRegionsListCommand::class, get_class($this->_getTestCommand()));
+		self::assertEquals(SetupMapRegionsCommand::class, get_class($this->_getTestCommand()));
 	}
 
 	/**
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
+	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
@@ -34,6 +47,9 @@ class SetupMapRegionsCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()

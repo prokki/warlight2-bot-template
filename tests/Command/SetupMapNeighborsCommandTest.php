@@ -9,14 +9,25 @@ use Prokki\Warlight2BotTemplate\Game\Player;
 class SetupMapNeighborsCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand
+	 * @return SetupMapNeighborsCommand
 	 */
 	protected function _getTestCommand()
 	{
 		return Parser::Init()->run('   setup_map   neighbors     1 2,3, 4 , 6 2 3 4    5,6   ');
 	}
-
+	
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+	
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand::_parseArguments()
+	 * 
 	 * @inheritdoc
 	 */
 	public function testParser()
@@ -25,6 +36,8 @@ class SetupMapNeighborsCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand::_parseArguments()
+	 * 
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
@@ -34,6 +47,9 @@ class SetupMapNeighborsCommandTest extends CommandTest
 	}
 	
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand::_parseArguments()
+	 * 
 	 * @inheritdoc
 	 */
 	public function testApply()

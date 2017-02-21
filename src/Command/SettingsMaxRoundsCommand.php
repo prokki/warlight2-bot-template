@@ -10,7 +10,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 class SettingsMaxRoundsCommand extends ReceivableIntCommand implements ApplicableCommand
 {
 	/**
-	 * /**
+	 *
 	 * @inheritdoc
 	 */
 	public function apply($player)

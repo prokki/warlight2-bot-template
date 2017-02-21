@@ -3,16 +3,18 @@
 namespace Prokki\Warlight2BotTemplate\Test\Map;
 
 use PHPUnit\Framework\TestCase;
-use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
-use Prokki\Warlight2BotTemplate\Test\Command\SetupMapOpponentStartingRegionsCommandTest;
-use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class MapTest extends TestCase
 {
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::getRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegion()
+	 * 
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::setOwner()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
 	 */
 	public function testGetRegion()
 	{

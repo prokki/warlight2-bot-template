@@ -8,12 +8,12 @@ abstract class CommandTest extends TestCase
 {
 
 	/**
-	 * Tests if the parser returns an object of the appropriate class for the submitted command.
+	 * @covers \Prokki\Warlight2BotTemplate\Util\Parser::run()
 	 */
 	abstract public function testParser();
 
 	/**
-	 * Tests if the parser applies the command successfully.
+	 * @covers \Prokki\Warlight2BotTemplate\Command\Command::isApplicable()
 	 */
-	abstract public function testApply();
+	abstract public function testIsApplicable();
 }

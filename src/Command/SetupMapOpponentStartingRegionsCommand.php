@@ -9,7 +9,7 @@ use Prokki\Warlight2BotTemplate\Game\RegionState;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SetupMapOpponentStartingRegionsListCommand extends ReceivableIntListCommand implements ApplicableCommand
+class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand implements ApplicableCommand
 {
 	/**
 	 * @inheritdoc
@@ -23,13 +23,5 @@ class SetupMapOpponentStartingRegionsListCommand extends ReceivableIntListComman
 		{
 			$map->getRegion($_region_id)->getState()->setOwner(RegionState::OWNER_OPPONENT);
 		}
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function isPrompt()
-	{
-		return false;
 	}
 }

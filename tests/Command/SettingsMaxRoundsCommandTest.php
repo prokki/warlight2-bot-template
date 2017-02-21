@@ -9,7 +9,7 @@ use Prokki\Warlight2BotTemplate\Util\Parser;
 class SettingsMaxRoundsCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SettingsMaxRoundsCommand
+	 * @return SettingsMaxRoundsCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -19,12 +19,25 @@ class SettingsMaxRoundsCommandTest extends CommandTest
 	/**
 	 * @inheritdoc
 	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+	
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 * 
+	 * @inheritdoc
+	 */
 	public function testParser()
 	{
 		self::assertEquals(SettingsMaxRoundsCommand::class, get_class($this->_getTestCommand()));
 	}
 	
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsMaxRoundsCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 * 
 	 * @inheritdoc
 	 */
 	public function testApply()

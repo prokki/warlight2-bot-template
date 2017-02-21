@@ -12,7 +12,7 @@ use Prokki\Warlight2BotTemplate\Util\Parser;
 class PickStartingRegionCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SetupMapRegionsListCommand
+	 * @return PickStartingRegionCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -22,13 +22,24 @@ class PickStartingRegionCommandTest extends CommandTest
 	/**
 	 * @inheritdoc
 	 */
-	public function testParser()
+	public function testIsApplicable()
 	{
-		self::assertEquals(PickStartingRegionCommand::class, get_class($this->_getTestCommand()));
-		self::assertTrue(in_array(SendableCommand::class, class_implements($this->_getTestCommand())));
+		self::assertTrue($this->_getTestCommand()->isApplicable());
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
+	 *
+	 * @inheritdoc
+	 */
+	public function testParser()
+	{
+		self::assertEquals(PickStartingRegionCommand::class, get_class($this->_getTestCommand()));
+	}
+
+	/**
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
+	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
@@ -38,6 +49,8 @@ class PickStartingRegionCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
+	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
@@ -47,6 +60,13 @@ class PickStartingRegionCommandTest extends CommandTest
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_setOpponentRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setStartingRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::getRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()

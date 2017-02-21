@@ -2,14 +2,14 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
-use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsListCommand;
+use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
 
 class SetupMapWastelandsCommandTest extends CommandTest
 {
 	/**
-	 * @return \Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsListCommand
+	 * @return SetupMapWastelandsCommand
 	 */
 	protected function _getTestCommand()
 	{
@@ -17,14 +17,28 @@ class SetupMapWastelandsCommandTest extends CommandTest
 	}
 
 	/**
+	 *
+	 * @inheritdoc
+	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
 	{
-		self::assertEquals(SetupMapWastelandsListCommand::class, get_class($this->_getTestCommand()));
+		self::assertEquals(SetupMapWastelandsCommand::class, get_class($this->_getTestCommand()));
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()

@@ -12,7 +12,7 @@ class StaticCommandTest extends TestCase
 {
 
 	/**
-	 * Tests static method {@see \Warlight2BotTemplate\Command\Command::_GetRegionOwnerByPlayerName()}
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableCommand::_GetRegionOwnerByPlayerName()
 	 */
 	public function testGetRegionOwnerByPlayerName()
 	{
@@ -35,10 +35,12 @@ class StaticCommandTest extends TestCase
 	}
 
 	/**
-	 * Tests static method {@see \Warlight2BotTemplate\Command\Command::_GetRegionOwnerByPlayerName()}
+	 *
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableCommand::_GetRegionOwnerByPlayerName()
 	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 105
+	 *
 	 */
 	public function testGetRegionOwnerByPlayerNameWithException()
 	{

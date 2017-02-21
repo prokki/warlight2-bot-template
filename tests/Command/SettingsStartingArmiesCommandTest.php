@@ -19,12 +19,25 @@ class SettingsStartingArmiesCommandTest extends CommandTest
 	/**
 	 * @inheritdoc
 	 */
+	public function testIsApplicable()
+	{
+		self::assertTrue($this->_getTestCommand()->isApplicable());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 *
+	 * @inheritdoc
+	 */
 	public function testParser()
 	{
 		self::assertEquals(SettingsStartingArmiesCommand::class, get_class($this->_getTestCommand()));
 	}
 
 	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsStartingArmiesCommand::apply()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()

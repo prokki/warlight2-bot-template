@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.0/phpunit.xsd">
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src/</directory>
+            <exclude>
+                <!-- Interfaces -->
+                <!--<file>../src/Command/ApplicableCommand.php</file>-->
+                <!--<file>../src/Command/SendableCommand.php</file>-->
+                <!--<file>../src/GamePlay/AIable.php</file>-->
+                <!--<file>../src/Util/Initializeable.php</file>-->
+                <!--<file>../src/Util/Loadable.php</file>-->
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

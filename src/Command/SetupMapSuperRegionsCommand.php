@@ -12,7 +12,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
  * the key is the id of the super region,
  * the value the bonus armies rewarded
  */
-class SetupMapSuperRegionsListCommand extends ReceivableTupleIntListCommand implements ApplicableCommand
+class SetupMapSuperRegionsCommand extends ReceivableTupleIntListCommand implements ApplicableCommand
 {
 	/**
 	 * @inheritdoc
