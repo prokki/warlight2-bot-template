@@ -57,7 +57,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 		$player = new Player();
 		$player->setName("ßäöü");
 
-		$move = new TransferMove(-17, 7, -999);
+		$move = new AttackMove(-17, 7, -999);
 
 		$reflection_method = new \ReflectionMethod(GoAttackTransferCommand::class, '_moveToString');
 		$reflection_method->setAccessible(true);

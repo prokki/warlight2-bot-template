@@ -16,8 +16,10 @@ use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
  * Response: `[-b place_armies -i -i, ...]` with bot name, region id and number of armies.
  *
  * Example:
- * ```go place_armies 10000
- * player1 place_armies 1 2, player1 place_armies 2 5```
+ * ```
+ * -> go place_armies 10000
+ * <- player1 place_armies 1 2, player1 place_armies 2 5
+ * ```
  *
  * @package Prokki\Warlight2BotTemplate
  */
@@ -40,8 +42,10 @@ class GoPlaceArmiesCommand extends SetGlobalTimeComputableCommand
 	}
 
 	/**
-	 * @param Player    $player
-	 * @param PlaceMove $move
+	 * Returns the partial response string for a single place move.
+	 *
+	 * @param Player    $player the player performing the move
+	 * @param PlaceMove $move   the move
 	 *
 	 * @return string
 	 */

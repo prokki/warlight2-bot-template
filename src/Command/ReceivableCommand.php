@@ -6,6 +6,11 @@ use Prokki\Warlight2BotTemplate\Exception\ParserException;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 
+/**
+ * Class ReceivableCommand
+ *
+ * @package Prokki\Warlight2BotTemplate\Command
+ */
 abstract class ReceivableCommand extends Command
 {
 

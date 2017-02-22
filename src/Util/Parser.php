@@ -3,7 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Util;
 
 use Prokki\Warlight2BotTemplate\Command\Command;
-use Prokki\Warlight2BotTemplate\Command\EmptyReceiveCommand;
+use Prokki\Warlight2BotTemplate\Command\EmptyReceivableCommand;
 use Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand;
 use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
 use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
@@ -82,7 +82,7 @@ class Parser
 		}
 		elseif( 1 === preg_match('/^\s*opponent_moves\s*(.*)$/si', $string) )
 		{
-			return new EmptyReceiveCommand();
+			return new EmptyReceivableCommand();
 		}
 		
 

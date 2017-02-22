@@ -16,8 +16,10 @@ use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
  * Response: `[-b attack/transfer -i -i -i, ...]` with bot name, source region, target region, number of armies
  *
  * Example:
- * ```go attack/transfer 10000
- * player1 attack/transfer 1 2 3, player1 attack/transfer 2 3 8```
+ * ```
+ * -> go attack/transfer 10000
+ * <- player1 attack/transfer 1 2 3, player1 attack/transfer 2 3 8
+ * ```
  *
  * @package Prokki\Warlight2BotTemplate
  */
@@ -40,8 +42,10 @@ class GoAttackTransferCommand extends SetGlobalTimeComputableCommand
 	}
 
 	/**
-	 * @param Player       $player
-	 * @param TransferMove $move
+	 * Returns the partial response string for a single place move.
+	 *
+	 * @param Player       $player the player performing the move
+	 * @param TransferMove $move   the move
 	 *
 	 * @return string
 	 */

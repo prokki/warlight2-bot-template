@@ -2,18 +2,18 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
-use Prokki\Warlight2BotTemplate\Command\EmptyReceiveCommand;
+use Prokki\Warlight2BotTemplate\Command\EmptyReceivableCommand;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
-class EmptyReceiveCommandTest extends CommandTest
+class EmptyReceivableCommandTest extends CommandTest
 {
 	/**
-	 * @return EmptyReceiveCommand
+	 * @return EmptyReceivableCommand
 	 */
 	protected function _getTestCommand()
 	{
-		return new EmptyReceiveCommand();
+		return new EmptyReceivableCommand();
 	}
 
 	/**
@@ -22,7 +22,7 @@ class EmptyReceiveCommandTest extends CommandTest
 	 */
 	public function testParser()
 	{
-		$this->markTestSkipped('Parser can not return an EmptyReceiveCommand at any time.');
+		$this->markTestSkipped('Parser can not return an EmptyReceivableCommand at any time.');
 	}
 
 	/**

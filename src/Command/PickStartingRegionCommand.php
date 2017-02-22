@@ -18,8 +18,10 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  * Response: `-i` the chosen id of a region
  *
  * Example:
- * ```pick_starting_region 10000 2 4
- * 4```
+ * ```
+ * -> pick_starting_region 10000 2 4
+ * <- 4
+ * ```
  *
  * @package Prokki\Warlight2BotTemplate
  */
