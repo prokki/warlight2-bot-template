@@ -15,7 +15,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  * the key is the id of the super region,
  * the value the bonus armies rewarded
  */
-class SetupMapRegionsCommand extends ReceivableTupleIntListCommand implements ApplicableCommand
+class SetupMapRegionsCommand extends ReceivableTupleIntListCommand
 {
 	/**
 	 * @inheritdoc

@@ -11,7 +11,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SetupMapNeighborsCommand extends ReceivableCommand implements ApplicableCommand
+class SetupMapNeighborsCommand extends ReceivableCommand
 {
 
 	/**

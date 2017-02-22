@@ -19,15 +19,6 @@ class SetupMapRegionsCommandTest extends CommandTest
 	}
 
 	/**
-	 *
-	 * @inheritdoc
-	 */
-	public function testIsApplicable()
-	{
-		self::assertTrue($this->_getTestCommand()->isApplicable());
-	}
-
-	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
 	 *
 	 * @inheritdoc

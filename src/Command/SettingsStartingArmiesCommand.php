@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
-class SettingsStartingArmiesCommand extends ReceivableIntCommand implements ApplicableCommand
+class SettingsStartingArmiesCommand extends ReceivableIntCommand
 {
 	/**
 	 * @inheritdoc

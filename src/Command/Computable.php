@@ -6,7 +6,7 @@ use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 
-interface SendableCommand
+interface Computable
 {
 	/**
 	 * @param AIable $ai

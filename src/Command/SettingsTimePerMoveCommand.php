@@ -10,7 +10,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SettingsTimePerMoveCommand extends ReceivableIntCommand implements ApplicableCommand
+class SettingsTimePerMoveCommand extends ReceivableIntCommand
 {
 	/**
 	 * @inheritdoc

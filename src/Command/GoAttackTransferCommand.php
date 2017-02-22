@@ -4,7 +4,6 @@ namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
 
 /**
@@ -21,19 +20,9 @@ use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
  * player1 attack/transfer 1 2 3, player1 attack/transfer 2 3 8```
  *
  * @package Prokki\Warlight2BotTemplate
- *
- * @todo    test is missing
  */
-class GoAttackTransferCommand extends ReceivableIntCommand implements ApplicableCommand, SendableCommand
+class GoAttackTransferCommand extends SetGlobalTimeComputableCommand
 {
-	/**
-	 * @inheritdoc
-	 */
-	public function apply(Player $player, SetupMap $map)
-	{
-		$player->setGlobalTime($this->_value);
-	}
-
 	/**
 	 * @inheritdoc
 	 */
@@ -44,14 +33,25 @@ class GoAttackTransferCommand extends ReceivableIntCommand implements Applicable
 		foreach( $ai->getAttackTransferMoves($player, $map) as $_move )
 		{
 			/** @var TransferMove $_move */
-			array_push($moves, sprintf("%s attack/transfer %d %d %d",
-				$player->getName(),
-				$_move->getSourceRegionId(),
-				$_move->getDestinationRegionId(),
-				$_move->getArmies()
-			));
+			array_push($moves, $this->_moveToString($player, $_move));
 		}
 
 		return empty($moves) ? 'No moves' : implode(', ', $moves);
+	}
+
+	/**
+	 * @param Player       $player
+	 * @param TransferMove $move
+	 *
+	 * @return string
+	 */
+	protected function _moveToString(Player $player, TransferMove $move)
+	{
+		return sprintf("%s attack/transfer %d %d %d",
+			$player->getName(),
+			$move->getSourceRegionId(),
+			$move->getDestinationRegionId(),
+			$move->getArmies()
+		);
 	}
 }

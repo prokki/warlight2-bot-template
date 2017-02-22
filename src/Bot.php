@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Util;
 use Prokki\Warlight2BotTemplate\Command\ApplicableCommand;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\Command\SendableCommand;
+use Prokki\Warlight2BotTemplate\Command\Computable;
 use Prokki\Warlight2BotTemplate\Game\Player;
 
 define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
@@ -157,22 +157,18 @@ class Bot
 				$command = $this->_parser->run($string);
 
 //				self::Debug(get_class($command) . "\n");
+				
+				/** @var ApplicableCommand $command */
+				$command->apply($this->_player, $this->_map);
 
-
-				if( $command->isApplicable() )
+				if( !$this->_map->isInitialized() && $this->_map->canBeInitialized() )
 				{
-					/** @var ApplicableCommand $command */
-					$command->apply($this->_player, $this->_map);
-
-					if( !$this->_map->isInitialized() && $this->_map->canBeInitialized() )
-					{
-						$this->_map->initialize();
-					}
+					$this->_map->initialize();
 				}
 
 				if( $command->isSendable() )
 				{
-					/** @var SendableCommand $command */
+					/** @var Computable $command */
 					$send = $command->compute($this->_ai, $this->_player);
 
 					$duration = ( self::_GetMicrotimeFloat() - $time_start );

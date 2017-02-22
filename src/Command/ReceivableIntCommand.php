@@ -2,6 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Exception\ParserException;
+
 /**
  *
  * @package Prokki\Warlight2BotTemplate
@@ -20,7 +22,11 @@ abstract class ReceivableIntCommand extends ReceivableCommand
 	 */
 	protected function _parseArguments($input, $arguments)
 	{
+		if( empty($arguments) )
+		{
+			throw ParserException::CommandMissingArguments($input);
+		}
+		
 		$this->_value = (int) $arguments;
-
 	}
 }

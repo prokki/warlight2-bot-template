@@ -10,7 +10,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SettingsMaxRoundsCommand extends ReceivableIntCommand implements ApplicableCommand
+class SettingsMaxRoundsCommand extends ReceivableIntCommand
 {
 	/**
 	 * @inheritdoc

@@ -12,7 +12,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class UpdateMapCommand extends ReceivableCommand implements ApplicableCommand
+class UpdateMapCommand extends ReceivableCommand
 {
 	/**
 	 * the value associative array: the even argument is the key, the odd one the value

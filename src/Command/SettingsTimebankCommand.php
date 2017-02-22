@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
-class SettingsTimebankCommand extends ReceivableIntCommand implements ApplicableCommand
+class SettingsTimebankCommand extends ReceivableIntCommand
 {
 
 	/**

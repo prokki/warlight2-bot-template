@@ -3,92 +3,41 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
-use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\Region;
-use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
+use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
-class GoPlaceArmiesCommandTest extends CommandTest
+class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 {
 	/**
 	 * @return GoPlaceArmiesCommand
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   go	place_armies 		 9183  	 	 ');
+		return Parser::Init()->run('   go	place_armies 		 9876543  	 	 ');
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
 	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
 	{
-		self::assertEquals(PickStartingRegionCommand::class, get_class($this->_getTestCommand()));
+		self::assertEquals(GoPlaceArmiesCommand::class, get_class($this->_getTestCommand()));
 	}
 
 	/**
-	 * @covers                \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
 	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingArguments()
 	{
-		Parser::Init()->run('pick_starting_region');
-	}
-
-	/**
-	 * @covers                \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
-	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
-	 * @expectedExceptionCode 104
-	 */
-	public function testParserMissingArgumentsOneArgument()
-	{
-		Parser::Init()->run('pick_starting_region     10000   ');
-	}
-
-	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::apply()
-	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
-	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_setOpponentRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Player::setGlobalTime()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getStartingRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegion()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
-	 *
-	 * @inheritdoc
-	 */
-	public function testApply()
-	{
-		$player = new Player();
-		$map    = new SetupMap();
-
-		$player->setStartingRegions([3, 4, 1, 17, 5, 6]);
-
-		$regions = $map->getRegions();
-
-		for( $_i = 1; $_i <= 20; $_i++ )
-		{
-			$regions->offsetSet($_i, new Region($_i));
-		}
-
-		$regions->offsetGet(6)->getState()->setOwner(RegionState::OWNER_ME);
-
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
-		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
-
-		$this->_getTestCommand()->apply($player, $map);
-
-		self::assertEquals(1234567, $player->getGlobalTime());
-		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(5)->getState()->getOwner());
-		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
+		Parser::Init()->run('go place_armies');
 	}
 
 	/**
@@ -99,18 +48,54 @@ class GoPlaceArmiesCommandTest extends CommandTest
 		self::assertTrue($this->_getTestCommand()->isComputable());
 	}
 
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::_moveToString()
+	 */
+	public function testMoveToString()
+	{
+		$player = new Player();
+		$player->setName("ßäöü");
+
+		$move = new PlaceMove(7, -999);
+
+		$reflection_method = new \ReflectionMethod(GoPlaceArmiesCommand::class, '_moveToString');
+		$reflection_method->setAccessible(true);
+
+		self::assertEquals('ßäöü place_armies 7 -999', $reflection_method->invokeArgs($this->_getTestCommand(), array($player, $move)));
+	}
 
 	/**
-	 * @inheritdoc
+	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::compute()
+	 */
+	public function testComputeNoMoves()
+	{
+		$player = new Player();
+		$map    = new Map();
+		$ai     = $this->createMock(AIable::class);
+
+		$ai->method('getPlaceMoves')->willReturn(array());
+		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $player, $map));
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::compute()
 	 */
 	public function testCompute()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 		$ai     = $this->createMock(AIable::class);
 
-		$ai->method('pickStartingRegion')->willReturn(3);
+		$ai->method('getPlaceMoves')->willReturn([
+			new PlaceMove(1, 2, 17),
+			new PlaceMove(3, 4, 6),
+			new PlaceMove(5, 9, 2),
+		]);
 
-		$this->assertEquals(3, $this->_getTestCommand()->compute($ai, $player, $map));
+		// call method
+		$method_result = $this->_getTestCommand()->compute($ai, $player, $map);
+
+		// three moves
+		$this->assertEquals(3, count(explode(',', $method_result)));
 	}
 }

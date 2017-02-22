@@ -13,8 +13,8 @@ class TransferMove extends PlaceMove
 	 * PlaceMove constructor.
 	 *
 	 * @param integer $source_region_id
-	 * @param integer $destination_region_id
-	 * @param integer $armies
+	 *
+	 * @inheritdoc
 	 */
 	public function __construct($source_region_id, $destination_region_id, $armies)
 	{

@@ -10,7 +10,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class EmptyReceiveCommand extends Command implements ApplicableCommand
+class EmptyReceiveCommand extends Command
 {
 	/**
 	 * @inheritdoc

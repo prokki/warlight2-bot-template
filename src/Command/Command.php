@@ -2,6 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+
 /**
  * OK setup_map super_regions [-i -i ...]    The superregions are given, with their bonus armies reward, all separated by spaces. Odd numbers are superregion ids, even numbers are rewards.
  * OK setup_map regions [-i -i ...]    The regions are given, with their parent superregion, all separated by spaces. Odd numbers are the region ids, even numbers are the superregion ids.
@@ -32,23 +35,21 @@ abstract class Command
 {
 
 	/**
-	 * Returns `true` if the command is applicable (mas method `apply()`, see interface {@see ApplicableCommand), else `false`.
+	 * @param Player   $player
+	 * @param SetupMap $map
 	 *
-	 * @return boolean
+	 * @return
 	 */
-	public function isApplicable()
-	{
-		return in_array(ApplicableCommand::class, class_implements($this));
-	}
+	abstract public function apply(Player $player, SetupMap $map);
 
 	/**
-	 * Returns `true` if the command is sendable (mas method `compute()`, see interface {@see SendableCommand), else `false`.
+	 * Returns `true` if the command is computable (has method `compute()`, see interface {@see Computable), else `false`.
 	 *
 	 * @return boolean
 	 */
-	public function isSendable()
+	public function isComputable()
 	{
-		return in_array(SendableCommand::class, class_implements($this));
+		return in_array(Computable::class, class_implements($this));
 	}
 
 }

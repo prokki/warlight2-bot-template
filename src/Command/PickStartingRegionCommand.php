@@ -23,7 +23,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class PickStartingRegionCommand extends ReceivableCommand implements ApplicableCommand, SendableCommand
+class PickStartingRegionCommand extends ReceivableCommand implements Computable
 {
 	/**
 	 * the value associative array: the even argument is the key, the odd one the value

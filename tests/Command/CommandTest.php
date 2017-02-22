@@ -3,9 +3,14 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use PHPUnit\Framework\TestCase;
+use Prokki\Warlight2BotTemplate\Command\Command;
 
 abstract class CommandTest extends TestCase
 {
+	/**
+	 * @return Command
+	 */
+	abstract protected function _getTestCommand();
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Util\Parser::run()
@@ -13,7 +18,10 @@ abstract class CommandTest extends TestCase
 	abstract public function testParser();
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\Command::isApplicable()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\Command::isComputable()
 	 */
-	abstract public function testIsApplicable();
+	public function testIsComputable()
+	{
+		self::assertFalse($this->_getTestCommand()->isComputable());
+	}
 }

@@ -10,7 +10,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SettingsOpponentBotCommand extends SettingsYourBotCommand implements ApplicableCommand
+class SettingsOpponentBotCommand extends SettingsYourBotCommand
 {
 	/**
 	 * @inheritdoc

@@ -11,7 +11,7 @@ use Prokki\Warlight2BotTemplate\Game\SetupMap;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand implements ApplicableCommand
+class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand
 {
 	/**
 	 * @inheritdoc

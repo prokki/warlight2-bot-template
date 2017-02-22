@@ -20,16 +20,6 @@ class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\Command::isApplicable()
-	 * 
-	 * @inheritdoc
-	 */
-	public function testIsApplicable()
-	{
-		self::assertTrue($this->_getTestCommand()->isApplicable());
-	}
-
-	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
 	 *
 	 * @inheritdoc

@@ -2,44 +2,43 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
-use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
+use Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand;
 use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\GamePlay\AttackMove;
-use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
 use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
-class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
+class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 {
 	/**
-	 * @return GoPlaceArmiesCommand
+	 * @return GoAttackTransferCommand
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   go	place_armies 		 9876543  	 	 ');
+		return Parser::Init()->run('   go	attack/transfer 		 9876543  	 	 ');
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
 	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
 	{
-		self::assertEquals(GoPlaceArmiesCommand::class, get_class($this->_getTestCommand()));
+		self::assertEquals(GoAttackTransferCommand::class, get_class($this->_getTestCommand()));
 	}
 
 	/**
-	 * @covers                \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::_parseArguments()
+	 * @covers                \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
 	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingArguments()
 	{
-		Parser::Init()->run('go place_armies');
+		Parser::Init()->run('go attack/transfer');
 	}
 
 	/**
@@ -51,23 +50,23 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::_moveToString()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand::_moveToString()
 	 */
 	public function testMoveToString()
 	{
 		$player = new Player();
 		$player->setName("ßäöü");
 
-		$move = new PlaceMove(7, -999);
+		$move = new TransferMove(-17, 7, -999);
 
-		$reflection_method = new \ReflectionMethod(GoPlaceArmiesCommand::class, '_moveToString');
+		$reflection_method = new \ReflectionMethod(GoAttackTransferCommand::class, '_moveToString');
 		$reflection_method->setAccessible(true);
 
-		self::assertEquals('ßäöü place_armies 7 -999', $reflection_method->invokeArgs($this->_getTestCommand(), array($player, $move)));
+		self::assertEquals('ßäöü attack/transfer -17 7 -999', $reflection_method->invokeArgs($this->_getTestCommand(), array($player, $move)));
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::compute()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand::compute()
 	 */
 	public function testComputeNoMoves()
 	{
@@ -75,12 +74,12 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 		$map    = new Map();
 		$ai     = $this->createMock(AIable::class);
 
-		$ai->method('getPlaceMoves')->willReturn(array());
+		$ai->method('getAttackTransferMoves')->willReturn(array());
 		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $player, $map));
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::compute()
+	 * @covers \Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand::compute()
 	 */
 	public function testCompute()
 	{
@@ -88,12 +87,17 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 		$map    = new Map();
 		$ai     = $this->createMock(AIable::class);
 
-		$ai->method('getPlaceMoves')->willReturn([
-			new PlaceMove(1, 2, 17),
-			new PlaceMove(3, 4, 6),
-			new PlaceMove(5, 9, 2),
+		$ai->method('getAttackTransferMoves')->willReturn([
+			new TransferMove(1, 2, 17),
+			new AttackMove(3, 4, 6),
+			new TransferMove(5, 9, 2),
+			new AttackMove(3, 4, 6),
+			new AttackMove(3, 4, 6),
 		]);
 
-		$this->assertEquals(3, count(explode(',', $this->_getTestCommand()->compute($ai, $player, $map))));
+		$method_result = $this->_getTestCommand()->compute($ai, $player, $map);
+
+		// five moves
+		$this->assertEquals(5, count(explode(',', $method_result)));
 	}
 }
