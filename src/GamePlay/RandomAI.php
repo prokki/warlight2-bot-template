@@ -2,6 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\GamePlay;
 
+use Prokki\Warlight2BotTemplate\Game\Map;
+use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Util\LoadedArray;
@@ -15,11 +17,11 @@ class RandomAI implements AIable
 	/**
 	 * @inheritdoc
 	 */
-	public function pickStartingRegion($player, $region_ids)
+	public function pickStartingRegion(Player $player, Map $map, $region_ids)
 	{
 		$index = rand(0, count($region_ids) - 1);
 
-		$region = $player->getMap()->getRegion($region_ids[ $index ]);
+		$region = $map->getRegion($region_ids[ $index ]);
 
 		$region->getState()->setOwner(RegionState::OWNER_ME);
 
@@ -60,9 +62,9 @@ class RandomAI implements AIable
 	/**
 	 * @inheritdoc
 	 */
-	public function getAttackTransferMoves($player)
+	public function getAttackTransferMoves(Player $player, Map $map)
 	{
-		$source_regions = $player->getMap()->getRegions(RegionState::OWNER_ME);
+		$source_regions = $map->getRegions(RegionState::OWNER_ME);
 
 		$chosen_source_seq = self::_ChooseIndexes(count($source_regions));
 
@@ -113,11 +115,11 @@ class RandomAI implements AIable
 	/**
 	 * @inheritdoc
 	 */
-	public function getPlaceMoves($player)
+	public function getPlaceMoves(Player $player, Map $map)
 	{
-		$armies_to_dispense = $player->getSetting()->getStartingArmies();
+		$armies_to_dispense = $player->getStartingArmies();
 
-		$my_region_ids = $player->getMap()->getRegions(RegionState::OWNER_ME)->getOffsets();
+		$my_region_ids = $map->getRegions(RegionState::OWNER_ME)->getOffsets();
 
 		$armies_to_place = array();
 

@@ -3,6 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 /**
  * Class SettingsTimebankCommand to set/get the timebank of your bot.
@@ -47,11 +49,8 @@ class SetupMapNeighborsCommand extends ReceivableCommand implements ApplicableCo
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
-		/** @var \Prokki\Warlight2BotTemplate\Game\SetupMap $map */
-		$map = $player->getMap();
-
 		foreach( $this->_neighbors as $_region_id => $_region_ids )
 		{
 			$map->addNeighbors($_region_id, $_region_ids);

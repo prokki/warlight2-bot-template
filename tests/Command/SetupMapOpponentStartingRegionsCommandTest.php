@@ -3,10 +3,11 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsCommand;
+use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
-use Prokki\Warlight2BotTemplate\Game\Player;
 
 class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 {
@@ -41,14 +42,19 @@ class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Region::getState()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::setOwner()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
+		$map    = new SetupMap();
 
-		$regions = $player->getMap()->getRegions();
+		$regions = $map->getRegions();
 
 		for( $_i = 1; $_i <= 20; $_i++ )
 		{
@@ -59,7 +65,7 @@ class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(17)->getState()->getOwner());
 
-		$this->_getTestCommand()->apply($player);
+		$this->_getTestCommand()->apply($player, $map);
 
 		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(3)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());

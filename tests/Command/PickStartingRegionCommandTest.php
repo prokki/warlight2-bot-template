@@ -3,10 +3,10 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
-use Prokki\Warlight2BotTemplate\Command\SendableCommand;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class PickStartingRegionCommandTest extends CommandTest
@@ -16,7 +16,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   pick_starting_region     10000   3      4    	1  17   	');
+		return Parser::Init()->run('   pick_starting_region     1234567   3      4    	1  17   	');
 	}
 
 	/**
@@ -63,8 +63,10 @@ class PickStartingRegionCommandTest extends CommandTest
 	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_setOpponentRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setStartingRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::getRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Player::setGlobalTime()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getStartingRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegions()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
 	 *
 	 * @inheritdoc
@@ -72,10 +74,11 @@ class PickStartingRegionCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
+		$map    = new SetupMap();
 
-		$player->getSetting()->setStartingRegions([3, 4, 1, 17, 5, 6]);
+		$player->setStartingRegions([3, 4, 1, 17, 5, 6]);
 
-		$regions = $player->getMap()->getRegions();
+		$regions = $map->getRegions();
 
 		for( $_i = 1; $_i <= 20; $_i++ )
 		{
@@ -87,9 +90,11 @@ class PickStartingRegionCommandTest extends CommandTest
 		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
 
-		$this->_getTestCommand()->apply($player);
+		$this->_getTestCommand()->apply($player, $map);
 
+		self::assertEquals(1234567, $player->getGlobalTime());
 		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(5)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
+		
 	}
 }

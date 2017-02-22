@@ -3,8 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsCommand;
-use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SettingsStartingRegionsCommandTest extends CommandTest
 {
@@ -38,18 +39,21 @@ class SettingsStartingRegionsCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getStartingRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setStartingRegions()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
-		$player  = new Player();
-		$setting = $player->getSetting();
-		self::assertEmpty($setting->getStartingRegions());
+		$player = new Player();
+		$map    = new SetupMap();
 
-		$this->_getTestCommand()->apply($player);
+		self::assertEmpty($player->getStartingRegions());
 
-		self::assertEmpty(array_diff($setting->getStartingRegions(), [5, 3, 1]));
-		self::assertEmpty(array_diff([3, 1, 5], $setting->getStartingRegions()));
+		$this->_getTestCommand()->apply($player, $map);
+
+		self::assertEmpty(array_diff($player->getStartingRegions(), [5, 3, 1]));
+		self::assertEmpty(array_diff([3, 1, 5], $player->getStartingRegions()));
 	}
 }

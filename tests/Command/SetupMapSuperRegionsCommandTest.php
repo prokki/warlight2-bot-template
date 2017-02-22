@@ -3,8 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand;
-use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SetupMapSuperRegionsCommandTest extends CommandTest
 {
@@ -49,24 +50,30 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getSuperRegions()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::hasSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Util\LoadedArray::isLoaded()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SuperRegion::getBonusArmies()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
+		$map    = new SetupMap();
 
-		self::assertEmpty($player->getMap()->getSuperRegions());
-		self::assertFalse($player->getMap()->getSuperRegions()->isLoaded());
+		self::assertEmpty($map->getSuperRegions());
+		self::assertFalse($map->getSuperRegions()->isLoaded());
 
-		$this->_getTestCommand()->apply($player);
+		$this->_getTestCommand()->apply($player, $map);
 
-		self::assertTrue($player->getMap()->getSuperRegions()->isLoaded());
-		self::assertEquals(3, count($player->getMap()->getSuperRegions()));
-		self::assertArrayHasKey(1, $player->getMap()->getSuperRegions());
-		self::assertTrue($player->getMap()->hasSuperRegion(17));
-		self::assertTrue($player->getMap()->hasSuperRegion(4));
-		self::assertInternalType('integer', $player->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
-		self::assertEquals(3, $player->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
+		self::assertTrue($map->getSuperRegions()->isLoaded());
+		self::assertEquals(3, count($map->getSuperRegions()));
+		self::assertArrayHasKey(1, $map->getSuperRegions());
+		self::assertTrue($map->hasSuperRegion(17));
+		self::assertTrue($map->hasSuperRegion(4));
+		self::assertInternalType('integer', $map->getSuperRegions()->offsetGet(17)->getBonusArmies());
+		self::assertEquals(3, $map->getSuperRegions()->offsetGet(17)->getBonusArmies());
 	}
 }

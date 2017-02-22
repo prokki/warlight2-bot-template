@@ -2,14 +2,17 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+
 class SettingsTimebankCommand extends ReceivableIntCommand implements ApplicableCommand
 {
 
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
-		$player->getSetting()->setTimebank($this->_value);
+		$player->setTimebank($this->_value);
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Util;
 
+use Prokki\Warlight2BotTemplate\Command\ApplicableCommand;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Command\SendableCommand;
 use Prokki\Warlight2BotTemplate\Game\Player;
@@ -19,7 +21,7 @@ define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
  * @todo    Extend Unittests!
  * @todo    implement opponent_moves?
  */
-class Client extends Player
+class Bot
 {
 	/**
 	 * @var resource
@@ -52,6 +54,21 @@ class Client extends Player
 	protected $_argv = array();
 
 	/**
+	 * @var Player
+	 */
+	protected $_player = null;
+
+	/**
+	 * @var SetupMap
+	 */
+	protected $_map = null;
+
+	/**
+	 * @var AIable
+	 */
+	protected $_ai = null;
+
+	/**
 	 * @param string $string
 	 *
 	 * @author Falko Matthies <falko.ma@web.de>
@@ -81,8 +98,9 @@ class Client extends Player
 
 		$this->_parser = Parser::Init();
 
-		parent::__construct();
-		$this->_assignAI($ai);
+		$this->_player = new Player();
+		$this->_map    = new SetupMap();
+		$this->_ai     = $ai;
 	}
 
 	protected static function _Convert($size)
@@ -143,9 +161,10 @@ class Client extends Player
 
 				if( $command->isApplicable() )
 				{
-					$command->apply($this);
+					/** @var ApplicableCommand $command */
+					$command->apply($this->_player, $this->_map);
 
-					if( !$this->_map->isInitialized() && $this->getMap()->canBeInitialized() )
+					if( !$this->_map->isInitialized() && $this->_map->canBeInitialized() )
 					{
 						$this->_map->initialize();
 					}
@@ -154,7 +173,7 @@ class Client extends Player
 				if( $command->isSendable() )
 				{
 					/** @var SendableCommand $command */
-					$send = $command->compute($this);
+					$send = $command->compute($this->_ai, $this->_player);
 
 					$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //					Client::Debug("TIME: " . $duration . "\n");

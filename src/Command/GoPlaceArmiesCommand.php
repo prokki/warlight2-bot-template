@@ -2,6 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Map;
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
 
 /**
@@ -18,17 +21,14 @@ use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
  * player1 place_armies 1 2, player1 place_armies 2 5```
  *
  * @package Prokki\Warlight2BotTemplate
- *          
- * @todo test is missing
  */
 class GoPlaceArmiesCommand extends ReceivableIntCommand implements ApplicableCommand, SendableCommand
 {
 
-
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
 		$player->setGlobalTime($this->_value);
 	}
@@ -36,15 +36,15 @@ class GoPlaceArmiesCommand extends ReceivableIntCommand implements ApplicableCom
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($player)
+	public function compute($ai, Player $player, Map $map)
 	{
 		$moves = array();
 
-		foreach( $player->getAi()->getPlaceMoves($player) as $_move )
+		foreach( $ai->getPlaceMoves($player, $map) as $_move )
 		{
 			/** @var PlaceMove $_move */
 			array_push($moves, sprintf("%s place_armies %d %s",
-				$player->getSetting()->getName(),
+				$player->getName(),
 				$_move->getDestinationRegionId(),
 				$_move->getArmies()
 			));

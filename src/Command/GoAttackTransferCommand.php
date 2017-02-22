@@ -2,8 +2,10 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Map;
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
-use Prokki\Warlight2BotTemplate\Util\Client;
 
 /**
  * Class GoAttackTransferCommand handles
@@ -27,7 +29,7 @@ class GoAttackTransferCommand extends ReceivableIntCommand implements Applicable
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
 		$player->setGlobalTime($this->_value);
 	}
@@ -35,15 +37,15 @@ class GoAttackTransferCommand extends ReceivableIntCommand implements Applicable
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($player)
+	public function compute($ai, Player $player, Map $map)
 	{
 		$moves = array();
 
-		foreach( $player->getAi()->getAttackTransferMoves($player) as $_move )
+		foreach( $ai->getAttackTransferMoves($player, $map) as $_move )
 		{
 			/** @var TransferMove $_move */
 			array_push($moves, sprintf("%s attack/transfer %d %d %d",
-				$player->getSetting()->getName(),
+				$player->getName(),
 				$_move->getSourceRegionId(),
 				$_move->getDestinationRegionId(),
 				$_move->getArmies()

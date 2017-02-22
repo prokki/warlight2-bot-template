@@ -3,7 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
+use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 /**
  * Class UpdateMapCommand to initialize the super regions.
@@ -51,11 +53,11 @@ class UpdateMapCommand extends ReceivableCommand implements ApplicableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
 		foreach( $this->_updates as $_player_name => $_regions )
 		{
-			foreach( $player->getMap()->getRegions() as $__region_id => $__region )
+			foreach( $map->getRegions() as $__region_id => $__region )
 			{
 				/** @var Region $region */
 

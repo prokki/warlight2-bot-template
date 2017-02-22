@@ -3,10 +3,11 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\UpdateMapCommand;
+use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
-use Prokki\Warlight2BotTemplate\Game\Player;
 
 class UpdateMapCommandTest extends CommandTest
 {
@@ -68,26 +69,28 @@ class UpdateMapCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
-		$player->getSetting()
+		$map    = new SetupMap();
+
+		$player
 			->setName('player1')
 			->setNameOpponent('player2');
 
-		$regions = $player->getMap()->getRegions();
+		$regions = $map->getRegions();
 
 		for( $_i = 1; $_i <= 20; $_i++ )
 		{
 			$regions->offsetSet($_i, new Region($_i));
 		}
 
-		$this->_getTestCommand()->apply($player);
+		$this->_getTestCommand()->apply($player, $map);
 
-		self::assertEquals(RegionState::OWNER_ME, $player->getMap()->getRegion(1)->getState()->getOwner());
-		self::assertEquals(6, $player->getMap()->getRegion(1)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_ME, $map->getRegion(1)->getState()->getOwner());
+		self::assertEquals(6, $map->getRegion(1)->getState()->getArmies());
 
-		self::assertEquals(RegionState::OWNER_OPPONENT, $player->getMap()->getRegion(3)->getState()->getOwner());
-		self::assertEquals(2, $player->getMap()->getRegion(3)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_OPPONENT, $map->getRegion(3)->getState()->getOwner());
+		self::assertEquals(2, $map->getRegion(3)->getState()->getArmies());
 
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $player->getMap()->getRegion(4)->getState()->getOwner());
-		self::assertEquals(7, $player->getMap()->getRegion(4)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $map->getRegion(4)->getState()->getOwner());
+		self::assertEquals(7, $map->getRegion(4)->getState()->getArmies());
 	}
 }

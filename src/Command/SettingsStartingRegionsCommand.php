@@ -2,6 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+
 /**
  * Class SettingsStartingRegionsCommand to initialize the super regions.
  *
@@ -12,9 +15,9 @@ class SettingsStartingRegionsCommand extends ReceivableIntListCommand implements
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
-		$player->getSetting()->setStartingRegions($this->_value);
+		$player->setStartingRegions($this->_value);
 	}
 
 }

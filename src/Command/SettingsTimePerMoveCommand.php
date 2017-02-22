@@ -2,6 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+
 /**
  * Class SettingsYourBotCommand to set/get the name of your bot.
  *
@@ -12,9 +15,9 @@ class SettingsTimePerMoveCommand extends ReceivableIntCommand implements Applica
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
-		$player->getSetting()->setTimePerMove($this->_value);
+		$player->setTimePerMove($this->_value);
 	}
 
 }

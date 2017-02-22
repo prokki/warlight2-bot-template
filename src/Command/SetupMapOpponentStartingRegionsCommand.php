@@ -2,7 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 /**
  * Class SetupMapOpponentStartingRegionsCommand to initialize the super regions.
@@ -14,11 +16,8 @@ class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand im
 	/**
 	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
-		/** @var \Prokki\Warlight2BotTemplate\Game\SetupMap $map */
-		$map = $player->getMap();
-
 		foreach( $this->_value as $_region_id )
 		{
 			$map->getRegion($_region_id)->getState()->setOwner(RegionState::OWNER_OPPONENT);

@@ -3,8 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingArmiesCommand;
-use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SettingsStartingArmiesCommandTest extends CommandTest
 {
@@ -37,14 +38,18 @@ class SettingsStartingArmiesCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsStartingArmiesCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getStartingArmies()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setStartingArmies()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		self::assertEquals(0, $player->getSetting()->getStartingArmies());
-		$this->_getTestCommand()->apply($player);
-		self::assertEquals(27, $player->getSetting()->getStartingArmies());
+		$map    = new SetupMap();
+
+		self::assertEquals(0, $player->getStartingArmies());
+		$this->_getTestCommand()->apply($player, $map);
+		self::assertEquals(27, $player->getStartingArmies());
 	}
 }

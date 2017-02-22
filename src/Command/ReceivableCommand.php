@@ -24,9 +24,9 @@ abstract class ReceivableCommand extends Command
 		{
 			case 'neutral':
 				return RegionState::OWNER_NEUTRAL;
-			case $player->getSetting()->getName():
+			case $player->getName():
 				return RegionState::OWNER_ME;
-			case $player->getSetting()->getNameOpponent():
+			case $player->getNameOpponent():
 				return RegionState::OWNER_OPPONENT;
 			default:
 				throw ParserException::UnknownPlayerName($name);

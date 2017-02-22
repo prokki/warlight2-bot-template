@@ -4,6 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsOpponentBotCommand;
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SettingsOpponentBotCommandTest extends CommandTest
@@ -37,14 +38,18 @@ class SettingsOpponentBotCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsOpponentBotCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableStringCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setNameOpponent()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getNameOpponent()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		self::assertEquals('', $player->getSetting()->getNameOpponent());
-		$this->_getTestCommand()->apply($player);
-		self::assertEquals('aéß3 bsÜä" \' 	  ßc', $player->getSetting()->getNameOpponent());
+		$map    = new SetupMap();
+
+		self::assertEquals('', $player->getNameOpponent());
+		$this->_getTestCommand()->apply($player, $map);
+		self::assertEquals('aéß3 bsÜä" \' 	  ßc', $player->getNameOpponent());
 	}
 }

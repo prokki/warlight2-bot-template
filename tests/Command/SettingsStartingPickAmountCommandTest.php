@@ -3,8 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingPickAmountCommand;
-use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SettingsStartingPickAmountCommandTest extends CommandTest
 {
@@ -23,10 +24,10 @@ class SettingsStartingPickAmountCommandTest extends CommandTest
 	{
 		self::assertTrue($this->_getTestCommand()->isApplicable());
 	}
-	
+
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
-	 * 
+	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
@@ -37,14 +38,18 @@ class SettingsStartingPickAmountCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsStartingPickAmountCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
-	 * 
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getStartingPickAmount()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setStartingPickAmount()
+	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		self::assertEquals(0, $player->getSetting()->getStartingPickAmount());
-		$this->_getTestCommand()->apply($player);
-		self::assertEquals(27, $player->getSetting()->getStartingPickAmount());
+		$map    = new SetupMap();
+
+		self::assertEquals(0, $player->getStartingPickAmount());
+		$this->_getTestCommand()->apply($player, $map);
+		self::assertEquals(27, $player->getStartingPickAmount());
 	}
 }

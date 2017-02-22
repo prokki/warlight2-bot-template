@@ -13,6 +13,10 @@ class StaticCommandTest extends TestCase
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableCommand::_GetRegionOwnerByPlayerName()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getName()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setName()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setNameOpponent()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getNameOpponent()
 	 */
 	public function testGetRegionOwnerByPlayerName()
 	{
@@ -21,8 +25,8 @@ class StaticCommandTest extends TestCase
 
 		$player = new Player();
 
-		$player->getSetting()->setName($player_me);
-		$player->getSetting()->setNameOpponent($player_opponent);
+		$player->setName($player_me);
+		$player->setNameOpponent($player_opponent);
 
 		$reflection_method = new \ReflectionMethod(ReceivableCommand::class, '_GetRegionOwnerByPlayerName');
 		$reflection_method->setAccessible(true);
@@ -37,7 +41,6 @@ class StaticCommandTest extends TestCase
 	/**
 	 *
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableCommand::_GetRegionOwnerByPlayerName()
-	 *
 	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
 	 * @expectedExceptionCode 105
 	 *

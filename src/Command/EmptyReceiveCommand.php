@@ -2,6 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+
 /**
  * Class EmptyReceiveCommand
  *
@@ -10,9 +13,9 @@ namespace Prokki\Warlight2BotTemplate\Command;
 class EmptyReceiveCommand extends Command implements ApplicableCommand
 {
 	/**
-	 * @param \Prokki\Warlight2BotTemplate\Game\Player $player
+	 * @inheritdoc
 	 */
-	public function apply($player)
+	public function apply(Player $player, SetupMap $map)
 	{
 
 	}

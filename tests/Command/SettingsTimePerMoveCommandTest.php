@@ -3,8 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsTimePerMoveCommand;
-use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SettingsTimePerMoveCommandTest extends CommandTest
 {
@@ -38,14 +39,18 @@ class SettingsTimePerMoveCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SettingsTimePerMoveCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getTimePerMove()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setTimePerMove()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		self::assertEquals(0, $player->getSetting()->getTimePerMove());
-		$this->_getTestCommand()->apply($player);
-		self::assertEquals(124654, $player->getSetting()->getTimePerMove());
+		$map    = new SetupMap();
+
+		self::assertEquals(0, $player->getTimePerMove());
+		$this->_getTestCommand()->apply($player, $map);
+		self::assertEquals(124654, $player->getTimePerMove());
 	}
 }

@@ -2,11 +2,17 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\SetupMap;
+
 interface ApplicableCommand
 {
-	
+
 	/**
-	 * @param \Prokki\Warlight2BotTemplate\Game\Player $player
+	 * @param Player   $player
+	 * @param SetupMap $map
+	 *
+	 * @return
 	 */
-	public function apply($player);
+	public function apply(Player $player, SetupMap $map);
 }
