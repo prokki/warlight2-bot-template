@@ -3,8 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsTimebankCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SettingsTimebankCommandTest extends CommandTest
@@ -38,7 +38,7 @@ class SettingsTimebankCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 
 		self::assertEquals(0, $player->getTimebank());
 		$this->_getTestCommand()->apply($player, $map);

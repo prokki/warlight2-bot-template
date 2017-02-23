@@ -4,7 +4,6 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand;
 use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 use Prokki\Warlight2BotTemplate\Game\Player;
 
@@ -42,16 +41,16 @@ class SetupMapRegionsCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegions()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegion()
-	 * @covers \Prokki\Warlight2BotTemplate\Util\LoadedArray::isLoaded()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 
 		self::assertEmpty($map->getRegions());
 		self::assertFalse($map->getRegions()->isLoaded());

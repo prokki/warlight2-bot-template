@@ -3,203 +3,210 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\Warlight2BotTemplate\Exception\InitializationException;
+use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
+use Prokki\Warlight2BotTemplate\Util\ArrayObject\LoadedArray;
 use Prokki\Warlight2BotTemplate\Util\Initializeable;
-use Prokki\Warlight2BotTemplate\Util\LoadedArray;
 
-class SetupMap extends Map
+class SetupMap implements Initializeable
 {
-
-	use Initializeable;
-
 	/**
-	 * @var integer[]
-	 */
-	protected $_preInitSuperRegionMapping = array();
-
-	/**
+	 * the id of all super regions with their assigned amount of bonus armies
+	 *
+	 * example:
+	 * ```php
+	 * array(
+	 *    [1] => 7,       // super region with id 1 has 7 bonus armies
+	 *    [2] => 5,       // super region with id 2 has 5 bonus armies
+	 *    [...]
+	 * )
+	 * ```
+	 *
 	 * @var LoadedArray
 	 */
-	protected $_preInitNeighbors = null;
+	protected $_superRegionIds = null;
 
 	/**
+	 * all region id mapped to their related super region id
+	 *
+	 * example:
+	 * ```php
+	 * array(
+	 *    [3] => array(     // super region with id 3 has
+	 *        1,            //   region 1 and
+	 *        2,            //   region 2
+	 *    ),
+	 *    [...]
+	 * )
+	 * ```
+	 *
 	 * @var LoadedArray
 	 */
-	protected $_preInitWastelands = null;
+	protected $_regionIds = array();
 
 	/**
-	 * Map constructor.
+	 * all region ids marked as neighbors of another region (id)
+	 *
+	 * example:
+	 * ```php
+	 * array(
+	 *    [1] => array(2,7),     // regions 2 and 7 are neighbors of region 1
+	 *    [2] => array(1,7),     // regions 1 and 7 are neighbors of region 2
+	 *    [7] => array(1,2),     // regions 1 and 2 are neighbors of region 7
+	 * )
+	 * ```
+	 *
+	 * @var LoadedArray
 	 */
+	protected $_neighborRegionIds = array();
+
+	/**
+	 * all regions ids marked as wasteland
+	 *
+	 * @var LoadedArray
+	 */
+	protected $_wastelandIds = array();
+
+	/**
+	 * @var boolean
+	 */
+	protected $_initialized = false;
+
 	public function __construct()
 	{
-		$this->_preInitNeighbors  = new LoadedArray();
-		$this->_preInitWastelands = new LoadedArray();
-
-		parent::__construct();
+		$this->_superRegionIds    = new LoadedArray();
+		$this->_regionIds         = new LoadedArray();
+		$this->_neighborRegionIds = new LoadedArray();
+		$this->_wastelandIds      = new LoadedArray();
 	}
 
 	/**
-	 * Rerturs `true` if the map is initialized successfully, else `false`.
-	 *
-	 * @return boolean
-	 */
-	public function canBeInitialized()
-	{
-		return
-			$this->_region->isLoaded()
-			&& $this->_superRegion->isLoaded()
-			&& $this->_preInitNeighbors->isLoaded()
-			&& $this->_preInitWastelands->isLoaded();
-	}
-
-	/**
-	 * Returns `true` if the map is initialized successfully, else `false`.
+	 * @param integer $super_region_id super region id
+	 * @param integer $bonus_armies    [optional] reward bonus armies, if all regions of this super region is occupied by one player
 	 *
 	 * @throws InitializationException
 	 *
-	 * @todo test method!
 	 */
-	public function initialize()
+	public function addSuperRegion($super_region_id, $bonus_armies = 0)
 	{
-		foreach( $this->_preInitSuperRegionMapping as $_region_id => $_super_region_id )
+		// if $this->_superRegionIds->setLoaded() throw!
+		if( $this->_superRegionIds->offsetExists($super_region_id) )
 		{
-			/** @var Region $_region */
-			$_region = $this->_region->offsetGet($_region_id);
-
-			/** @var SuperRegion $_super_region */
-			$_super_region = $this->_superRegion->offsetGet($_super_region_id);
-
-			if( $_region->hasSuperRegion() )
-			{
-				continue;
-			}
-
-			$_region->setSuperRegion($_super_region);
+			throw InitializationException::SuperRegionAlreadyExists($super_region_id);
 		}
 
-		// @todo test if all regions are converted?
-		$uninitialized_regions = $this->_region->filter(function ($_region)
-		{
-			/** @var Region $_region */
-			return !$_region->hasSuperRegion();
-		});
-
-		if( count($uninitialized_regions) > 0 )
-		{
-			throw InitializationException::MapInitializationFailed();
-		}
-
-		foreach( $this->_preInitNeighbors as $_region_id => $_neighbor_region_id )
-		{
-			/** @var Region $_region */
-			$_region = $this->_region->offsetGet($_region_id);
-
-			if( is_null($_region) )
-			{
-				throw InitializationException::MapInitializationFailed();
-			}
-
-			foreach( $_neighbor_region_id as $__neighbor_region_id )
-			{
-				/** @var Region $_neighbor */
-				$__neighbor = $this->_region->offsetGet($__neighbor_region_id);
-
-				if( is_null($__neighbor) )
-				{
-					throw InitializationException::MapInitializationFailed();
-				}
-
-				$_region->addNeighbor($__neighbor);
-			}
-		}
-
-		foreach( $this->_preInitWastelands as $_region_id )
-		{
-			/** @var Region $_region */
-			$_region = $this->_region->offsetGet($_region_id);
-
-			if( is_null($_region) )
-			{
-				throw InitializationException::MapInitializationFailed();
-			}
-
-			$_region->setWasteland();
-		}
-
-		$this->setInitialized();
+		$this->_superRegionIds->offsetSet($super_region_id, $bonus_armies);
 	}
 
 	/**
-	 * @param integer $id              unique region id
+	 * @param integer $region_id       unique region id
 	 * @param integer $super_region_id id of the associated super region
 	 *
 	 * @throws InitializationException
-	 *
 	 */
-	public function addRegion($id, $super_region_id)
+	public function addRegion($region_id, $super_region_id)
 	{
-		if( $this->_region->offsetExists($id) )
+		$regions = $this->_regionIds->offsetExists($super_region_id) ? $this->_regionIds->offsetGet($super_region_id) : array();
+
+		// if $this->_superRegionIds->setLoaded() throw!
+		if( in_array($region_id, $regions) )
 		{
-			throw InitializationException::RegionAlreadyExists($id);
+			throw InitializationException::RegionAlreadyExists($region_id);
 		}
 
-		$this->_region->offsetSet($id, new Region($id));
+		array_push($regions, $region_id);
 
-		$this->_preInitSuperRegionMapping[ $id ] = $super_region_id;
+		$this->_regionIds->offsetSet($super_region_id, $regions);
 	}
 
 	/**
-	 * @param integer $id           unique super region id
-	 * @param integer $bonus_armies [optional] reward bonus armies, if all regions of this super region is occupied by one player
+	 * @param integer $region_id           id of the region
+	 * @param integer $neighbour_region_id of neighbour regions
 	 *
-	 * @throws InitializationException
+	 * @throws RuntimeException
 	 *
+	 * @author Falko Matthies <falko.m@web.de>
 	 */
-	public function addSuperRegion($id, $bonus_armies = 0)
+	public function addNeighbors($region_id, $neighbour_region_id)
 	{
-		if( $this->hasSuperRegion($id) )
+		$neighbor_regions = $this->_neighborRegionIds->offsetExists($region_id) ? $this->_neighborRegionIds->offsetGet($region_id) : array();
+
+		if( in_array($neighbour_region_id, $neighbor_regions) )
 		{
-			throw InitializationException::SuperRegionAlreadyExists($id);
+//			throw InitializationException::
 		}
 
-		$this->_superRegion->offsetSet($id, new SuperRegion($id, $bonus_armies));
+		array_push($neighbor_regions, $region_id);
+
+		$this->_neighborRegionIds->offsetSet($region_id, $neighbor_regions);
 	}
 
 	/**
-	 * @param integer   $id           id of the region
-	 * @param integer[] $neighbour_id of neighbour regions
-	 *
-	 * @author   Falko Matthies <falko.m@web.de>
+	 * @param integer $region_id id of the wasteland region
 	 */
-	public function addNeighbors($id, $neighbour_id)
+	public function addWasteland($region_id)
 	{
-		$this->_preInitNeighbors->offsetSet($id, $neighbour_id);
+		if( $this->_wastelandIds->offsetExists($region_id) )
+		{
+//			throw InitializationException::
+		}
+
+		$this->_wastelandIds->offsetSet($region_id, $region_id);
 	}
 
 	/**
-	 * 
-	 * @return LoadedArray
-	 * 
-	 */
-	public function getNeighbors()
-	{
-		return $this->_preInitNeighbors;
-	}
-
-	/**
-	 * @param integer $id id of the wasteland region
 	 *
 	 */
-	public function addWasteland($id)
+	public function finishAddingSuperRegions()
 	{
-		$this->_preInitWastelands->append($id);
+		$this->_superRegionIds->setLoaded();
 	}
 
 	/**
-	 * @return LoadedArray
-	 * 
+	 *
 	 */
-	public function getWastelands()
+	public function finishAddingRegions()
 	{
-		return $this->_preInitWastelands;
+		$this->_superRegionIds->setLoaded();
+	}
+
+	/**
+	 *
+	 */
+	public function finishAddingNeighbors()
+	{
+		$this->_neighborRegionIds->setLoaded();
+	}
+
+	/**
+	 *
+	 */
+	public function finishAddingWasteland()
+	{
+		$this->_wastelandIds->setLoaded();
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function canBeInitialized()
+	{
+		return $this->_superRegionIds->isLoaded() && $this->_regionIds->isLoaded() && $this->_neighborRegionIds->isLoaded() && $this->_wastelandIds->isLoaded();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function initialize()
+	{
+		return $this->_initialized;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function isInitialized()
+	{
+		return $this->_initialized;
 	}
 }

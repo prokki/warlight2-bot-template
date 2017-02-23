@@ -2,8 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 /**
  *
@@ -14,7 +14,7 @@ abstract class SetGlobalTimeComputableCommand extends ReceivableIntCommand imple
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, SetupMap $map)
+	public function apply(Player $player, Map $map)
 	{
 		$player->setGlobalTime($this->_value);
 	}

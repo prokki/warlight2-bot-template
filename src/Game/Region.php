@@ -3,7 +3,6 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\Warlight2BotTemplate\Exception\InitializationException;
-use Prokki\Warlight2BotTemplate\Util\LoadedArray;
 
 class Region
 {
@@ -33,7 +32,7 @@ class Region
 	protected $_superRegion = null;
 
 	/**
-	 * @var LoadedArray
+	 * @var RegionArray
 	 */
 	protected $_neighbors = null;
 
@@ -45,15 +44,18 @@ class Region
 	/**
 	 * Region constructor.
 	 *
-	 * @param integer $id unique region id
+	 * @param integer     $id unique region id
+	 * @param SuperRegion $super_region
 	 */
-	public function __construct($id)
+	public function __construct($id, $super_region)
 	{
 		$this->_id = $id;
 
+		$this->_superRegion = $super_region;
+
 		$this->_state = new RegionState();
 
-		$this->_neighbors = new LoadedArray();
+		$this->_neighbors = new RegionArray();
 	}
 
 	/**
@@ -93,7 +95,7 @@ class Region
 		}
 
 		$this->_superRegion = $super_region;
-		$this->_superRegion->addRegion($this);
+		$this->_superRegion->»addRegion($this);
 	}
 
 	/**
@@ -123,7 +125,7 @@ class Region
 	}
 
 	/**
-	 * @return LoadedArray
+	 * @return RegionArray
 	 */
 	public function getNeighbors()
 	{
@@ -152,5 +154,16 @@ class Region
 	public function setWasteland()
 	{
 		return $this->getState()->disableFog(6, self::OWNER_NEUTRAL);
+	}
+
+	/**
+	 * @param RegionState $state
+	 *
+	 * @return $this
+	 */
+	public function setState(RegionState $state)
+	{
+		$this->_state = $state;
+		return $this;
 	}
 }

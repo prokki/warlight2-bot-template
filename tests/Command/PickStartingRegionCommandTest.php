@@ -3,10 +3,12 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
@@ -67,15 +69,17 @@ class PickStartingRegionCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 
 		$player->setStartingRegions([3, 4, 1, 17, 5, 6]);
 
 		$regions = $map->getRegions();
 
+		$super_region = new SuperRegion(1, 7);
+
 		for( $_i = 1; $_i <= 20; $_i++ )
 		{
-			$regions->offsetSet($_i, new Region($_i));
+			$regions->offsetSet($_i, new Region($_i, $super_region));
 		}
 
 		$regions->offsetGet(6)->getState()->setOwner(RegionState::OWNER_ME);

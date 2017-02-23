@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\Util;
+namespace Prokki\Warlight2BotTemplate\Util\ArrayObject;
 
 trait Loadable
 {

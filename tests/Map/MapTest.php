@@ -3,8 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Map;
 
 use PHPUnit\Framework\TestCase;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 class MapTest extends TestCase
 {
@@ -18,7 +18,7 @@ class MapTest extends TestCase
 	 */
 	public function testGetRegion()
 	{
-		$map = new SetupMap();
+		$map = new Map();
 
 		$map->addSuperRegion(1, 1);
 		

@@ -2,8 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 abstract class SetGlobalTimeComputableCommandTest extends CommandTest
 {
@@ -19,7 +19,7 @@ abstract class SetGlobalTimeComputableCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 
 		self::assertEquals(0, $player->getGlobalTime());
 		$this->_getTestCommand()->apply($player, $map);

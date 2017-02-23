@@ -3,8 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\EmptyReceivableCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 
 class EmptyReceivableCommandTest extends CommandTest
 {
@@ -31,6 +31,6 @@ class EmptyReceivableCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		self::assertEmpty($this->_getTestCommand()->apply(new Player(), new SetupMap()));
+		self::assertEmpty($this->_getTestCommand()->apply(new Player(), new Map()));
 	}
 }

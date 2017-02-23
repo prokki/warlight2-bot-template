@@ -3,8 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SetupMapWastelandsCommandTest extends CommandTest
@@ -30,15 +30,15 @@ class SetupMapWastelandsCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::getWastelands()
-	 * @covers \Prokki\Warlight2BotTemplate\Util\LoadedArray::isLoaded()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 		
 		self::assertEmpty($map->getWastelands());
 		self::assertFalse($map->getWastelands()->isLoaded());

@@ -5,8 +5,8 @@ namespace Prokki\Warlight2BotTemplate\GamePlay;
 use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
+use Prokki\Warlight2BotTemplate\Util\RegionArray;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Util\LoadedArray;
 
 /**
  * @since  2017-02-15
@@ -83,7 +83,7 @@ class RandomAI implements AIable
 				continue;
 			}
 
-			/** @var LoadedArray $_destination_regions */
+			/** @var RegionArray $_destination_regions */
 			$_destination_regions = $_source_region->getNeighbors();
 
 			$_chosen_destination_seq = self::_ChooseIndexes(count($_destination_regions));

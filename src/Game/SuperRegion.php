@@ -50,10 +50,12 @@ class SuperRegion
 	}
 
 	/**
+	 * Attention: Call only from object of class {@see \Prokki\Warlight2BotTemplate\Game\Region}
+	 *
 	 * @param Region $region
 	 *
 	 */
-	public function addRegion(Region $region)
+	public function »addRegion(Region $region)
 	{
 		$this->_region[ $region->getId() ] = $region;
 	}

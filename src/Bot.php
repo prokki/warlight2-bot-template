@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Util;
 
 use Prokki\Warlight2BotTemplate\Command\ApplicableCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Command\Computable;
@@ -59,7 +60,7 @@ class Bot
 	protected $_player = null;
 
 	/**
-	 * @var SetupMap
+	 * @var Map
 	 */
 	protected $_map = null;
 
@@ -99,7 +100,7 @@ class Bot
 		$this->_parser = Parser::Init();
 
 		$this->_player = new Player();
-		$this->_map    = new SetupMap();
+		$this->_map    = new Map();
 		$this->_ai     = $ai;
 	}
 
@@ -157,7 +158,7 @@ class Bot
 				$command = $this->_parser->run($string);
 
 //				self::Debug(get_class($command) . "\n");
-				
+
 				/** @var ApplicableCommand $command */
 				$command->apply($this->_player, $this->_map);
 

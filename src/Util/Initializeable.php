@@ -2,28 +2,20 @@
 
 namespace Prokki\Warlight2BotTemplate\Util;
 
-trait Initializeable
+interface Initializeable
 {
-
 	/**
-	 * @var boolean
+	 * @return boolean
 	 */
-	protected $_initialized = false;
-
-	/**
-	 *
-	 */
-	public function setInitialized()
-	{
-		$this->_initialized = true;
-	}
+	public function isInitialized();
 
 	/**
 	 * @return boolean
-	 *
 	 */
-	public function isInitialized()
-	{
-		return $this->_initialized;
-	}
+	public function initialize();
+
+	/**
+	 * @return boolean
+	 */
+	public function canBeInitialized();
 }

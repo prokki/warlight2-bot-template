@@ -3,10 +3,11 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\UpdateMapCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class UpdateMapCommandTest extends CommandTest
@@ -60,7 +61,9 @@ class UpdateMapCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
+
+		$super_region = new SuperRegion(1, 7);
 
 		$player
 			->setName('player1')
@@ -70,7 +73,7 @@ class UpdateMapCommandTest extends CommandTest
 
 		for( $_i = 1; $_i <= 20; $_i++ )
 		{
-			$regions->offsetSet($_i, new Region($_i));
+			$regions->offsetSet($_i, new Region($_i, $super_region));
 		}
 
 		$this->_getTestCommand()->apply($player, $map);

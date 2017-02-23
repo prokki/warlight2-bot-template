@@ -3,28 +3,180 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
-use Prokki\Warlight2BotTemplate\Util\LoadedArray;
 
-class Map
+class Map extends SetupMap
 {
 
 	/**
-	 * @var LoadedArray
+	 * @var RegionArray
 	 */
-	protected $_region = null;
+	protected $_regions = null;
 
 	/**
-	 * @var LoadedArraycomposer 
+	 * @var RegionArray
 	 */
-	protected $_superRegion = null;
+	protected $_superRegions = null;
 
 	/**
 	 * Map constructor.
 	 */
 	public function __construct()
 	{
-		$this->_region      = new LoadedArray();
-		$this->_superRegion = new LoadedArray();
+		parent::__construct();
+		
+		$this->_regions      = new RegionArray();
+		$this->_superRegions = new RegionArray();
+	}
+
+	/**
+	 * Map constructor.
+	 */
+	public function __clone()
+	{
+		$old_regions = $this->_regions;
+
+		$this->_regions      = new RegionArray();
+		$this->_superRegions = new RegionArray();
+
+		$this->_initialize();
+
+		foreach( $old_regions as $_old_region )
+		{
+			/** @var Region $_old_region */
+			$this->getRegion($_old_region->getId())->setState(clone $_old_region->getState());
+		}
+	}
+
+	/**
+	 * Returns `true` if the map is initialized successfully, else `false`.
+	 *
+	 * @throws InitializationException
+	 *
+	 * @todo test method!
+	 */
+	protected function _initialize()
+	{
+		$this->_initializeSuperRegions();
+
+		$this->_initializeRegions();
+
+		$this->_initializeNeighbors();
+
+		$this->_initializeWastelands();
+
+		$this->_initialized = true;
+	}
+
+	/**
+	 * Returns `true` if the map is initialized successfully, else `false`.
+	 *
+	 * @throws InitializationException
+	 *
+	 * @todo test method!
+	 */
+	protected function _initializeSuperRegions()
+	{
+		foreach( $this->_superRegionIds as $_super_region_id => $_bonus_armies )
+		{
+			/** @var SuperRegion $_super_region */
+			if( $this->hasSuperRegion($_super_region_id) )
+			{
+				throw InitializationException::MapInitializationFailed();
+			}
+
+			$this->_superRegions->offsetSet($_super_region_id, new SuperRegion($_super_region_id, $_bonus_armies));
+		}
+	}
+
+	/**
+	 * Returns `true` if the map is initialized successfully, else `false`.
+	 *
+	 * @throws InitializationException
+	 *
+	 * @todo test method!
+	 */
+	protected function _initializeRegions()
+	{
+		foreach( $this->_regionIds as $_super_region_id => $_region_ids )
+		{
+			/** @var SuperRegion $_super_region */
+			if( !$this->hasSuperRegion($_super_region_id) )
+			{
+				throw InitializationException::MapInitializationFailed();
+			}
+
+			$_super_region = $this->getSuperRegion($_super_region_id);
+
+			foreach( $_region_ids as $__region_id )
+			{
+				$this->_regions->offsetSet($__region_id, new Region($__region_id, $_super_region));
+			}
+		}
+
+		// @todo test if all regions are converted?
+		$uninitialized_regions = $this->_regions->filter(function ($_region)
+		{
+			/** @var Region $_region */
+			return !$_region->hasSuperRegion();
+		});
+
+		if( count($uninitialized_regions) > 0 )
+		{
+			throw InitializationException::MapInitializationFailed();
+		}
+	}
+
+	/**
+	 * Returns `true` if the map is initialized successfully, else `false`.
+	 *
+	 * @throws InitializationException
+	 *
+	 * @todo test method!
+	 */
+	protected function _initializeNeighbors()
+	{
+		// 2. initialize neighbors
+		foreach( $this->_neighborRegionIds as $_region_id => $_neighbor_region_ids )
+		{
+			if( !$this->hasRegion($_region_id) )
+			{
+				throw InitializationException::MapInitializationFailed();
+			}
+
+			/** @var Region $_region */
+			$_region = $this->getRegion($_region_id);
+
+			foreach( $_neighbor_region_ids as $__neighbor_region_id )
+			{
+				if( !$this->hasRegion($__neighbor_region_id) )
+				{
+					throw InitializationException::MapInitializationFailed();
+				}
+
+				$_region->addNeighbor($this->getRegion($__neighbor_region_id));
+			}
+		}
+	}
+
+	/**
+	 * Returns `true` if the map is initialized successfully, else `false`.
+	 *
+	 * @throws InitializationException
+	 *
+	 * @todo test method!
+	 */
+	protected function _initializeWastelands()
+	{
+		// 2. initialize neighbors
+		foreach( $this->_wastelandIds as $_region_id )
+		{
+			if( !$this->hasRegion($_region_id) )
+			{
+				throw InitializationException::MapInitializationFailed();
+			}
+
+			$this->getRegion($_region_id)->setWasteland();
+		}
 	}
 
 	/**
@@ -37,7 +189,7 @@ class Map
 	 */
 	public function hasRegion($id)
 	{
-		return $this->_region->offsetExists($id);
+		return $this->_regions->offsetExists($id);
 	}
 
 	/**
@@ -59,7 +211,7 @@ class Map
 			throw RuntimeException::UnknownRegion($id);
 		}
 
-		return $this->_region->offsetGet($id);
+		return $this->_regions->offsetGet($id);
 	}
 
 	/**
@@ -68,7 +220,7 @@ class Map
 	 * @param integer $owner one or multiple owner (see {@see ReggionState} constants) logically combined,
 	 *                       example: `getRegions(RegionState::OWNER_ME | RegionState::OWNER_NEUTRAL)`
 	 *
-	 * @return LoadedArray
+	 * @return RegionArray
 	 *
 	 */
 	public function getRegions($owner = null)
@@ -76,10 +228,10 @@ class Map
 
 		if( is_null($owner) )
 		{
-			return $this->_region;
+			return $this->_regions;
 		}
 
-		return $this->_region->filter(function ($_region) use ($owner)
+		return $this->_regions->filter(function ($_region) use ($owner)
 		{
 			/** @var Region $_region */
 			return $_region->getState()->getOwner() & $owner;
@@ -96,7 +248,7 @@ class Map
 	 */
 	public function hasSuperRegion($id)
 	{
-		return $this->_superRegion->offsetExists($id);
+		return $this->_superRegions->offsetExists($id);
 	}
 
 	/**
@@ -106,19 +258,25 @@ class Map
 	 *
 	 * @return SuperRegion
 	 *
+	 * @throws RuntimeException
 	 */
 	public function getSuperRegion($id)
 	{
-		return $this->_superRegion->offsetGet($id);
+		if( !$this->hasSuperRegion($id) )
+		{
+			throw RuntimeException::UnknownRegion($id);
+		}
+
+		return $this->_superRegions->offsetGet($id);
 	}
 
 	/**
 	 * Returns all super regions.
 	 *
-	 * @return LoadedArray
+	 * @return RegionArray
 	 */
 	public function getSuperRegions()
 	{
-		return $this->_superRegion;
+		return $this->_superRegions;
 	}
 }

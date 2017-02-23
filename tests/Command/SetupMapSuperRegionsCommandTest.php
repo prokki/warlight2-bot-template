@@ -3,8 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SetupMapSuperRegionsCommandTest extends CommandTest
@@ -43,8 +43,8 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getSuperRegions()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::hasSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegion()
-	 * @covers \Prokki\Warlight2BotTemplate\Util\LoadedArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SuperRegion::getBonusArmies()
 	 *
 	 * @inheritdoc
@@ -52,7 +52,7 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 
 		self::assertEmpty($map->getSuperRegions());
 		self::assertFalse($map->getSuperRegions()->isLoaded());

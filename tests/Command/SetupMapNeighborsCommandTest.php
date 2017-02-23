@@ -3,8 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand;
+use Prokki\Warlight2BotTemplate\Game\Map;
 use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Util\Parser;
 
 class SetupMapNeighborsCommandTest extends CommandTest
@@ -41,18 +41,18 @@ class SetupMapNeighborsCommandTest extends CommandTest
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand::_parseArguments()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::getNeighbors()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addNeighbors()
-	 * @covers \Prokki\Warlight2BotTemplate\Util\LoadedArray::isLoaded()
 	 *
 	 * @inheritdoc
 	 */
 	public function testApply()
 	{
 		$player = new Player();
-		$map    = new SetupMap();
+		$map    = new Map();
 
-		self::assertEmpty($map->getNeighbors());
+		self::assertEmpty($map->get());
 		self::assertFalse($map->getNeighbors()->isLoaded());
 
 		$this->_getTestCommand()->apply($player, $map);
