@@ -1,13 +1,13 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\GamePlay;
+namespace Prokki\Warlight2BotTemplate\Game\Move;
 
 use Prokki\Warlight2BotTemplate\Game\Player;
 
 class PlaceMove extends PickMove
 {
 	/**
-	 * the amount of armies to place on the region with id {@see \Prokki\Warlight2BotTemplate\GamePlay\PickMove::_destinationRegionId}
+	 * the amount of armies to place on the region with id {@see \Prokki\Warlight2BotTemplate\Game\Move\PickMove::_destinationRegionId}
 	 *
 	 * @var integer
 	 */
@@ -28,7 +28,7 @@ class PlaceMove extends PickMove
 	}
 
 	/**
-	 * Returns the amount of armies to place on the region with id {@see \Prokki\Warlight2BotTemplate\GamePlay\PickMove::_destinationRegionId}.
+	 * Returns the amount of armies to place on the region with id {@see \Prokki\Warlight2BotTemplate\Game\Move\PickMove::_destinationRegionId}.
 	 *
 	 * @return integer
 	 */

@@ -2,8 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
-use Prokki\Warlight2BotTemplate\GamePlay\AttackMove;
-use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
+use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
+use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 
 class Round
 {

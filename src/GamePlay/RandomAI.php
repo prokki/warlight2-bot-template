@@ -3,6 +3,10 @@
 namespace Prokki\Warlight2BotTemplate\GamePlay;
 
 use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
+use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
+use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
+use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
 use Prokki\Warlight2BotTemplate\Game\RegionState;

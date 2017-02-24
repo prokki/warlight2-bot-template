@@ -5,7 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
+use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest

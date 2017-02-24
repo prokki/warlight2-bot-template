@@ -186,11 +186,11 @@ class Bot
 				{
 					self::Debug(sprintf("Exception:%s\n\n%s", $exception->getMessage(), $exception->getTraceAsString()));
 
-//					$send = "Aborting due an error :-(";
+					$send = "Aborting due an error :-(";
 
-//					fwrite($this->_output, $send . "\n");
+					fwrite($this->_output, $send . "\n");
 
-//					self::Debug(sprintf("send: %s\n", $send));
+					self::Debug(sprintf("send: %s\n", $send));
 
 					$end_of_stream = true;
 				}

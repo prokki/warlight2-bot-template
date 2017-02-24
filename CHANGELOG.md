@@ -6,22 +6,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### [Unreleased]
 #### Fixed
-- Commands `opponent_moves`, `go place_armies` and `go attack/transfer` fixed
-- Fixed some command class names
-- `composer.json`: set _type_ to `library`, added directory `tests` to section _autoload_
+- Commands `opponent_moves`, [GoPlaceArmiesCommand](src/Command/GoPlaceArmiesCommand.php) and [GoAttackTransferCommand](src/Command/GoAttackTransferCommand.php) fixed.
+- Fixed some command class names.
+- Fixed `composer.json`: set _type_ to `library`, added directory `tests` to section _autoload_.
 #### Changed
-- Divided `Player`, `Map` and `Bot` class
-- Reorganized namespace structure
-- Changed class `Map` to save _snapshots_ for rounds - changed whole object initialization process
-- Moved map initialization to class `SetupMap`
+- Massively reorganized namespace structure.
+- Divided game class "tank" in classes [Bot](src/Bot.php), [Player](src/Game/Player.php) and [Map](src/Game/Map.php).
+- Changed class [Map](src/Game/Map.php) to save _snapshots_ for rounds - changed whole object initialization process.
+- Moved map initialization to class [SetupMap](src/Game/SetupMap.php).
 #### Added
-- Classes `Round` to save map snapshots and player moves of each round, map is already saved
-- Added class Environment as container for player, map and rounds
-- Added CHANGELOG file
-- Ignore `composer.lock` by git
-- Added configuration file and `@covers` annotations for code coverage
-- Move [PickMove](https://github.com/prokki/warlight2-bot-template/blob/master/src/Game/Move/PickMove.php) added
-- Added missing unit test for command classes
+- Added class [Round](src/Game/Round.php) to save map snapshots and player moves of each round.
+- Added class [Environment](src/Game/Environment.php) as container for player, map and rounds.
+- Added [CHANGELOG.md](CHANGELOG.md) file.
+- Ignored `composer.lock` by git.
+- Added configuration file and `@covers` annotations for code coverage.
+- Interface [Move](src/Game/Move/Move) and move [PickMove](src/Game/Move/PickMove) added.
+- Added missing unit test for command classes.
  
 ### [0.0.1] - 2017-02-17
 #### Added

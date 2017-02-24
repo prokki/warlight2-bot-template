@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\GamePlay;
+namespace Prokki\Warlight2BotTemplate\Game\Move;
 
 use Prokki\Warlight2BotTemplate\Game\Player;
 

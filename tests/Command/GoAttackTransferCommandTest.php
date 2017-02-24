@@ -5,8 +5,8 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 use Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\GamePlay\AttackMove;
-use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
+use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
+use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
