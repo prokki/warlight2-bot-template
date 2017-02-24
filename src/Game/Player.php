@@ -17,8 +17,6 @@ class Player extends Setting
 	 * @param integer $globalTime
 	 *
 	 * @return static
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function setGlobalTime($globalTime)
 	{
@@ -28,8 +26,6 @@ class Player extends Setting
 
 	/**
 	 * @return integer
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getGlobalTime()
 	{

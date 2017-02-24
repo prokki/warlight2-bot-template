@@ -143,8 +143,6 @@ class Setting
 	 * Returns the complete list of starting regions your bot can pick from.
 	 *
 	 * @return integer[]
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getStartingRegions()
 	{

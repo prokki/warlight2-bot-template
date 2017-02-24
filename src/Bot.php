@@ -8,7 +8,7 @@ use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Command\Computable;
 
-define('PROKKIBOT_MIN_COMPUTATION_TIME', 5); // [ms]
+//define('PROKKIBOT_MIN_COMPUTATION_TIME', 2000); // [ms]
 define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
 
 /**
@@ -66,8 +66,6 @@ class Bot
 
 	/**
 	 * @param string $string
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public static function Debug($string)
 	{
@@ -162,15 +160,17 @@ class Bot
 
 					if( $command->isComputable() )
 					{
+						self::Debug("Round: " . $this->_environment->getCurrentRoundNo() . "\n");
+
 						/** @var Computable $command */
 						$send = $command->compute($this->_ai, $this->_environment);
 
 						$duration = ( self::_GetMicrotimeFloat() - $time_start );
-//					Client::Debug("TIME: " . $duration . "\n");
+//					Bot::Debug("TIME: " . $duration . "\n");
 
-						if( defined('PROKKIBOT_MIN_COMPUTATION_TIME') && PROKKIBOT_MIN_COMPUTATION_TIME > 0 && $duration < PROKKIBOT_MIN_COMPUTATION_TIME )
+						if( defined('PROKKIBOT_MIN_COMPUTATION_TIME') && !empty(PROKKIBOT_MIN_COMPUTATION_TIME) && $duration < ( PROKKIBOT_MIN_COMPUTATION_TIME * 1000 ) )
 						{
-							usleep(PROKKIBOT_MIN_COMPUTATION_TIME - $duration); // wait until at least 1ms are gone
+							usleep(( PROKKIBOT_MIN_COMPUTATION_TIME * 1000 ) - $duration); // wait until at least 1ms are gone
 
 //						$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //						Client::Debug("TIME: " . $duration . "\n");

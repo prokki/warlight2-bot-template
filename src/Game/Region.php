@@ -148,8 +148,6 @@ class Region
 	 * @return RegionState
 	 *
 	 * @throws InitializationException
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function setWasteland()
 	{

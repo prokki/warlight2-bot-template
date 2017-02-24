@@ -41,8 +41,6 @@ class RegionState
 
 	/**
 	 * @return boolean
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function isFog()
 	{
@@ -51,8 +49,6 @@ class RegionState
 
 	/**
 	 * @return integer
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getOwner()
 	{
@@ -61,8 +57,6 @@ class RegionState
 
 	/**
 	 * @return integer
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getArmies()
 	{
@@ -73,8 +67,6 @@ class RegionState
 	 * @param boolean $fog
 	 *
 	 * @return RegionState
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function setFog($fog)
 	{
@@ -86,8 +78,6 @@ class RegionState
 	 * @param integer $owner
 	 *
 	 * @return RegionState
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 *
 	 */
 	public function setOwner($owner)
@@ -106,8 +96,6 @@ class RegionState
 	 * @param integer $armies
 	 *
 	 * @return RegionState
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function setArmies($armies)
 	{
@@ -120,8 +108,6 @@ class RegionState
 	 * @param integer $owner
 	 *
 	 * @return RegionState
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function disableFog($armies, $owner)
 	{
@@ -131,8 +117,6 @@ class RegionState
 	/**
 	 *
 	 * @return RegionState
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function enableFog()
 	{

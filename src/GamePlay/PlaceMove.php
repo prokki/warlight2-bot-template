@@ -28,8 +28,6 @@ class PlaceMove
 
 	/**
 	 * @return integer
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getDestinationRegionId()
 	{
@@ -38,8 +36,6 @@ class PlaceMove
 
 	/**
 	 * @return integer
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getArmies()
 	{

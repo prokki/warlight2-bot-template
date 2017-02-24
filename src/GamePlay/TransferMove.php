@@ -24,8 +24,6 @@ class TransferMove extends PlaceMove
 
 	/**
 	 * @return integer
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getSourceRegionId()
 	{

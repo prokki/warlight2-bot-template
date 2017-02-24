@@ -119,25 +119,22 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 * @param integer $region_id           id of the region
-	 * @param integer $neighbour_region_id of neighbour regions
+	 * @param integer   $region_id            id of the region
+	 * @param integer[] $neighbour_region_ids of neighbour regions
 	 *
 	 * @throws RuntimeException
 	 *
 	 * @author Falko Matthies <falko.m@web.de>
 	 */
-	public function addNeighbors($region_id, $neighbour_region_id)
+	public function addNeighbors($region_id, $neighbour_region_ids)
 	{
-		$neighbor_regions = $this->_neighborRegionIds->offsetExists($region_id) ? $this->_neighborRegionIds->offsetGet($region_id) : array();
+		$neighbor_regions = $this->_neighborRegionIds->offsetExists($region_id) ?
+			$this->_neighborRegionIds->offsetGet($region_id) :
+			array();
+		
+		$neighbor_regions = array_merge($neighbor_regions, $neighbour_region_ids);
 
-		if( in_array($neighbour_region_id, $neighbor_regions) )
-		{
-//			throw InitializationException::
-		}
-
-		array_push($neighbor_regions, $region_id);
-
-		$this->_neighborRegionIds->offsetSet($region_id, $neighbor_regions);
+		$this->_neighborRegionIds[ $region_id ] = $neighbor_regions;
 	}
 
 	/**
@@ -154,6 +151,8 @@ class SetupMap implements Initializeable
 	}
 
 	/**
+	 * Override this method in class {@see \Prokki\Warlight2BotTemplate\Game\Map} to return `true`.
+	 *
 	 * @inheritdoc
 	 */
 	public function initialize()
@@ -162,12 +161,22 @@ class SetupMap implements Initializeable
 	}
 
 	/**
+	 * Tries to initialize the map by calling the {@see \Prokki\Warlight2BotTemplate\Game\Map::initialize()} method.
+	 *
+	 * The method is only called if all arrays of this object has the flag _loaded_.
+	 *
+	 * Be sure to call this method if the map is not initialized yet, otherwise an error wil be thrown.
+	 *
 	 * @return boolean
 	 */
 	protected function _tryToInitialize()
 	{
-		if( $this->_initialized
-			|| !$this->_superRegionIds->isLoaded()
+		if( $this->_initialized )
+		{
+			// throw error!
+		}
+
+		if( !$this->_superRegionIds->isLoaded()
 			|| !$this->_regionIds->isLoaded()
 			|| !$this->_neighborRegionIds->isLoaded()
 			|| !$this->_wastelandIds->isLoaded()
@@ -180,7 +189,9 @@ class SetupMap implements Initializeable
 	}
 
 	/**
+	 * Adds flag _loaded_ to the super regions array and returns `true` if the complete map could be initialized successfully, else `false`.
 	 *
+	 * @return boolean
 	 */
 	public function finishAddingSuperRegions()
 	{
@@ -190,7 +201,9 @@ class SetupMap implements Initializeable
 	}
 
 	/**
+	 * Adds flag _loaded_ to the regions array and returns `true` if the complete map could be initialized successfully, else `false`.
 	 *
+	 * @return boolean
 	 */
 	public function finishAddingRegions()
 	{
@@ -200,7 +213,9 @@ class SetupMap implements Initializeable
 	}
 
 	/**
+	 * Adds flag _loaded_ to the neighbors array and returns `true` if the complete map could be initialized successfully, else `false`.
 	 *
+	 * @return boolean
 	 */
 	public function finishAddingNeighbors()
 	{
@@ -210,7 +225,9 @@ class SetupMap implements Initializeable
 	}
 
 	/**
+	 * Adds flag _loaded_ to the wasteland array and returns `true` if the complete map could be initialized successfully, else `false`.
 	 *
+	 * @return boolean
 	 */
 	public function finishAddingWasteland()
 	{

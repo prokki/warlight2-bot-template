@@ -26,7 +26,10 @@ class SetupMapRegionsCommand extends ReceivableTupleIntListCommand
 			$environment->getMap()->addRegion($_id_region, $_id_super_region);
 		}
 
-		$environment->getMap()->finishAddingRegions();
+		if( $environment->getMap()->finishAddingRegions() )
+		{
+			$environment->getCurrentRound()->setInitialMap(clone $environment->getMap());
+		}
 	}
 
 }

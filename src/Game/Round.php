@@ -28,7 +28,7 @@ class Round
 	protected $_opponentMoves = array();
 
 	/**
-	 * @var map
+	 * @var Map
 	 */
 	protected $_mapAfter = null;
 
@@ -92,5 +92,13 @@ class Round
 	{
 		$this->_mapAfter = $map;
 		return $this;
+	}
+
+	/**
+	 * @return Map
+	 */
+	public function getUpdatedMap()
+	{
+		return $this->_mapAfter;
 	}
 }

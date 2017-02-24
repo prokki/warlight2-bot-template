@@ -15,11 +15,11 @@ class Environment
 	protected $_map = null;
 
 	/**
-	 * latest (actual) round
+	 * current round number
 	 *
 	 * @var integer
 	 */
-	protected $_maxRound = 0;
+	protected $_currentRoundNo = 0;
 
 	/**
 	 * @var \ArrayObject
@@ -31,12 +31,12 @@ class Environment
 		$this->_player = new Player();
 		$this->_map    = new Map();
 		$this->_rounds = new \ArrayObject();
+
+		$this->_rounds->offsetSet($this->_currentRoundNo, new Round($this->_currentRoundNo));
 	}
 
 	/**
 	 * @return Player
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getPlayer()
 	{
@@ -45,19 +45,14 @@ class Environment
 
 	/**
 	 * @return Map
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getMap()
 	{
 		return $this->_map;
 	}
 
-
 	/**
 	 * @return \ArrayObject
-	 *
-	 * @author Falko Matthies <falko.ma@web.de>
 	 */
 	public function getRounds()
 	{
@@ -65,12 +60,54 @@ class Environment
 	}
 
 	/**
-	 * @return integer
+	 * Returns the actual (latest) round.
 	 *
-	 * @author Falko Matthies <falko.ma@web.de>
+	 * @param integer $round_no
+	 *
+	 * @return Round
 	 */
-	public function getMaxRound()
+	public function getRound($round_no)
 	{
-		return $this->_maxRound;
+		// TODO check if exists!
+		return $this->_rounds->offsetGet($round_no);
 	}
+
+	/**
+	 * Returns the current round.
+	 *
+	 * @return Round
+	 */
+	public function getCurrentRound()
+	{
+		// TODO check if exists!
+		return $this->getRound($this->_currentRoundNo);
+	}
+
+	/**
+	 * Returns the actual (latest) round number.
+	 *
+	 * @return integer
+	 */
+	public function getCurrentRoundNo()
+	{
+		return $this->_currentRoundNo;
+	}
+
+	/**
+	 * Returns the current round.
+	 *
+	 * @return Round
+	 */
+	public function addRound()
+	{
+		$old_updated_map = $this->getCurrentRound()->getUpdatedMap();
+
+		++$this->_currentRoundNo;
+
+		$new_round = new Round($this->_currentRoundNo);
+		$new_round->setInitialMap($old_updated_map);
+
+		$this->_rounds->offsetSet($this->_currentRoundNo, $new_round);
+	}
+
 }

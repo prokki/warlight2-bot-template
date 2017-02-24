@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Changed class `Map` to save _snapshots_ for rounds - changed whole object initialization process
 - Moved map initialization to class `SetupMap`
 #### Added
-- Classes `Round` to save map snapshots and player moves of each round
+- Classes `Round` to save map snapshots and player moves of each round, map is already saved
 - Added class Environment as container for player, map and rounds
 - Added CHANGELOG file
 - Ignore `composer.lock` by git

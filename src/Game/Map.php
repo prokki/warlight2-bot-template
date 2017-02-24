@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
+use Prokki\Warlight2BotTemplate\Util\Bot;
 
 class Map extends SetupMap
 {
@@ -38,7 +39,7 @@ class Map extends SetupMap
 		$this->_regions      = new RegionArray();
 		$this->_superRegions = new RegionArray();
 
-		$this->_initialize();
+		$this->initialize();
 
 		foreach( $old_regions as $_old_region )
 		{
@@ -65,6 +66,8 @@ class Map extends SetupMap
 		$this->_initializeWastelands();
 
 		$this->_initialized = true;
+
+		return true;
 	}
 
 	/**

@@ -55,7 +55,10 @@ class SetupMapNeighborsCommand extends ReceivableCommand
 			$environment->getMap()->addNeighbors($_region_id, $_region_ids);
 		}
 
-		$environment->getMap()->finishAddingNeighbors();
+		if( $environment->getMap()->finishAddingNeighbors() )
+		{
+			$environment->getCurrentRound()->setInitialMap(clone $environment->getMap());
+		}
 	}
 
 }

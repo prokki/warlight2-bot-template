@@ -28,6 +28,9 @@ class SetupMapSuperRegionsCommand extends ReceivableTupleIntListCommand
 			$environment->getMap()->addSuperRegion($_id_super_region, $_bonus_armies);
 		}
 
-		$environment->getMap()->finishAddingSuperRegions();
+		if( $environment->getMap()->finishAddingSuperRegions() )
+		{
+			$environment->getCurrentRound()->setInitialMap(clone $environment->getMap());
+		}
 	}
 }
