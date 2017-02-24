@@ -72,14 +72,5 @@ class UpdateMapCommand extends ReceivableCommand
 				}
 			}
 		}
-
-		// exclude round 0 because updatedMap was already set in command SetupMapOpponentStartingRegionsCommand
-		if( $environment->getCurrentRoundNo() !== 0 )
-		{
-			$environment->getCurrentRound()->setUpdatedMap(clone $environment->getMap());
-		}
-
-		$environment->addRound();
-
 	}
 }

@@ -61,11 +61,10 @@ class CommandParser
 		{
 			return new UpdateMapCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
-		elseif( 1 === preg_match('/^\s*opponent_moves\s*(.*)$/si', $string) )
+		elseif( 1 === preg_match('/^\s*opponent_moves\s*(.*)$/si', $string, $matches) )
 		{
-			return new EmptyReceivableCommand();
+			return new OpponentMovesCommand($matches[ 0 ], trim($matches[ 1 ]));
 		}
-
 
 		if( 1 === preg_match('/^([^\s]+)/si', $string, $matches) )
 		{

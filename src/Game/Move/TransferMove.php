@@ -46,4 +46,13 @@ class TransferMove extends PlaceMove
 		);
 	}
 
+	/**
+	 * Returns the transfer move as converted attack move.
+	 *
+	 * @return AttackMove
+	 */
+	public function toAttackMove()
+	{
+		return new AttackMove($this->getSourceRegionId(), $this->getDestinationRegionId(), $this->getArmies());
+	}
 }

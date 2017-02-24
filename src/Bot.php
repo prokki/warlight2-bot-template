@@ -149,18 +149,23 @@ class Bot
 
 				$end_of_stream = feof($_handle);
 
-				try
-				{
+//				try
+//				{
 
 					$command = $this->_parser->run($string);
 
 					//				self::Debug(get_class($command) . "\n");
-
+				
 					$command->apply($this->_environment);
+				
+//					self::Debug(sprintf("Round: %d, Remaining: %d, Last: %d\n",
+//						$this->_environment->getCurrentRoundNo(),
+//						$this->_environment->getRemainingRounds(),
+//						$this->_environment->isLastRound()
+//					));
 
 					if( $command->isComputable() )
 					{
-						self::Debug("Round: " . $this->_environment->getCurrentRoundNo() . "\n");
 
 						/** @var Computable $command */
 						$send = $command->compute($this->_ai, $this->_environment);
@@ -180,20 +185,20 @@ class Bot
 
 						self::Debug(sprintf("send: %s\n", $send));
 					}
-
-				}
-				catch( \Exception $exception )
-				{
-					self::Debug(sprintf("Exception:%s\n\n%s", $exception->getMessage(), $exception->getTraceAsString()));
-
-					$send = "Aborting due an error :-(";
-
-					fwrite($this->_output, $send . "\n");
-
-					self::Debug(sprintf("send: %s\n", $send));
-
-					$end_of_stream = true;
-				}
+//
+//				}
+//				catch( \Exception $exception )
+//				{
+//					self::Debug(sprintf("Exception:%s\n\n%s", $exception->getMessage(), $exception->getTraceAsString()));
+//
+//					$send = "Aborting due an error :-(";
+//
+//					fwrite($this->_output, $send . "\n");
+//
+//					self::Debug(sprintf("send: %s\n", $send));
+//
+//					$end_of_stream = true;
+//				}
 
 			}
 		}

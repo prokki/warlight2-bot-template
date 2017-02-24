@@ -94,7 +94,10 @@ class Environment
 	}
 
 	/**
-	 * Returns the current round.
+	 * Creates the next round,
+	 * references the initial map of the next round to the current updated map,
+	 * sets the next round as current round
+	 * and returns the new current round.
 	 *
 	 * @return Round
 	 */
@@ -108,6 +111,28 @@ class Environment
 		$new_round->setInitialMap($old_updated_map);
 
 		$this->_rounds->offsetSet($this->_currentRoundNo, $new_round);
+
+		return $new_round;
+	}
+
+	/**
+	 * Returns the amount of remaing rounds.
+	 *
+	 * @return integer
+	 */
+	public function getRemainingRounds()
+	{
+		return $this->_player->getMaxRounds() - $this->_currentRoundNo;
+	}
+
+	/**
+	 * Returns `true` if the current round is the last round, else `false`.
+	 *
+	 * @return integer
+	 */
+	public function isLastRound()
+	{
+		return $this->getRemainingRounds() === 0;
 	}
 
 }
