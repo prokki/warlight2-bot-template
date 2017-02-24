@@ -3,7 +3,6 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 
 /**

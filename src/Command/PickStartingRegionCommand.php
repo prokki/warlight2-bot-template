@@ -4,7 +4,6 @@ namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Game\RegionState;
 
 /**
  * Class PickStartingRegionCommand handles
@@ -62,30 +61,25 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	public function apply(Environment $environment)
 	{
 		$environment->getPlayer()->setGlobalTime($this->_time);
-
-		$this->_setOpponentRegions($environment->getMap(), $environment->getPlayer()->getStartingRegions(), $this->_region_ids);
 	}
 
 	/**
-	 * @param Map       $map
+	 * Returns region ids which are picked either from me or from the opponent.
+	 *
 	 * @param integer[] $starting_region
-	 * @param integer[] $available_region
+	 *
+	 * @return integer[]
 	 *
 	 * @throws \Prokki\Warlight2BotTemplate\Exception\InitializationException
 	 */
-	protected function _setOpponentRegions($map, $starting_region, $available_region)
+	protected function _getAllPickedRegionIds($starting_region)
 	{
-		$unavailable_regions = array_diff($starting_region, $available_region);
-
-		foreach( $unavailable_regions as $_region_id )
+		if( count($starting_region) === count($this->_region_ids) )
 		{
-			$region = $map->getRegion($_region_id);
-
-			if( !in_array($region->getState()->getOwner(), [RegionState::OWNER_ME, RegionState::OWNER_OPPONENT]) )
-			{
-				$region->getState()->setOwner(RegionState::OWNER_OPPONENT);
-			}
+			return array();
 		}
+
+		return array_diff($starting_region, $this->_region_ids);
 	}
 
 	/**
@@ -93,6 +87,19 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	 */
 	public function compute($ai, Environment $environment)
 	{
-		return $ai->getPickMove($environment, $this->_region_ids)->_toResponseString($environment->getPlayer());
+		// 1. get opponent pick moves
+		$opponent_pick_moves = $environment->getMap()->getUniqueOpponentPickMoves(
+			$this->_getAllPickedRegionIds($environment->getPlayer()->getStartingRegions())
+		);
+		// and save to current round
+		$environment->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
+
+		// 2. calculate my pick move by AI
+		$pick_move = $ai->getPickMove($environment, $this->_region_ids);
+		// and save to current round
+		$environment->getCurrentRound()->addMove($pick_move);
+
+		// return my move as command
+		return $pick_move->_toResponseString($environment->getPlayer());
 	}
 }

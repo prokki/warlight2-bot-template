@@ -12,7 +12,6 @@ interface Computable
 	 * @param Environment $environment
 	 *
 	 * @return String
-	 *
 	 */
 	public function compute($ai, Environment $environment);
 }

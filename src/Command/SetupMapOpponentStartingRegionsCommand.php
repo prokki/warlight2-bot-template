@@ -3,8 +3,6 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Game\Round;
 
 /**
  * Class SetupMapOpponentStartingRegionsCommand handles
@@ -26,11 +24,9 @@ class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand
 	 */
 	public function apply(Environment $environment)
 	{
-		foreach( $this->_value as $_region_id )
-		{
-			$environment->getMap()->getRegion($_region_id)->getState()->setOwner(RegionState::OWNER_OPPONENT);
-		}
+		$opponent_pick_moves = $environment->getMap()->getUniqueOpponentPickMoves($this->_value);
 
+		$environment->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
 		$environment->getCurrentRound()->setUpdatedMap(clone $environment->getMap());
 	}
 }

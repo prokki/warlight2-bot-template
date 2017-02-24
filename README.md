@@ -10,24 +10,31 @@ Create a new project and install the template via Composer using the following c
 
     composer require prokki/warlight2-bot-template
     
-Create your own bot implementing the [Prokki\Warlight2BotTemplate\GamePlay\AIable](https://github.com/prokki/warlight2-bot-template/blob/master/src/GamePlay/AIable.php) interface.
+Create your own bot implementing the [Prokki\Warlight2BotTemplate\GamePlay\AIable](src/GamePlay/AIable.php) interface.
 
-Take a look to example class [RandomAI](https://github.com/prokki/warlight2-bot-template/blob/master/src/GamePlay/RandomAI.php) for further informations.
+Take a look to example class [Prokki\Warlight2BotTemplate\GamePlay\RandomAI](src/GamePlay/RandomAI.php) for further informations.
 
     class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
     {
-    
-        public function pickStartingRegion($player, $region_ids)
+        /**
+         * Returns the id of the region to pick.
+         *
+         * @param Environment $environment
+         * @param integer[]   $region_ids
+         *
+         * @return PickMove
+         */
+        public function getPickMove(Environment $environment, $region_ids)
         {
             // put your code here
         }
         
-        public function getAttackTransferMoves($player)
+        public function getAttackTransferMoves(Environment $environment)
         {
             // put your code here
         }
 
-        public function getPlaceMoves($player)
+        public function getPlaceMoves(Environment $environment)
         {
             // put your code here
         }

@@ -3,7 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
+use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
+use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 
 class Round
 {
@@ -18,12 +20,12 @@ class Round
 	protected $_mapBefore = null;
 
 	/**
-	 * @var (PlaceMove|TransferMove|AttackMove)[]
+	 * @var PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[]
 	 */
 	protected $_moves = array();
 
 	/**
-	 * @var (PlaceMove|TransferMove|AttackMove)[]
+	 * @var PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[]
 	 */
 	protected $_opponentMoves = array();
 
@@ -43,9 +45,22 @@ class Round
 	}
 
 	/**
-	 * Sets my moves.
+	 * Adds add move as my move.
 	 *
-	 * @param (PlaceMove|TransferMove|AttackMove)[] $moves
+	 * @param PickMove|PlaceMove|TransferMove|AttackMove $move
+	 *
+	 * @return $this
+	 */
+	public function addMove($move)
+	{
+		array_push($this->_moves, $move);
+		return $this;
+	}
+
+	/**
+	 * Adds my moves.
+	 *
+	 * @param PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[] $moves
 	 *
 	 * @return $this
 	 */
@@ -56,9 +71,22 @@ class Round
 	}
 
 	/**
+	 * Adds an opponent move.
+	 *
+	 * @param PickMove|PlaceMove|TransferMove|AttackMove $move
+	 *
+	 * @return $this
+	 */
+	public function addOpponentMove($move)
+	{
+		array_push($this->_opponentMoves, $move);
+		return $this;
+	}
+
+	/**
 	 * Sets detected opponent moves.
 	 *
-	 * @param (PlaceMove|TransferMove|AttackMove)[] $moves
+	 * @param PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[] $moves
 	 *
 	 * @return $this
 	 */
@@ -100,5 +128,21 @@ class Round
 	public function getUpdatedMap()
 	{
 		return $this->_mapAfter;
+	}
+
+	/**
+	 * @return PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[]
+	 */
+	public function getMoves()
+	{
+		return $this->_moves;
+	}
+
+	/**
+	 * @return PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[]
+	 */
+	public function getOpponentMoves()
+	{
+		return $this->_opponentMoves;
 	}
 }

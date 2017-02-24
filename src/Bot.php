@@ -4,9 +4,9 @@ namespace Prokki\Warlight2BotTemplate\Util;
 
 use Prokki\Warlight2BotTemplate\Command\ApplicableCommand;
 use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Computable;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\Command\Computable;
 
 //define('PROKKIBOT_MIN_COMPUTATION_TIME', 2000); // [ms]
 define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]

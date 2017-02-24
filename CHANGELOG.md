@@ -15,13 +15,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Changed class [Map](src/Game/Map.php) to save _snapshots_ for rounds - changed whole object initialization process.
 - Moved map initialization to class [SetupMap](src/Game/SetupMap.php).
 #### Added
+- Interface [Move](src/Game/Move/Move) and move [PickMove](src/Game/Move/PickMove) added.
 - Added class [Round](src/Game/Round.php) to save map snapshots and player moves of each round.
 - Added class [Environment](src/Game/Environment.php) as container for player, map and rounds.
+- Added configuration file and `@covers` annotations for code coverage.
+- Added missing unit test for command classes.
 - Added [CHANGELOG.md](CHANGELOG.md) file.
 - Ignored `composer.lock` by git.
-- Added configuration file and `@covers` annotations for code coverage.
-- Interface [Move](src/Game/Move/Move) and move [PickMove](src/Game/Move/PickMove) added.
-- Added missing unit test for command classes.
  
 ### [0.0.1] - 2017-02-17
 #### Added

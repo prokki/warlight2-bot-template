@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
+use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Util\Bot;
 
 class Map extends SetupMap
@@ -127,6 +128,38 @@ class Map extends SetupMap
 		{
 			throw InitializationException::MapInitializationFailed();
 		}
+	}
+
+	/**
+	 * Checks all submitted regions if they were already picked by a player,
+	 * sets the owner to the opponent for the regions which are not picked yet and
+	 * returns {@see PickMove}s for these regions.
+	 *
+	 * @param integer $region_ids ids of the regions to check
+	 *
+	 * @return PickMove[] pick moves for all unpicked regions
+	 *
+	 */
+	public function getUniqueOpponentPickMoves($region_ids)
+	{
+		$moves = array();
+
+		foreach( $region_ids as $_region_id )
+		{
+			$_region = $this->getRegion($_region_id);
+
+			// region cannot be picked twice (region was picked already)
+			if( in_array($_region->getState()->getOwner(), [RegionState::OWNER_ME, RegionState::OWNER_OPPONENT]) )
+			{
+				continue;
+			}
+
+			$_region->getState()->setOwner(RegionState::OWNER_OPPONENT);
+
+			array_push($moves, new PickMove($_region_id));
+		}
+
+		return $moves;
 	}
 
 	/**
