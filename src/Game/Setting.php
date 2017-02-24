@@ -3,7 +3,6 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 /**
- * @since  2017-02-14
  */
 class Setting
 {

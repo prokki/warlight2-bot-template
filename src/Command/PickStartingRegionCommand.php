@@ -93,8 +93,6 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	 */
 	public function compute($ai, Environment $environment)
 	{
-		$picked_region_id = $ai->pickStartingRegion($environment, $this->_region_ids);
-
-		return $picked_region_id;
+		return $ai->getPickMove($environment, $this->_region_ids)->_toResponseString($environment->getPlayer());
 	}
 }

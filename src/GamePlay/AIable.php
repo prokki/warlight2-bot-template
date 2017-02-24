@@ -12,9 +12,9 @@ interface AIable
 	 * @param Environment $environment
 	 * @param integer[]   $region_ids
 	 *
-	 * @return integer
+	 * @return PickMove
 	 */
-	public function pickStartingRegion(Environment $environment, $region_ids);
+	public function getPickMove(Environment $environment, $region_ids);
 
 	/**
 	 * @param Environment $environment

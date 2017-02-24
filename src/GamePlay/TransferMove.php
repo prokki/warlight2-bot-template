@@ -2,6 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\GamePlay;
 
+use Prokki\Warlight2BotTemplate\Game\Player;
+
 class TransferMove extends PlaceMove
 {
 	/**
@@ -18,8 +20,9 @@ class TransferMove extends PlaceMove
 	 */
 	public function __construct($source_region_id, $destination_region_id, $armies)
 	{
-		$this->_sourceRegionId = $source_region_id;
 		parent::__construct($destination_region_id, $armies);
+
+		$this->_sourceRegionId = $source_region_id;
 	}
 
 	/**
@@ -29,4 +32,18 @@ class TransferMove extends PlaceMove
 	{
 		return $this->_sourceRegionId;
 	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function _toResponseString(Player $player)
+	{
+		return sprintf("%s attack/transfer %d %d %d",
+			$player->getName(),
+			$this->getSourceRegionId(),
+			$this->getDestinationRegionId(),
+			$this->getArmies()
+		);
+	}
+
 }

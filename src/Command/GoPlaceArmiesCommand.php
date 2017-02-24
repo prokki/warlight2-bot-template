@@ -35,22 +35,9 @@ class GoPlaceArmiesCommand extends SetGlobalTimeComputableCommand
 		foreach( $ai->getPlaceMoves($environment) as $_move )
 		{
 			/** @var PlaceMove $_move */
-			array_push($moves, $this->_moveToString($environment->getPlayer(), $_move));
+			array_push($moves, $_move->_toResponseString($environment->getPlayer()));
 		}
-		
-		return empty($moves) ? 'No moves' : implode(', ', $moves);
-	}
 
-	/**
-	 * Returns the partial response string for a single place move.
-	 *
-	 * @param Player    $player the player performing the move
-	 * @param PlaceMove $move   the move
-	 *
-	 * @return string
-	 */
-	protected function _moveToString(Player $player, PlaceMove $move)
-	{
-		return sprintf("%s place_armies %d %s", $player->getName(), $move->getDestinationRegionId(), $move->getArmies());
+		return empty($moves) ? 'No moves' : implode(', ', $moves);
 	}
 }

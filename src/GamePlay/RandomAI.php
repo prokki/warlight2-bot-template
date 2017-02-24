@@ -4,19 +4,16 @@ namespace Prokki\Warlight2BotTemplate\GamePlay;
 
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
-use Prokki\Warlight2BotTemplate\Util\RegionArray;
+use Prokki\Warlight2BotTemplate\Game\RegionArray;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 
-/**
- * @since  2017-02-15
- */
 class RandomAI implements AIable
 {
 
 	/**
 	 * @inheritdoc
 	 */
-	public function pickStartingRegion(Environment $environment, $region_ids)
+	public function getPickMove(Environment $environment, $region_ids)
 	{
 		$index = rand(0, count($region_ids) - 1);
 
@@ -24,7 +21,7 @@ class RandomAI implements AIable
 
 		$region->getState()->setOwner(RegionState::OWNER_ME);
 
-		return $region->getId();
+		return new PickMove($region->getId());
 	}
 
 	protected static function _ChooseIndexes($length)

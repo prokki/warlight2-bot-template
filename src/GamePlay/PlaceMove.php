@@ -2,14 +2,13 @@
 
 namespace Prokki\Warlight2BotTemplate\GamePlay;
 
-class PlaceMove
+use Prokki\Warlight2BotTemplate\Game\Player;
+
+class PlaceMove extends PickMove
 {
 	/**
-	 * @var integer
-	 */
-	protected $_destinationRegionId = 0;
-
-	/**
+	 * the amount of armies to place on the region with id {@see \Prokki\Warlight2BotTemplate\GamePlay\PickMove::_destinationRegionId}
+	 *
 	 * @var integer
 	 */
 	protected $_armies = 0;
@@ -17,28 +16,32 @@ class PlaceMove
 	/**
 	 * PlaceMove constructor.
 	 *
-	 * @param integer $destination_region_id
+	 * @inheritdoc
+	 *
 	 * @param integer $armies
 	 */
 	public function __construct($destination_region_id, $armies)
 	{
-		$this->_destinationRegionId = $destination_region_id;
-		$this->_armies              = $armies;
+		parent::__construct($destination_region_id);
+		
+		$this->_armies = $armies;
 	}
 
 	/**
-	 * @return integer
-	 */
-	public function getDestinationRegionId()
-	{
-		return $this->_destinationRegionId;
-	}
-
-	/**
+	 * Returns the amount of armies to place on the region with id {@see \Prokki\Warlight2BotTemplate\GamePlay\PickMove::_destinationRegionId}.
+	 *
 	 * @return integer
 	 */
 	public function getArmies()
 	{
 		return $this->_armies;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function _toResponseString(Player $player)
+	{
+		return sprintf("%s place_armies %d %s", $player->getName(), $this->getDestinationRegionId(), $this->getArmies());
 	}
 }

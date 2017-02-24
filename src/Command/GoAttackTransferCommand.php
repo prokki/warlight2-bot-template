@@ -35,27 +35,10 @@ class GoAttackTransferCommand extends SetGlobalTimeComputableCommand
 		foreach( $ai->getAttackTransferMoves($environment) as $_move )
 		{
 			/** @var TransferMove $_move */
-			array_push($moves, $this->_moveToString($environment->getPlayer(), $_move));
+			array_push($moves, $_move->_toResponseString($environment->getPlayer()));
 		}
 
 		return empty($moves) ? 'No moves' : implode(', ', $moves);
 	}
 
-	/**
-	 * Returns the partial response string for a single place move.
-	 *
-	 * @param Player       $player the player performing the move
-	 * @param TransferMove $move   the move
-	 *
-	 * @return string
-	 */
-	protected function _moveToString(Player $player, TransferMove $move)
-	{
-		return sprintf("%s attack/transfer %d %d %d",
-			$player->getName(),
-			$move->getSourceRegionId(),
-			$move->getDestinationRegionId(),
-			$move->getArmies()
-		);
-	}
 }

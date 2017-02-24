@@ -19,7 +19,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added class Environment as container for player, map and rounds
 - Added CHANGELOG file
 - Ignore `composer.lock` by git
-- Add configuration file and `@covers` annotations for code coverage
+- Added configuration file and `@covers` annotations for code coverage
+- Move [PickMove](https://github.com/prokki/warlight2-bot-template/blob/master/src/Game/Move/PickMove.php) added
 - Added missing unit test for command classes
  
 ### [0.0.1] - 2017-02-17
