@@ -28,7 +28,7 @@ class GoAttackTransferCommand extends SetGlobalTimeComputableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, Environment $environment)g
+	public function compute($ai, Environment $environment)
 	{
 		$moves = array();
 

@@ -154,47 +154,6 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 *
-	 */
-	public function finishAddingSuperRegions()
-	{
-		$this->_superRegionIds->setLoaded();
-	}
-
-	/**
-	 *
-	 */
-	public function finishAddingRegions()
-	{
-		$this->_regionIds->setLoaded();
-	}
-
-	/**
-	 *
-	 */
-	public function finishAddingNeighbors()
-	{
-		$this->_neighborRegionIds->setLoaded();
-	}
-
-	/**
-	 *
-	 */
-	public function finishAddingWasteland()
-	{
-		$this->_wastelandIds->setLoaded();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function canBeInitialized()
-	{
-		return $this->_superRegionIds->isLoaded() && $this->_regionIds->isLoaded() && $this->_neighborRegionIds->isLoaded() && $this->_wastelandIds->isLoaded();
-	}
-
-	/**
 	 * @inheritdoc
 	 */
 	public function initialize()
@@ -203,10 +162,61 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 * @inheritdoc
+	 * @return boolean
 	 */
-	public function isInitialized()
+	protected function _tryToInitialize()
 	{
-		return $this->_initialized;
+		if( $this->_initialized
+			|| !$this->_superRegionIds->isLoaded()
+			|| !$this->_regionIds->isLoaded()
+			|| !$this->_neighborRegionIds->isLoaded()
+			|| !$this->_wastelandIds->isLoaded()
+		)
+		{
+			return false;
+		}
+
+		return $this->initialize();
 	}
+
+	/**
+	 *
+	 */
+	public function finishAddingSuperRegions()
+	{
+		$this->_superRegionIds->setLoaded();
+
+		return $this->_tryToInitialize();
+	}
+
+	/**
+	 *
+	 */
+	public function finishAddingRegions()
+	{
+		$this->_regionIds->setLoaded();
+
+		return $this->_tryToInitialize();
+	}
+
+	/**
+	 *
+	 */
+	public function finishAddingNeighbors()
+	{
+		$this->_neighborRegionIds->setLoaded();
+
+		return $this->_tryToInitialize();
+	}
+
+	/**
+	 *
+	 */
+	public function finishAddingWasteland()
+	{
+		$this->_wastelandIds->setLoaded();
+
+		return $this->_tryToInitialize();
+	}
+
 }

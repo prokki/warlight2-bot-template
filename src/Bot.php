@@ -8,6 +8,7 @@ use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Command\Computable;
 
+define('PROKKIBOT_MIN_COMPUTATION_TIME', 5); // [ms]
 define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
 
 /**
@@ -159,11 +160,6 @@ class Bot
 
 					$command->apply($this->_environment);
 
-					if( !$this->_environment->getMap()->isInitialized() && $this->_environment->getMap()->canBeInitialized() )
-					{
-						$this->_environment->getMap()->initialize();
-					}
-
 					if( $command->isComputable() )
 					{
 						/** @var Computable $command */
@@ -172,9 +168,9 @@ class Bot
 						$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //					Client::Debug("TIME: " . $duration . "\n");
 
-						if( $duration < 5000 )
+						if( defined('PROKKIBOT_MIN_COMPUTATION_TIME') && PROKKIBOT_MIN_COMPUTATION_TIME > 0 && $duration < PROKKIBOT_MIN_COMPUTATION_TIME )
 						{
-							usleep(5000 - $duration); // wait until at least 1ms are gone
+							usleep(PROKKIBOT_MIN_COMPUTATION_TIME - $duration); // wait until at least 1ms are gone
 
 //						$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //						Client::Debug("TIME: " . $duration . "\n");

@@ -7,15 +7,5 @@ interface Initializeable
 	/**
 	 * @return boolean
 	 */
-	public function isInitialized();
-
-	/**
-	 * @return boolean
-	 */
 	public function initialize();
-
-	/**
-	 * @return boolean
-	 */
-	public function canBeInitialized();
 }
