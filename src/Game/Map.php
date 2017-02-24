@@ -23,7 +23,7 @@ class Map extends SetupMap
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->_regions      = new RegionArray();
 		$this->_superRegions = new RegionArray();
 	}
@@ -54,7 +54,7 @@ class Map extends SetupMap
 	 *
 	 * @todo test method!
 	 */
-	protected function _initialize()
+	public function initialize()
 	{
 		$this->_initializeSuperRegions();
 

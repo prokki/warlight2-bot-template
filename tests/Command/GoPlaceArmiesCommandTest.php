@@ -3,11 +3,10 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 {
@@ -16,7 +15,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   go	place_armies 		 9876543  	 	 ');
+		return CommandParser::Init()->run('   go	place_armies 		 9876543  	 	 ');
 	}
 
 	/**
@@ -37,7 +36,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		Parser::Init()->run('go place_armies');
+		CommandParser::Init()->run('go place_armies');
 	}
 
 	/**

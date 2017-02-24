@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
 
@@ -28,14 +28,14 @@ class GoAttackTransferCommand extends SetGlobalTimeComputableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, Player $player, Map $map)
+	public function compute($ai, Environment $environment)g
 	{
 		$moves = array();
 
-		foreach( $ai->getAttackTransferMoves($player, $map) as $_move )
+		foreach( $ai->getAttackTransferMoves($environment) as $_move )
 		{
 			/** @var TransferMove $_move */
-			array_push($moves, $this->_moveToString($player, $_move));
+			array_push($moves, $this->_moveToString($environment->getPlayer(), $_move));
 		}
 
 		return empty($moves) ? 'No moves' : implode(', ', $moves);

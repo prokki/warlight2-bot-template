@@ -2,17 +2,16 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 class SettingsStartingPickAmountCommand extends ReceivableIntCommand
 {
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
-		$player->setStartingPickAmount($this->_value);
+		$environment->getPlayer()->setStartingPickAmount($this->_value);
 	}
 
 }

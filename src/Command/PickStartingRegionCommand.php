@@ -3,8 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 
 /**
@@ -60,11 +59,11 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
-		$player->setGlobalTime($this->_time);
+		$environment->getPlayer()->setGlobalTime($this->_time);
 
-		$this->_setOpponentRegions($map, $player->getStartingRegions(), $this->_region_ids);
+		$this->_setOpponentRegions($environment->getMap(), $environment->getPlayer()->getStartingRegions(), $this->_region_ids);
 	}
 
 	/**
@@ -92,9 +91,9 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, Player $player, Map $map)
+	public function compute($ai, Environment $environment)
 	{
-		$picked_region_id = $ai->pickStartingRegion($player, $map, $this->_region_ids);
+		$picked_region_id = $ai->pickStartingRegion($environment, $this->_region_ids);
 
 		return $picked_region_id;
 	}

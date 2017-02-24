@@ -3,9 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class SetupMapWastelandsCommandTest extends CommandTest
 {
@@ -14,7 +13,7 @@ class SetupMapWastelandsCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   setup_map   wastelands     1 3    	5 ');
+		return CommandParser::Init()->run('   setup_map   wastelands     1 3    	5 ');
 	}
 
 	/**

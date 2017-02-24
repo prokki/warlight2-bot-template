@@ -2,8 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 abstract class SetGlobalTimeComputableCommandTest extends CommandTest
 {

@@ -3,11 +3,10 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 {
@@ -16,7 +15,7 @@ class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   setup_map   opponent_starting_regions     17			3');
+		return CommandParser::Init()->run('   setup_map   opponent_starting_regions     17			3');
 	}
 
 	/**

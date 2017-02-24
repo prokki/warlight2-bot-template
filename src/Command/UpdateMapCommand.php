@@ -3,8 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
 
 /**
@@ -53,17 +52,17 @@ class UpdateMapCommand extends ReceivableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
 		foreach( $this->_updates as $_player_name => $_regions )
 		{
-			foreach( $map->getRegions() as $__region_id => $__region )
+			foreach( $environment->getMap()->getRegions() as $__region_id => $__region )
 			{
 				/** @var Region $region */
 
 				if( array_key_exists($__region_id, $this->_updates) )
 				{
-					$__region_owner = self::_GetRegionOwnerByPlayerName($player, $this->_updates[ $__region_id ][ 'player_name' ]);
+					$__region_owner = self::_GetRegionOwnerByPlayerName($environment->getPlayer(), $this->_updates[ $__region_id ][ 'player_name' ]);
 
 					$__region->getState()->disableFog($this->_updates[ $__region_id ][ 'armies' ], $__region_owner);
 				}

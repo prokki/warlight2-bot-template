@@ -2,17 +2,16 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 class SettingsStartingArmiesCommand extends ReceivableIntCommand
 {
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
-		$player->setStartingArmies($this->_value);
+		$environment->getPlayer()->setStartingArmies($this->_value);
 	}
 
 }

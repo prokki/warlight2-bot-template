@@ -3,11 +3,10 @@
 namespace Prokki\Warlight2BotTemplate\Util;
 
 use Prokki\Warlight2BotTemplate\Command\ApplicableCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Command\Computable;
-use Prokki\Warlight2BotTemplate\Game\Player;
 
 define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
 
@@ -40,7 +39,7 @@ class Bot
 	protected $_output = null;
 
 	/**
-	 * @var Parser
+	 * @var CommandParser
 	 */
 	protected $_parser = null;
 
@@ -55,14 +54,9 @@ class Bot
 	protected $_argv = array();
 
 	/**
-	 * @var Player
+	 * @var Environment
 	 */
-	protected $_player = null;
-
-	/**
-	 * @var Map
-	 */
-	protected $_map = null;
+	protected $_environment = null;
 
 	/**
 	 * @var AIable
@@ -92,16 +86,16 @@ class Bot
 	 */
 	public function __construct($argc, $argv, $ai)
 	{
+		$this->_ai = $ai;
+
 		$this->_parseCliArguments($argc, $argv);
 
 		$this->_input  = fopen('php://stdin', 'r');
 		$this->_output = fopen('php://stdout', 'w');
 
-		$this->_parser = Parser::Init();
+		$this->_parser = CommandParser::Init();
 
-		$this->_player = new Player();
-		$this->_map    = new Map();
-		$this->_ai     = $ai;
+		$this->_environment = new Environment();
 	}
 
 	protected static function _Convert($size)
@@ -126,7 +120,7 @@ class Bot
 		$except = null;
 
 		// stream ends?
-		$eof = false;
+		$end_of_stream = false;
 
 		do
 		{
@@ -141,56 +135,73 @@ class Bot
 			foreach( $read as $_handle )
 			{
 
+
 				$time_start = self::_GetMicrotimeFloat();
 
 				$string = trim(fgets($_handle));
 
 				if( empty($string) )
 				{
-					$eof = true;
+					$end_of_stream = true;
 					continue;
 				}
 
 				self::Debug(sprintf("received: %s\n", $string));
 
-				$eof = feof($_handle);
+				$end_of_stream = feof($_handle);
 
-				$command = $this->_parser->run($string);
-
-//				self::Debug(get_class($command) . "\n");
-
-				/** @var ApplicableCommand $command */
-				$command->apply($this->_player, $this->_map);
-
-				if( !$this->_map->isInitialized() && $this->_map->canBeInitialized() )
+				try
 				{
-					$this->_map->initialize();
-				}
 
-				if( $command->isSendable() )
-				{
-					/** @var Computable $command */
-					$send = $command->compute($this->_ai, $this->_player);
+					$command = $this->_parser->run($string);
 
-					$duration = ( self::_GetMicrotimeFloat() - $time_start );
+					//				self::Debug(get_class($command) . "\n");
+
+					$command->apply($this->_environment);
+
+					if( !$this->_environment->getMap()->isInitialized() && $this->_environment->getMap()->canBeInitialized() )
+					{
+						$this->_environment->getMap()->initialize();
+					}
+
+					if( $command->isComputable() )
+					{
+						/** @var Computable $command */
+						$send = $command->compute($this->_ai, $this->_environment);
+
+						$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //					Client::Debug("TIME: " . $duration . "\n");
 
-					if( $duration < 5000 )
-					{
-						usleep(5000 - $duration); // wait until at least 1ms are gone
+						if( $duration < 5000 )
+						{
+							usleep(5000 - $duration); // wait until at least 1ms are gone
 
 //						$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //						Client::Debug("TIME: " . $duration . "\n");
+						}
+
+						fwrite($this->_output, $send . "\n");
+
+						self::Debug(sprintf("send: %s\n", $send));
 					}
 
-					fwrite($this->_output, $send . "\n");
+				}
+				catch( \Exception $exception )
+				{
+					self::Debug(sprintf("Exception:%s\n\n%s", $exception->getMessage(), $exception->getTraceAsString()));
 
-					self::Debug(sprintf("send: %s\n", $send));
+//					$send = "Aborting due an error :-(";
+
+//					fwrite($this->_output, $send . "\n");
+
+//					self::Debug(sprintf("send: %s\n", $send));
+
+					$end_of_stream = true;
 				}
 
 			}
 		}
-		while( !$eof && !empty($changed_streams) );
+		while( !$end_of_stream && !empty($changed_streams) );
 
 		self::Debug("MEM: " . self::_Convert(memory_get_usage(true)) . "\n");
 

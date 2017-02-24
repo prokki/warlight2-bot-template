@@ -3,14 +3,13 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class PickStartingRegionCommandTest extends CommandTest
 {
@@ -19,7 +18,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   pick_starting_region     1234567   3      4    	1  17   	');
+		return CommandParser::Init()->run('   pick_starting_region     1234567   3      4    	1  17   	');
 	}
 
 	/**
@@ -40,7 +39,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		Parser::Init()->run('pick_starting_region');
+		CommandParser::Init()->run('pick_starting_region');
 	}
 
 	/**
@@ -51,7 +50,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	public function testParserMissingArgumentsOneArgument()
 	{
-		Parser::Init()->run('pick_starting_region     10000   ');
+		CommandParser::Init()->run('pick_starting_region     10000   ');
 	}
 
 	/**
@@ -68,12 +67,11 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		$player->setStartingRegions([3, 4, 1, 17, 5, 6]);
+		$environment->getPlayer()->setStartingRegions([3, 4, 1, 17, 5, 6]);
 
-		$regions = $map->getRegions();
+		$regions = $environment->getMap()->getRegions();
 
 		$super_region = new SuperRegion(1, 7);
 
@@ -87,9 +85,9 @@ class PickStartingRegionCommandTest extends CommandTest
 		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
 
-		$this->_getTestCommand()->apply($player, $map);
+		$this->_getTestCommand()->apply($environment);
 
-		self::assertEquals(1234567, $player->getGlobalTime());
+		self::assertEquals(1234567, $environment->getPlayer()->getGlobalTime());
 		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(5)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
 	}

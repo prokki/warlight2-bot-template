@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Player;
 use Prokki\Warlight2BotTemplate\GamePlay\PlaceMove;
 
@@ -28,16 +28,16 @@ class GoPlaceArmiesCommand extends SetGlobalTimeComputableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, Player $player, Map $map)
+	public function compute($ai, Environment $environment)
 	{
 		$moves = array();
 
-		foreach( $ai->getPlaceMoves($player, $map) as $_move )
+		foreach( $ai->getPlaceMoves($environment) as $_move )
 		{
 			/** @var PlaceMove $_move */
-			array_push($moves, $this->_moveToString($player, $_move));
+			array_push($moves, $this->_moveToString($environment->getPlayer(), $_move));
 		}
-
+		
 		return empty($moves) ? 'No moves' : implode(', ', $moves);
 	}
 

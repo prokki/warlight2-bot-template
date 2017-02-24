@@ -2,8 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * Class SetupMapSuperRegionsCommand to initialize the super regions.
@@ -20,14 +19,14 @@ class SetupMapRegionsCommand extends ReceivableTupleIntListCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
 		foreach( $this->_value as $_id_region => $_id_super_region )
 		{
-			$map->addRegion($_id_region, $_id_super_region);
+			$environment->getMap()->addRegion($_id_region, $_id_super_region);
 		}
 
-		$map->getRegions()->setLoaded();
+		$environment->getMap()->finishAddingRegions();
 	}
 
 }

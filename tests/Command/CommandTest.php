@@ -13,7 +13,7 @@ abstract class CommandTest extends TestCase
 	abstract protected function _getTestCommand();
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Util\Parser::run()
+	 * @covers \Prokki\Warlight2BotTemplate\Util\CommandParser::run()
 	 */
 	abstract public function testParser();
 

@@ -12,7 +12,7 @@
 namespace Prokki\Warlight2BotTemplate\Test;
 
 use PHPUnit\Framework\TestCase;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class ParserTest extends TestCase
 {
@@ -23,7 +23,7 @@ class ParserTest extends TestCase
 	 */
 	public function testUnknownCommand()
 	{
-		$player = Parser::Init();
+		$player = CommandParser::Init();
 		$player->run("Lorem ipsum dolor sit amet [...]");
 	}
 }

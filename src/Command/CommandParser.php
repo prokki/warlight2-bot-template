@@ -1,41 +1,22 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\Util;
+namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Command\Command;
-use Prokki\Warlight2BotTemplate\Command\EmptyReceivableCommand;
-use Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand;
-use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
-use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsMaxRoundsCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsOpponentBotCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsStartingArmiesCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsStartingPickAmountCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsTimebankCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsTimePerMoveCommand;
-use Prokki\Warlight2BotTemplate\Command\SettingsYourBotCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand;
-use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand;
-use Prokki\Warlight2BotTemplate\Command\UpdateMapCommand;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
 
 /**
  * @link http://www.phptherightway.com/pages/Design-Patterns.html
  */
-class Parser
+class CommandParser
 {
 
 	/**
-	 * @var Parser
+	 * @var CommandParser
 	 */
 	private static $_Instance = null;
 
 	/**
-	 * @return Parser
+	 * @return CommandParser
 	 */
 	public static function Init()
 	{
@@ -84,7 +65,7 @@ class Parser
 		{
 			return new EmptyReceivableCommand();
 		}
-		
+
 
 		if( 1 === preg_match('/^([^\s]+)/si', $string, $matches) )
 		{

@@ -2,8 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * Class SettingsYourBotCommand to set/get the name of your bot.
@@ -15,9 +14,9 @@ class SettingsMaxRoundsCommand extends ReceivableIntCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
-		$player->setMaxRounds($this->_value);
+		$environment->getPlayer()->setMaxRounds($this->_value);
 	}
 
 }

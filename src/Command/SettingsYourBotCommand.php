@@ -2,8 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * Class SettingsYourBotCommand to set/get the name of your bot.
@@ -15,9 +14,9 @@ class SettingsYourBotCommand extends ReceivableStringCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map)
+	public function apply(Environment $environment)
 	{
-		$player->setName($this->_value);
+		$environment->getPlayer()->setName($this->_value);
 	}
 
 }

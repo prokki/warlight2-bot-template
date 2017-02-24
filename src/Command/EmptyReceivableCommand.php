@@ -2,8 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * A EmptyReceivableCommand command can be assigned to requests, that do not need to be handled.
@@ -19,5 +18,5 @@ class EmptyReceivableCommand extends Command
 	 *
 	 * @inheritdoc
 	 */
-	public function apply(Player $player, Map $map) { }
+	public function apply(Environment $environment) { }
 }

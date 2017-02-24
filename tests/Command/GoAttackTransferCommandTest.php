@@ -3,12 +3,11 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\GamePlay\AttackMove;
 use Prokki\Warlight2BotTemplate\GamePlay\TransferMove;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 {
@@ -17,7 +16,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   go	attack/transfer 		 9876543  	 	 ');
+		return CommandParser::Init()->run('   go	attack/transfer 		 9876543  	 	 ');
 	}
 
 	/**
@@ -38,7 +37,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		Parser::Init()->run('go attack/transfer');
+		CommandParser::Init()->run('go attack/transfer');
 	}
 
 	/**

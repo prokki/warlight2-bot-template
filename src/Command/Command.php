@@ -2,8 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * Class Command
@@ -14,12 +13,9 @@ abstract class Command
 {
 
 	/**
-	 * @param Player $player
-	 * @param Map    $map
-	 *
-	 * @return
+	 * @param Environment $environment
 	 */
-	abstract public function apply(Player $player, Map $map);
+	abstract public function apply(Environment $environment);
 
 	/**
 	 * Returns `true` if the command is computable (has method `compute()`, see interface {@see Computable), else `false`.

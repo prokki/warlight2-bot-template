@@ -166,7 +166,7 @@ class SetupMap implements Initializeable
 	 */
 	public function finishAddingRegions()
 	{
-		$this->_superRegionIds->setLoaded();
+		$this->_regionIds->setLoaded();
 	}
 
 	/**

@@ -3,9 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapNeighborsCommand;
-use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Game\Player;
-use Prokki\Warlight2BotTemplate\Util\Parser;
+use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\Warlight2BotTemplate\Util\CommandParser;
 
 class SetupMapNeighborsCommandTest extends CommandTest
 {
@@ -14,7 +13,7 @@ class SetupMapNeighborsCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return Parser::Init()->run('   setup_map   neighbors     1 2,3, 4 , 6 2 3 4    5,6   ');
+		return CommandParser::Init()->run('   setup_map   neighbors     1 2,3, 4 , 6 2 3 4    5,6   ');
 	}
 
 	/**
@@ -35,7 +34,7 @@ class SetupMapNeighborsCommandTest extends CommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		Parser::Init()->run('setup_map neighbors 1 2,3,4 2');
+		CommandParser::Init()->run('setup_map neighbors 1 2,3,4 2');
 	}
 
 	/**
