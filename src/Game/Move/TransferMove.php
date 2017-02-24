@@ -36,10 +36,10 @@ class TransferMove extends PlaceMove
 	/**
 	 * @inheritdoc
 	 */
-	public function _toResponseString(Player $player)
+	public function _toResponseString($player_name)
 	{
 		return sprintf("%s attack/transfer %d %d %d",
-			$player->getName(),
+			$player_name,
 			$this->getSourceRegionId(),
 			$this->getDestinationRegionId(),
 			$this->getArmies()

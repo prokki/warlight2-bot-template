@@ -131,8 +131,7 @@ class Region
 	{
 		return $this->_neighbors;
 	}
-
-
+	
 	/**
 	 * @return RegionState
 	 */

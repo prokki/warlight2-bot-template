@@ -5,6 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
+use Prokki\Warlight2BotTemplate\Game\RegionState;
 
 /**
  * Class UpdateMapCommand to initialize the super regions.
@@ -19,6 +20,31 @@ class UpdateMapCommand extends ReceivableCommand
 	 * @var (mixed[])[]
 	 */
 	protected $_updates = array();
+
+	/**
+	 * Returns the region owner as constant (integer) by the given player's name.
+	 *
+	 * @param string $name   the player name to convert (i.e. `player1`, `player2`, `neutral`)
+	 * @param Player $player the player object to execute comparision of player names
+	 *
+	 * @return integer
+	 *
+	 * @throws ParserException
+	 */
+	protected static function _GetRegionOwnerByPlayerName($name, $player)
+	{
+		switch( $name )
+		{
+			case 'neutral':
+				return RegionState::OWNER_NEUTRAL;
+			case $player->getName():
+				return RegionState::OWNER_ME;
+			case $player->getNameOpponent():
+				return RegionState::OWNER_OPPONENT;
+			default:
+				throw ParserException::UnknownPlayerName($name);
+		}
+	}
 
 	/**
 	 * @inheritdoc
@@ -62,7 +88,7 @@ class UpdateMapCommand extends ReceivableCommand
 
 				if( array_key_exists($__region_id, $this->_updates) )
 				{
-					$__region_owner = self::_GetRegionOwnerByPlayerName($environment->getPlayer(), $this->_updates[ $__region_id ][ 'player_name' ]);
+					$__region_owner = self::_GetRegionOwnerByPlayerName($this->_updates[ $__region_id ][ 'player_name' ], $environment->getPlayer());
 
 					$__region->getState()->disableFog($this->_updates[ $__region_id ][ 'armies' ], $__region_owner);
 				}

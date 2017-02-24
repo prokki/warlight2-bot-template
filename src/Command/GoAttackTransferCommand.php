@@ -34,7 +34,7 @@ class GoAttackTransferCommand extends SetGlobalTimeComputableCommand
 		foreach( $ai->getAttackTransferMoves($environment) as $_move )
 		{
 			/** @var TransferMove $_move */
-			array_push($moves, $_move->_toResponseString($environment->getPlayer()));
+			array_push($moves, $_move->_toResponseString($environment->getPlayer()->getName()));
 		}
 
 		return empty($moves) ? 'No moves' : implode(', ', $moves);

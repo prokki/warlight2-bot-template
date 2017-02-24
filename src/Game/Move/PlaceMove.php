@@ -40,8 +40,8 @@ class PlaceMove extends PickMove
 	/**
 	 * @inheritdoc
 	 */
-	public function _toResponseString(Player $player)
+	public function _toResponseString($player_name)
 	{
-		return sprintf("%s place_armies %d %s", $player->getName(), $this->getDestinationRegionId(), $this->getArmies());
+		return sprintf("%s place_armies %d %s", $player_name, $this->getDestinationRegionId(), $this->getArmies());
 	}
 }

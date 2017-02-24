@@ -100,6 +100,6 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 		$environment->getCurrentRound()->addMove($pick_move);
 
 		// return my move as command
-		return $pick_move->_toResponseString($environment->getPlayer());
+		return $pick_move->_toResponseString($environment->getPlayer()->getName());
 	}
 }

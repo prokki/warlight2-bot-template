@@ -34,7 +34,7 @@ class GoPlaceArmiesCommand extends SetGlobalTimeComputableCommand
 		foreach( $ai->getPlaceMoves($environment) as $_move )
 		{
 			/** @var PlaceMove $_move */
-			array_push($moves, $_move->_toResponseString($environment->getPlayer()));
+			array_push($moves, $_move->_toResponseString($environment->getPlayer()->getName()));
 		}
 
 		return empty($moves) ? 'No moves' : implode(', ', $moves);

@@ -41,7 +41,7 @@ class PickMove implements Move
 	/**
 	 * @inheritdoc
 	 */
-	public function _toResponseString(Player $player)
+	public function _toResponseString($player_name)
 	{
 		return sprintf("%d", $this->getDestinationRegionId());
 	}
