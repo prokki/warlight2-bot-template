@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingPickAmountCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class SettingsStartingPickAmountCommandTest extends CommandTest
 {
@@ -36,11 +36,10 @@ class SettingsStartingPickAmountCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		self::assertEquals(0, $player->getStartingPickAmount());
-		$this->_getTestCommand()->apply($player, $map);
-		self::assertEquals(27, $player->getStartingPickAmount());
+		self::assertEquals(0, $environment->getPlayer()->getStartingPickAmount());
+		$this->_getTestCommand()->apply($environment);
+		self::assertEquals(27, $environment->getPlayer()->getStartingPickAmount());
 	}
 }

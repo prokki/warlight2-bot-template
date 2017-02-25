@@ -21,7 +21,7 @@ class EmptyReceivableCommandTest extends CommandTest
 	 */
 	public function testParser()
 	{
-		$this->markTestSkipped('Parser can not return an EmptyReceivableCommand at any time.');
+		// test not possible because the EmptyReceivableCommand is for testing or not implemented requests
 	}
 
 	/**
@@ -30,6 +30,6 @@ class EmptyReceivableCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		self::assertEmpty($this->_getTestCommand()->apply(new Player(), new Map()));
+		self::assertEmpty($this->_getTestCommand()->apply(new Environment()));
 	}
 }

@@ -4,12 +4,12 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
-use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class PickStartingRegionCommandTest extends CommandTest
 {
@@ -75,8 +75,7 @@ class PickStartingRegionCommandTest extends CommandTest
 
 		$super_region = new SuperRegion(1, 7);
 
-		for( $_i = 1; $_i <= 20; $_i++ )
-		{
+		for ($_i = 1; $_i <= 20; $_i++) {
 			$regions->offsetSet($_i, new Region($_i, $super_region));
 		}
 
@@ -88,7 +87,7 @@ class PickStartingRegionCommandTest extends CommandTest
 		$this->_getTestCommand()->apply($environment);
 
 		self::assertEquals(1234567, $environment->getPlayer()->getGlobalTime());
-		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(5)->getState()->getOwner());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
 	}
 
@@ -106,12 +105,11 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	public function testCompute()
 	{
-		$player = new Player();
-		$map    = new SetupMap();
-		$ai     = $this->createMock(AIable::class);
+		$environment = new Environment();
+		$ai = $this->createMock(AIable::class);
 
-		$ai->method('pickStartingRegion')->willReturn(3);
+		$ai->method('getPickMove')->willReturn(new PickMove(3));
 
-		$this->assertEquals(3, $this->_getTestCommand()->compute($ai, $player, $map));
+		$this->assertEquals(3, $this->_getTestCommand()->compute($ai, $environment));
 	}
 }

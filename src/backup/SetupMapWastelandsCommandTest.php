@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapWastelandsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class SetupMapWastelandsCommandTest extends CommandTest
 {
@@ -36,18 +36,17 @@ class SetupMapWastelandsCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 		
-		self::assertEmpty($map->getWastelands());
-		self::assertFalse($map->getWastelands()->isLoaded());
+		self::assertEmpty($environment->getMap()->getWastelands());
+		self::assertFalse($environment->getMap()->getWastelands()->isLoaded());
 
-		$this->_getTestCommand()->apply($player, $map);
+		$this->_getTestCommand()->apply($environment);
 
-		self::assertTrue($map->getWastelands()->isLoaded());
-		self::assertEquals(3, count($map->getWastelands()));
+		self::assertTrue($environment->getMap()->getWastelands()->isLoaded());
+		self::assertEquals(3, count($environment->getMap()->getWastelands()));
 
-		self::assertEmpty(array_diff($map->getWastelands()->getArrayCopy(), [5, 3, 1]));
-		self::assertEmpty(array_diff([3, 1, 5], $map->getWastelands()->getArrayCopy()));
+		self::assertEmpty(array_diff($environment->getMap()->getWastelands()->getArrayCopy(), [5, 3, 1]));
+		self::assertEmpty(array_diff([3, 1, 5], $environment->getMap()->getWastelands()->getArrayCopy()));
 	}
 }

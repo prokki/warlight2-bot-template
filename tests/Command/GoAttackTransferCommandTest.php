@@ -7,7 +7,7 @@ use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 {
@@ -49,32 +49,15 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand::_moveToString()
-	 */
-	public function testMoveToString()
-	{
-		$player = new Player();
-		$player->setName("ßäöü");
-
-		$move = new AttackMove(-17, 7, -999);
-
-		$reflection_method = new \ReflectionMethod(GoAttackTransferCommand::class, '_moveToString');
-		$reflection_method->setAccessible(true);
-
-		self::assertEquals('ßäöü attack/transfer -17 7 -999', $reflection_method->invokeArgs($this->_getTestCommand(), array($player, $move)));
-	}
-
-	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand::compute()
 	 */
 	public function testComputeNoMoves()
 	{
-		$player = new Player();
-		$map    = new Map();
-		$ai     = $this->createMock(AIable::class);
+		$environment = new Environment();
+		$ai = $this->createMock(AIable::class);
 
 		$ai->method('getAttackTransferMoves')->willReturn(array());
-		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $player, $map));
+		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $environment));
 	}
 
 	/**
@@ -82,9 +65,8 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	public function testCompute()
 	{
-		$player = new Player();
-		$map    = new Map();
-		$ai     = $this->createMock(AIable::class);
+		$environment = new Environment();
+		$ai = $this->createMock(AIable::class);
 
 		$ai->method('getAttackTransferMoves')->willReturn([
 			new TransferMove(1, 2, 17),
@@ -94,7 +76,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 			new AttackMove(3, 4, 6),
 		]);
 
-		$method_result = $this->_getTestCommand()->compute($ai, $player, $map);
+		$method_result = $this->_getTestCommand()->compute($ai, $environment);
 
 		// five moves
 		$this->assertEquals(5, count(explode(',', $method_result)));

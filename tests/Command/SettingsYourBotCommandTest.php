@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsYourBotCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class SettingsYourBotCommandTest extends CommandTest
 {
@@ -36,11 +36,10 @@ class SettingsYourBotCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		self::assertEquals('', $player->getName());
-		$this->_getTestCommand()->apply($player, $map);
-		self::assertEquals('aéß3 bsÜä" \' 	  ßc', $player->getName());
+		self::assertEquals('', $environment->getPlayer()->getName());
+		$this->_getTestCommand()->apply($environment);
+		self::assertEquals('aéß3 bsÜä" \' 	  ßc', $environment->getPlayer()->getName());
 	}
 }

@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class SettingsStartingRegionsCommandTest extends CommandTest
 {
@@ -36,14 +36,13 @@ class SettingsStartingRegionsCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		self::assertEmpty($player->getStartingRegions());
+		self::assertEmpty($environment->getPlayer()->getStartingRegions());
 
-		$this->_getTestCommand()->apply($player, $map);
+		$this->_getTestCommand()->apply($environment);
 
-		self::assertEmpty(array_diff($player->getStartingRegions(), [5, 3, 1]));
-		self::assertEmpty(array_diff([3, 1, 5], $player->getStartingRegions()));
+		self::assertEmpty(array_diff($environment->getPlayer()->getStartingRegions(), [5, 3, 1]));
+		self::assertEmpty(array_diff([3, 1, 5], $environment->getPlayer()->getStartingRegions()));
 	}
 }

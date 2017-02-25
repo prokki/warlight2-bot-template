@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class SetupMapSuperRegionsCommandTest extends CommandTest
 {
@@ -50,20 +50,19 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		self::assertEmpty($map->getSuperRegions());
-		self::assertFalse($map->getSuperRegions()->isLoaded());
+		self::assertEmpty($environment->getMap()->getSuperRegions());
+		self::assertFalse($environment->getMap()->getSuperRegions()->isLoaded());
 
-		$this->_getTestCommand()->apply($player, $map);
+		$this->_getTestCommand()->apply($environment);
 
-		self::assertTrue($map->getSuperRegions()->isLoaded());
-		self::assertEquals(3, count($map->getSuperRegions()));
-		self::assertArrayHasKey(1, $map->getSuperRegions());
-		self::assertTrue($map->hasSuperRegion(17));
-		self::assertTrue($map->hasSuperRegion(4));
-		self::assertInternalType('integer', $map->getSuperRegions()->offsetGet(17)->getBonusArmies());
-		self::assertEquals(3, $map->getSuperRegions()->offsetGet(17)->getBonusArmies());
+		self::assertTrue($environment->getMap()->getSuperRegions()->isLoaded());
+		self::assertEquals(3, count($environment->getMap()->getSuperRegions()));
+		self::assertArrayHasKey(1, $environment->getMap()->getSuperRegions());
+		self::assertTrue($environment->getMap()->hasSuperRegion(17));
+		self::assertTrue($environment->getMap()->hasSuperRegion(4));
+		self::assertInternalType('integer', $environment->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
+		self::assertEquals(3, $environment->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
 	}
 }

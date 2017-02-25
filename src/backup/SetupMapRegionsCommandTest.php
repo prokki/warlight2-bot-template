@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapRegionsCommand;
 use Prokki\Warlight2BotTemplate\Game\Map;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 use Prokki\Warlight2BotTemplate\Game\Player;
 
 class SetupMapRegionsCommandTest extends CommandTest
@@ -49,18 +49,17 @@ class SetupMapRegionsCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		self::assertEmpty($map->getRegions());
-		self::assertFalse($map->getRegions()->isLoaded());
+		self::assertEmpty($environment->getMap()->getRegions());
+		self::assertFalse($environment->getMap()->getRegions()->isLoaded());
 
-		$this->_getTestCommand()->apply($player, $map);
+		$this->_getTestCommand()->apply($environment);
 
-		self::assertTrue($map->getRegions()->isLoaded());
-		self::assertEquals(3, count($map->getRegions()));
-		self::assertArrayHasKey(1, $map->getRegions());
-		self::assertTrue($map->getRegions()->offsetExists(17));
-		self::assertTrue($map->getRegions()->offsetExists(4));
+		self::assertTrue($environment->getMap()->getRegions()->isLoaded());
+		self::assertEquals(3, count($environment->getMap()->getRegions()));
+		self::assertArrayHasKey(1, $environment->getMap()->getRegions());
+		self::assertTrue($environment->getMap()->getRegions()->offsetExists(17));
+		self::assertTrue($environment->getMap()->getRegions()->offsetExists(4));
 	}
 }

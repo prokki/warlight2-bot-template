@@ -6,7 +6,7 @@ use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\GamePlay\AIable;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 {
@@ -48,32 +48,15 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::_moveToString()
-	 */
-	public function testMoveToString()
-	{
-		$player = new Player();
-		$player->setName("ßäöü");
-
-		$move = new PlaceMove(7, -999);
-
-		$reflection_method = new \ReflectionMethod(GoPlaceArmiesCommand::class, '_moveToString');
-		$reflection_method->setAccessible(true);
-
-		self::assertEquals('ßäöü place_armies 7 -999', $reflection_method->invokeArgs($this->_getTestCommand(), array($player, $move)));
-	}
-
-	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand::compute()
 	 */
 	public function testComputeNoMoves()
 	{
-		$player = new Player();
-		$map    = new Map();
-		$ai     = $this->createMock(AIable::class);
+		$environment = new Environment();
+		$ai = $this->createMock(AIable::class);
 
 		$ai->method('getPlaceMoves')->willReturn(array());
-		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $player, $map));
+		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $environment));
 	}
 
 	/**
@@ -81,9 +64,8 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	public function testCompute()
 	{
-		$player = new Player();
-		$map    = new Map();
-		$ai     = $this->createMock(AIable::class);
+		$environment = new Environment();
+		$ai = $this->createMock(AIable::class);
 
 		$ai->method('getPlaceMoves')->willReturn([
 			new PlaceMove(1, 2, 17),
@@ -92,7 +74,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 		]);
 
 		// call method
-		$method_result = $this->_getTestCommand()->compute($ai, $player, $map);
+		$method_result = $this->_getTestCommand()->compute($ai, $environment);
 
 		// three moves
 		$this->assertEquals(3, count(explode(',', $method_result)));

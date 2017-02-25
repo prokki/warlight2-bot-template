@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsMaxRoundsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class SettingsMaxRoundsCommandTest extends CommandTest
 {
@@ -36,11 +36,10 @@ class SettingsMaxRoundsCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 		
-		self::assertEquals(0, $player->getMaxRounds());
-		$this->_getTestCommand()->apply($player, $map);
-		self::assertEquals(124654, $player->getMaxRounds());
+		self::assertEquals(0, $environment->getPlayer()->getMaxRounds());
+		$this->_getTestCommand()->apply($environment);
+		self::assertEquals(124654, $environment->getPlayer()->getMaxRounds());
 	}
 }

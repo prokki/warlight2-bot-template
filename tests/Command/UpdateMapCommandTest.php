@@ -2,15 +2,62 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Command;
 
+use Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand;
 use Prokki\Warlight2BotTemplate\Command\UpdateMapCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class UpdateMapCommandTest extends CommandTest
 {
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableCommand::_GetRegionOwnerByPlayerName()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getName()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setName()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::setNameOpponent()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Setting::getNameOpponent()
+	 */
+	public function testGetRegionOwnerByPlayerName()
+	{
+		$player_me = rand_string(rand(4, 40));
+		$player_opponent = rand_string(rand(4, 40));
+
+		$environment = new Environment();
+
+		$environment->getPlayer()->setName($player_me);
+		$environment->getPlayer()->setNameOpponent($player_opponent);
+
+		$reflection_method = new \ReflectionMethod(UpdateMapCommand::class, '_GetRegionOwnerByPlayerName');
+		$reflection_method->setAccessible(true);
+
+		$some_command_object = new PickStartingRegionCommand('setup_map', '3 4');
+
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $reflection_method->invokeArgs($some_command_object, array('neutral', $environment->getPlayer())));
+		self::assertEquals(RegionState::OWNER_ME, $reflection_method->invokeArgs($some_command_object, array($player_me, $environment->getPlayer())));
+		self::assertEquals(RegionState::OWNER_OPPONENT, $reflection_method->invokeArgs($some_command_object, array($player_opponent, $environment->getPlayer())));
+	}
+
+	/**
+	 *
+	 * @covers \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_GetRegionOwnerByPlayerName()
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedExceptionCode 105
+	 *
+	 */
+	public function testGetRegionOwnerByPlayerNameWithException()
+	{
+		$environment = new Environment();
+
+		$some_command_object = new UpdateMapCommand('update_map', '1 player1 6');
+
+		$reflection_method = new \ReflectionMethod($some_command_object, '_GetRegionOwnerByPlayerName');
+		$reflection_method->setAccessible(true);
+
+		$reflection_method->invokeArgs($some_command_object, array(rand_string(rand(4, 40)), $environment->getPlayer()));
+	}
+
 	/**
 	 * @return UpdateMapCommand
 	 */
@@ -59,31 +106,29 @@ class UpdateMapCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
 		$super_region = new SuperRegion(1, 7);
 
-		$player
+		$environment->getPlayer()
 			->setName('player1')
 			->setNameOpponent('player2');
 
-		$regions = $map->getRegions();
+		$regions = $environment->getMap()->getRegions();
 
-		for( $_i = 1; $_i <= 20; $_i++ )
-		{
+		for ($_i = 1; $_i <= 20; $_i++) {
 			$regions->offsetSet($_i, new Region($_i, $super_region));
 		}
 
-		$this->_getTestCommand()->apply($player, $map);
+		$this->_getTestCommand()->apply($environment);
 
-		self::assertEquals(RegionState::OWNER_ME, $map->getRegion(1)->getState()->getOwner());
-		self::assertEquals(6, $map->getRegion(1)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_ME, $environment->getMap()->getRegion(1)->getState()->getOwner());
+		self::assertEquals(6, $environment->getMap()->getRegion(1)->getState()->getArmies());
 
-		self::assertEquals(RegionState::OWNER_OPPONENT, $map->getRegion(3)->getState()->getOwner());
-		self::assertEquals(2, $map->getRegion(3)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_OPPONENT, $environment->getMap()->getRegion(3)->getState()->getOwner());
+		self::assertEquals(2, $environment->getMap()->getRegion(3)->getState()->getArmies());
 
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $map->getRegion(4)->getState()->getOwner());
-		self::assertEquals(7, $map->getRegion(4)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $environment->getMap()->getRegion(4)->getState()->getOwner());
+		self::assertEquals(7, $environment->getMap()->getRegion(4)->getState()->getArmies());
 	}
 }

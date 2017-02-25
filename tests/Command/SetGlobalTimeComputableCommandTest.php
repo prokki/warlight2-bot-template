@@ -17,11 +17,10 @@ abstract class SetGlobalTimeComputableCommandTest extends CommandTest
 	 */
 	public function testApply()
 	{
-		$player = new Player();
-		$map    = new Map();
+		$environment = new Environment();
 
-		self::assertEquals(0, $player->getGlobalTime());
-		$this->_getTestCommand()->apply($player, $map);
-		self::assertEquals(9876543, $player->getGlobalTime());
+		self::assertEquals(0, $environment->getPlayer()->getGlobalTime());
+		$this->_getTestCommand()->apply($environment);
+		self::assertEquals(9876543, $environment->getPlayer()->getGlobalTime());
 	}
 }

@@ -12,7 +12,7 @@
 namespace Prokki\Warlight2BotTemplate\Test;
 
 use PHPUnit\Framework\TestCase;
-use Prokki\Warlight2BotTemplate\Util\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\CommandParser;
 
 class ParserTest extends TestCase
 {
