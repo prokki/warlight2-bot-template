@@ -20,6 +20,14 @@ class InitializationException extends \Exception
 	/**
 	 * @return InitializationException
 	 */
+	public static function MapAlreadyInitialized()
+	{
+		return new self("The map was already initialized.", 202);
+	}
+
+	/**
+	 * @return InitializationException
+	 */
 	public static function MapInitializationFailed()
 	{
 		return new self("Not all regions could be initialized.", 202);

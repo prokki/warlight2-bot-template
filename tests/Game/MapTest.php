@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\Test\Map;
+namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use PHPUnit\Framework\TestCase;
 use Prokki\Warlight2BotTemplate\Game\Map;
@@ -9,19 +9,12 @@ use Prokki\Warlight2BotTemplate\Game\RegionState;
 class MapTest extends TestCase
 {
 
-	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::getRegion()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegion()
-	 * 
-	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::setOwner()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
-	 */
 	public function testGetRegion()
 	{
 		$map = new Map();
 
 		$map->addSuperRegion(1, 1);
-		
+
 		$map->addRegion(1, 1);
 		$map->addRegion(2, 1);
 		$map->addRegion(3, 1);
@@ -36,7 +29,7 @@ class MapTest extends TestCase
 		$map->getRegion(3)->getState()->setOwner(RegionState::OWNER_ME);
 		$map->getRegion(4)->getState()->setOwner(RegionState::OWNER_OPPONENT);
 		$map->getRegion(5)->getState()->setOwner(RegionState::OWNER_OPPONENT);
-		
+
 		self::assertEquals(6, count($map->getRegions()));
 		self::assertEquals(RegionState::OWNER_UNKNOWN, $map->getRegion(1)->getState()->getOwner());
 		self::assertEquals(RegionState::OWNER_ME, $map->getRegion(3)->getState()->getOwner());

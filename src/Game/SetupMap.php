@@ -7,6 +7,14 @@ use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 use Prokki\Warlight2BotTemplate\Util\ArrayObject\LoadedArray;
 use Prokki\Warlight2BotTemplate\Util\Initializeable;
 
+/**
+ * This class is used for two cases:
+ * 1. To encapsulate starting `setup map` requests from common map behavior (i.e. {@see \Prokki\Warlight2BotTemplate\Game\Map::getRegions()}.
+ * 2. To ensure the map cn be cloned with copied object (instead of same references)
+ *    by calling {@see \Prokki\Warlight2BotTemplate\Game\Map::initialize()}.
+ *
+ * @package Prokki\Warlight2BotTemplate\Game
+ */
 class SetupMap implements Initializeable
 {
 	/**
@@ -73,15 +81,15 @@ class SetupMap implements Initializeable
 
 	public function __construct()
 	{
-		$this->_superRegionIds    = new LoadedArray();
-		$this->_regionIds         = new LoadedArray();
+		$this->_superRegionIds = new LoadedArray();
+		$this->_regionIds = new LoadedArray();
 		$this->_neighborRegionIds = new LoadedArray();
-		$this->_wastelandIds      = new LoadedArray();
+		$this->_wastelandIds = new LoadedArray();
 	}
 
 	/**
 	 * @param integer $super_region_id super region id
-	 * @param integer $bonus_armies    [optional] reward bonus armies, if all regions of this super region is occupied by one player
+	 * @param integer $bonus_armies [optional] reward bonus armies, if all regions of this super region is occupied by one player
 	 *
 	 * @throws InitializationException
 	 *
@@ -98,7 +106,7 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 * @param integer $region_id       unique region id
+	 * @param integer $region_id unique region id
 	 * @param integer $super_region_id id of the associated super region
 	 *
 	 * @throws InitializationException
@@ -119,7 +127,7 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 * @param integer   $region_id            id of the region
+	 * @param integer $region_id id of the region
 	 * @param integer[] $neighbour_region_ids of neighbour regions
 	 *
 	 * @throws RuntimeException
@@ -131,10 +139,10 @@ class SetupMap implements Initializeable
 		$neighbor_regions = $this->_neighborRegionIds->offsetExists($region_id) ?
 			$this->_neighborRegionIds->offsetGet($region_id) :
 			array();
-		
-		$neighbor_regions = array_merge($neighbor_regions, $neighbour_region_ids);
 
-		$this->_neighborRegionIds[ $region_id ] = $neighbor_regions;
+		$neighbor_regions = array_unique(array_merge($neighbor_regions, $neighbour_region_ids));
+
+		$this->_neighborRegionIds->offsetSet($region_id, $neighbor_regions);
 	}
 
 	/**
@@ -142,11 +150,6 @@ class SetupMap implements Initializeable
 	 */
 	public function addWasteland($region_id)
 	{
-		if( $this->_wastelandIds->offsetExists($region_id) )
-		{
-//			throw InitializationException::
-		}
-
 		$this->_wastelandIds->offsetSet($region_id, $region_id);
 	}
 
@@ -167,13 +170,15 @@ class SetupMap implements Initializeable
 	 *
 	 * Be sure to call this method if the map is not initialized yet, otherwise an error wil be thrown.
 	 *
-	 * @return boolean
+	 * @return bool
+	 *
+	 * @throws InitializationException
 	 */
 	protected function _tryToInitialize()
 	{
 		if( $this->_initialized )
 		{
-			// throw error!
+			throw InitializationException::MapAlreadyInitialized();
 		}
 
 		if( !$this->_superRegionIds->isLoaded()
