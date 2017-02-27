@@ -122,13 +122,13 @@ class UpdateMapCommandTest extends CommandTest
 
 		$this->_getTestCommand()->apply($environment);
 
-		self::assertEquals(RegionState::OWNER_ME, $environment->getMap()->getRegion(1)->getState()->getOwner());
-		self::assertEquals(6, $environment->getMap()->getRegion(1)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_ME, $environment->getMap()->getRegion(1)->getOwner());
+		self::assertEquals(6, $environment->getMap()->getRegion(1)->getArmies());
 
-		self::assertEquals(RegionState::OWNER_OPPONENT, $environment->getMap()->getRegion(3)->getState()->getOwner());
-		self::assertEquals(2, $environment->getMap()->getRegion(3)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_OPPONENT, $environment->getMap()->getRegion(3)->getOwner());
+		self::assertEquals(2, $environment->getMap()->getRegion(3)->getArmies());
 
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $environment->getMap()->getRegion(4)->getState()->getOwner());
-		self::assertEquals(7, $environment->getMap()->getRegion(4)->getState()->getArmies());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $environment->getMap()->getRegion(4)->getOwner());
+		self::assertEquals(7, $environment->getMap()->getRegion(4)->getArmies());
 	}
 }

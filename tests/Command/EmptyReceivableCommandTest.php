@@ -16,12 +16,11 @@ class EmptyReceivableCommandTest extends CommandTest
 	}
 
 	/**
-	 *
 	 * @inheritdoc
 	 */
 	public function testParser()
 	{
-		// test not possible because the EmptyReceivableCommand is for testing or not implemented requests
+		self::assertTrue(true);
 	}
 
 	/**

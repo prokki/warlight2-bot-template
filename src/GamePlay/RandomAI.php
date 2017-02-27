@@ -23,7 +23,7 @@ class RandomAI implements AIable
 
 		$region = $environment->getMap()->getRegion($region_ids[ $index ]);
 
-		$region->getState()->setOwner(RegionState::OWNER_ME);
+		$region->»getState()->setOwner(RegionState::OWNER_ME);
 
 		return new PickMove($region->getId());
 	}
@@ -76,7 +76,7 @@ class RandomAI implements AIable
 		{
 
 			/** @var Region $_source_region */
-			if( $_source_region->getState()->getArmies() <= 1 || !in_array($seq_region, $chosen_source_seq) )
+			if( $_source_region->getArmies() <= 1 || !in_array($seq_region, $chosen_source_seq) )
 			{
 				++$seq_region;
 
@@ -98,9 +98,9 @@ class RandomAI implements AIable
 					continue;
 				}
 
-				array_push($moves, ( $__destination_region->getState()->getOwner() === RegionState::OWNER_ME ) ?
-					new TransferMove($_source_region->getId(), $__destination_region->getId(), $_source_region->getState()->getArmies() - 1) :
-					new AttackMove($_source_region->getId(), $__destination_region->getId(), $_source_region->getState()->getArmies() - 1)
+				array_push($moves, ( $__destination_region->getOwner() === RegionState::OWNER_ME ) ?
+					new TransferMove($_source_region->getId(), $__destination_region->getId(), $_source_region->getArmies() - 1) :
+					new AttackMove($_source_region->getId(), $__destination_region->getId(), $_source_region->getArmies() - 1)
 				);
 
 				++$_seq_destination;

@@ -33,7 +33,7 @@ class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapOpponentStartingRegionsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableIntListCommand::_parseArguments()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Region::getState()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Region::»getState()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionState::setOwner()
 	 *
@@ -52,14 +52,14 @@ class SetupMapOpponentStartingRegionsCommandTest extends CommandTest
 			$regions->offsetSet($_i, new Region($_i, $super_region));
 		}
 
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(3)->getState()->getOwner());
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(17)->getState()->getOwner());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(3)->getOwner());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getOwner());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(17)->getOwner());
 
 //		$this->_getTestCommand()->apply($environment);
 //
-//		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(3)->getState()->getOwner());
-//		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
-//		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(17)->getState()->getOwner());
+//		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(3)->getOwner());
+//		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getOwner());
+//		self::assertEquals(RegionState::OWNER_OPPONENT, $regions->offsetGet(17)->getOwner());
 	}
 }

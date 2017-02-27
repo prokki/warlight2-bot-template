@@ -125,19 +125,13 @@ class Region
 	}
 
 	/**
+	 * Returns all neighbor regions.
+	 *
 	 * @return RegionArray
 	 */
 	public function getNeighbors()
 	{
 		return $this->_neighbors;
-	}
-	
-	/**
-	 * @return RegionState
-	 */
-	public function getState()
-	{
-		return $this->_state;
 	}
 
 	/**
@@ -150,17 +144,67 @@ class Region
 	 */
 	public function setWasteland()
 	{
-		return $this->getState()->disableFog(6, self::OWNER_NEUTRAL);
+		return $this->»getState()->disableFog(6, self::OWNER_NEUTRAL);
 	}
 
 	/**
-	 * @param RegionState $state
+	 * Returns the state (fog, owner, armies).
 	 *
-	 * @return $this
+	 * Attention: Call method only by {@see \Prokki\Warlight2BotTemplate\Game\Map::__clone()} method and during the ap setup process to set state properties.
+	 *
+	 * @return RegionState
 	 */
-	public function setState(RegionState $state)
+	public function »getState()
+	{
+		return $this->_state;
+	}
+
+	/**
+	 * Sets the state.
+	 *
+	 * Attention: Call method only by {@see \Prokki\Warlight2BotTemplate\Game\Map::__clone()} method.
+	 *
+	 * @param RegionState $state
+	 */
+	public function »setState(RegionState $state)
 	{
 		$this->_state = $state;
-		return $this;
 	}
+
+	/**
+	 * Returns `true` if the region is located in fog, else `false`.
+	 *
+	 * Wrapper method for {@see \Prokki\Warlight2BotTemplate\Game\Region::getState()}::{@see \Prokki\Warlight2BotTemplate\Game\RegionState::isFog()}.
+	 *
+	 * @return boolean
+	 */
+	public function isFog()
+	{
+		return $this->_state->isFog();
+	}
+
+	/**
+	 * Returns the current owner of the region.
+	 *
+	 * Wrapper method for {@see \Prokki\Warlight2BotTemplate\Game\Region::getState()}::{@see \Prokki\Warlight2BotTemplate\Game\RegionState::getOwner()}.
+	 *
+	 * @return integer
+	 */
+	public function getOwner()
+	{
+		return $this->_state->getOwner();
+	}
+
+	/**
+	 * Returns the armies placed on the region.
+	 *
+	 * Wrapper method for {@see \Prokki\Warlight2BotTemplate\Game\Region::getState()}::{@see \Prokki\Warlight2BotTemplate\Game\RegionState::getArmies()}.
+	 *
+	 * @return integer
+	 */
+	public function getArmies()
+	{
+		return $this->_state->getArmies();
+	}
+
 }

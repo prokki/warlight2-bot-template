@@ -1,6 +1,7 @@
 <?php
 
 namespace Prokki\Warlight2BotTemplate\Util;
+namespace Prokki\WarlightBotTemplate\Util;
 
 use Prokki\Warlight2BotTemplate\Command\ApplicableCommand;
 use Prokki\Warlight2BotTemplate\Command\CommandParser;
@@ -15,12 +16,6 @@ define('PROKKIBOT_MAX_SERVER_TIMEOUT', 40); // [s]
  * Class Client
  *
  * @package Prokki\Warlight2Bot
- *
- * @todo    Compability to vers. 1!
- * @todo    Comment all commands!
- * @todo    History / Moves / Map for each round ?
- * @todo    Extend Unittests!
- * @todo    implement opponent_moves?
  */
 class Bot
 {
@@ -152,39 +147,39 @@ class Bot
 //				try
 //				{
 
-					$command = $this->_parser->run($string);
+				$command = $this->_parser->run($string);
 
-					//				self::Debug(get_class($command) . "\n");
-				
-					$command->apply($this->_environment);
-				
+				//				self::Debug(get_class($command) . "\n");
+
+				$command->apply($this->_environment);
+
 //					self::Debug(sprintf("Round: %d, Remaining: %d, Last: %d\n",
 //						$this->_environment->getCurrentRoundNo(),
 //						$this->_environment->getRemainingRounds(),
 //						$this->_environment->isLastRound()
 //					));
 
-					if( $command->isComputable() )
-					{
+				if( $command->isComputable() )
+				{
 
-						/** @var Computable $command */
-						$send = $command->compute($this->_ai, $this->_environment);
+					/** @var Computable $command */
+					$send = $command->compute($this->_ai, $this->_environment);
 
-						$duration = ( self::_GetMicrotimeFloat() - $time_start );
+					$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //					Bot::Debug("TIME: " . $duration . "\n");
 
-						if( defined('PROKKIBOT_MIN_COMPUTATION_TIME') && !empty(PROKKIBOT_MIN_COMPUTATION_TIME) && $duration < ( PROKKIBOT_MIN_COMPUTATION_TIME * 1000 ) )
-						{
-							usleep(( PROKKIBOT_MIN_COMPUTATION_TIME * 1000 ) - $duration); // wait until at least 1ms are gone
+					if( defined('PROKKIBOT_MIN_COMPUTATION_TIME') && !empty(PROKKIBOT_MIN_COMPUTATION_TIME) && $duration < ( PROKKIBOT_MIN_COMPUTATION_TIME * 1000 ) )
+					{
+						usleep(( PROKKIBOT_MIN_COMPUTATION_TIME * 1000 ) - $duration); // wait until at least 1ms are gone
 
 //						$duration = ( self::_GetMicrotimeFloat() - $time_start );
 //						Client::Debug("TIME: " . $duration . "\n");
-						}
-
-						fwrite($this->_output, $send . "\n");
-
-						self::Debug(sprintf("send: %s\n", $send));
 					}
+
+					fwrite($this->_output, $send . "\n");
+
+					self::Debug(sprintf("send: %s\n", $send));
+				}
 //
 //				}
 //				catch( \Exception $exception )

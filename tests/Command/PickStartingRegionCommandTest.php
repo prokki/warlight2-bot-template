@@ -75,20 +75,21 @@ class PickStartingRegionCommandTest extends CommandTest
 
 		$super_region = new SuperRegion(1, 7);
 
-		for ($_i = 1; $_i <= 20; $_i++) {
+		for( $_i = 1; $_i <= 20; $_i++ )
+		{
 			$regions->offsetSet($_i, new Region($_i, $super_region));
 		}
 
-		$regions->offsetGet(6)->getState()->setOwner(RegionState::OWNER_ME);
+		$regions->offsetGet(6)->»getState()->setOwner(RegionState::OWNER_ME);
 
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
-		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getOwner());
+		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getOwner());
 
 		$this->_getTestCommand()->apply($environment);
 
 		self::assertEquals(1234567, $environment->getPlayer()->getGlobalTime());
-		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getState()->getOwner());
-		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getState()->getOwner());
+		self::assertEquals(RegionState::OWNER_NEUTRAL, $regions->offsetGet(5)->getOwner());
+		self::assertEquals(RegionState::OWNER_ME, $regions->offsetGet(6)->getOwner());
 	}
 
 	/**
@@ -106,7 +107,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	public function testCompute()
 	{
 		$environment = new Environment();
-		$ai = $this->createMock(AIable::class);
+		$ai          = $this->createMock(AIable::class);
 
 		$ai->method('getPickMove')->willReturn(new PickMove(3));
 

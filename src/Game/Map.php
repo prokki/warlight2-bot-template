@@ -2,6 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
+use Prokki\Warlight2BotTemplate\Exception\InitializationException;
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Util\Bot;
@@ -45,16 +46,12 @@ class Map extends SetupMap
 		foreach( $old_regions as $_old_region )
 		{
 			/** @var Region $_old_region */
-			$this->getRegion($_old_region->getId())->setState(clone $_old_region->getState());
+			$this->getRegion($_old_region->getId())->»setState(clone $_old_region->»getState());
 		}
 	}
 
 	/**
 	 * Returns `true` if the map is initialized successfully, else `false`.
-	 *
-	 * @throws InitializationException
-	 *
-	 * @todo test method!
 	 */
 	public function initialize()
 	{
@@ -72,38 +69,31 @@ class Map extends SetupMap
 	}
 
 	/**
-	 * Returns `true` if the map is initialized successfully, else `false`.
+	 * Initializes the {@see \Prokki\Warlight2BotTemplate\Game\Map::_superRegions} property.
 	 *
-	 * @throws InitializationException
-	 *
-	 * @todo test method!
+	 * Take care that the array {@see \Prokki\Warlight2BotTemplate\Game\SetupMap::_superRegionIds} was filled before.
 	 */
 	protected function _initializeSuperRegions()
 	{
 		foreach( $this->_superRegionIds as $_super_region_id => $_bonus_armies )
 		{
-			/** @var SuperRegion $_super_region */
-			if( $this->hasSuperRegion($_super_region_id) )
-			{
-				throw InitializationException::MapInitializationFailed();
-			}
-
 			$this->_superRegions->offsetSet($_super_region_id, new SuperRegion($_super_region_id, $_bonus_armies));
 		}
 	}
 
 	/**
-	 * Returns `true` if the map is initialized successfully, else `false`.
+	 * Initializes the {@see \Prokki\Warlight2BotTemplate\Game\Map::_regions} property.
+	 *
+	 * Take care that
+	 * 1. the array {@see \Prokki\Warlight2BotTemplate\Game\SetupMap::_regionIds} was filled before.
+	 * 2. the super regions was initialized, see {@see \Prokki\Warlight2BotTemplate\Game\Map::_initializeSuperRegions()}.
 	 *
 	 * @throws InitializationException
-	 *
-	 * @todo test method!
 	 */
 	protected function _initializeRegions()
 	{
 		foreach( $this->_regionIds as $_super_region_id => $_region_ids )
 		{
-			/** @var SuperRegion $_super_region */
 			if( !$this->hasSuperRegion($_super_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
@@ -116,58 +106,14 @@ class Map extends SetupMap
 				$this->_regions->offsetSet($__region_id, new Region($__region_id, $_super_region));
 			}
 		}
-
-		// @todo test if all regions are converted?
-		$uninitialized_regions = $this->_regions->filter(function ($_region)
-		{
-			/** @var Region $_region */
-			return !$_region->hasSuperRegion();
-		});
-
-		if( count($uninitialized_regions) > 0 )
-		{
-			throw InitializationException::MapInitializationFailed();
-		}
 	}
 
 	/**
-	 * Checks all submitted regions if they were already picked by a player,
-	 * sets the owner to the opponent for the regions which are not picked yet and
-	 * returns {@see PickMove}s for these regions.
+	 * Initializes the {@see \Prokki\Warlight2BotTemplate\Game\Map::_regions} property.
 	 *
-	 * @param integer $region_ids ids of the regions to check
-	 *
-	 * @return PickMove[] pick moves for all unpicked regions
-	 *
-	 */
-	public function getUniqueOpponentPickMoves($region_ids)
-	{
-		$moves = array();
-
-		foreach( $region_ids as $_region_id )
-		{
-			$_region = $this->getRegion($_region_id);
-
-			// region cannot be picked twice (region was picked already)
-			if( in_array($_region->getState()->getOwner(), [RegionState::OWNER_ME, RegionState::OWNER_OPPONENT]) )
-			{
-				continue;
-			}
-
-			$_region->getState()->setOwner(RegionState::OWNER_OPPONENT);
-
-			array_push($moves, new PickMove($_region_id));
-		}
-
-		return $moves;
-	}
-
-	/**
-	 * Returns `true` if the map is initialized successfully, else `false`.
+	 * Take care the regions were initialized by {@see \Prokki\Warlight2BotTemplate\Game\Map::_initializeRegions()}.
 	 *
 	 * @throws InitializationException
-	 *
-	 * @todo test method!
 	 */
 	protected function _initializeNeighbors()
 	{
@@ -196,10 +142,6 @@ class Map extends SetupMap
 
 	/**
 	 * Returns `true` if the map is initialized successfully, else `false`.
-	 *
-	 * @throws InitializationException
-	 *
-	 * @todo test method!
 	 */
 	protected function _initializeWastelands()
 	{
@@ -270,7 +212,7 @@ class Map extends SetupMap
 		return $this->_regions->filter(function ($_region) use ($owner)
 		{
 			/** @var Region $_region */
-			return $_region->getState()->getOwner() & $owner;
+			return $_region->getOwner() & $owner;
 		});
 	}
 
@@ -314,5 +256,38 @@ class Map extends SetupMap
 	public function getSuperRegions()
 	{
 		return $this->_superRegions;
+	}
+
+
+	/**
+	 * Checks all submitted regions if they were already picked by a player,
+	 * sets the owner to the opponent for the regions which are not picked yet and
+	 * returns {@see PickMove}s for these regions.
+	 *
+	 * @param integer $region_ids ids of the regions to check
+	 *
+	 * @return PickMove[] pick moves for all unpicked regions
+	 *
+	 */
+	public function getUniqueOpponentPickMoves($region_ids)
+	{
+		$moves = array();
+
+		foreach( $region_ids as $_region_id )
+		{
+			$_region = $this->getRegion($_region_id);
+
+			// region cannot be picked twice (region was picked already)
+			if( in_array($_region->getOwner(), [RegionState::OWNER_ME, RegionState::OWNER_OPPONENT]) )
+			{
+				continue;
+			}
+
+			$_region->»getState()->setOwner(RegionState::OWNER_OPPONENT);
+
+			array_push($moves, new PickMove($_region_id));
+		}
+
+		return $moves;
 	}
 }

@@ -9,6 +9,9 @@ use Prokki\Warlight2BotTemplate\Util\ArrayObject\LoadedArray;
 
 class SetupMapTest extends TestCase
 {
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegion()
+	 */
 	public function testAddSuperRegion()
 	{
 		$map = new SetupMap();
@@ -34,6 +37,9 @@ class SetupMapTest extends TestCase
 		$map->addSuperRegion(200, 7000);
 	}
 
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegion()
+	 */
 	public function testAddRegion()
 	{
 		$map = new SetupMap();
@@ -50,7 +56,7 @@ class SetupMapTest extends TestCase
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegion()
 	 */
 	public function testAddRegionFailed()
 	{
@@ -63,6 +69,9 @@ class SetupMapTest extends TestCase
 		$map->addRegion(4, 300);
 	}
 
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addNeighbors()
+	 */
 	public function testAddNeighbors()
 	{
 		$map = new SetupMap();
@@ -92,6 +101,9 @@ class SetupMapTest extends TestCase
 		$this->assertEquals([1 => [2, 4], 3 => [5, 4]], $this->getObjectAttribute($map, '_neighborRegionIds')->getArrayCopy());
 	}
 
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addNeighbors()
+	 */
 	public function testAddEmptyNeighbors()
 	{
 		$map = new SetupMap();
@@ -103,6 +115,9 @@ class SetupMapTest extends TestCase
 		$this->assertEquals([6 => []], $this->getObjectAttribute($map, '_neighborRegionIds')->getArrayCopy());
 	}
 
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addWasteland()
+	 */
 	public function testAddWasteland()
 	{
 		$map = new SetupMap();
@@ -131,6 +146,9 @@ class SetupMapTest extends TestCase
 		$this->assertEquals([2 => 2], $this->getObjectAttribute($map, '_wastelandIds')->getArrayCopy());
 	}
 
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::initialize()
+	 */
 	public function testInitialize()
 	{
 		$map = new SetupMap();

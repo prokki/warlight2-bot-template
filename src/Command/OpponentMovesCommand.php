@@ -101,7 +101,7 @@ class OpponentMovesCommand extends ReceivableCommand
 		foreach( $this->_moves as $_move )
 		{
 			if( get_class($_move) === TransferMove::class
-				&& $environment->getMap()->getRegion($_move->getDestinationRegionId())->getState()->getOwner() === RegionState::OWNER_ME
+				&& $environment->getMap()->getRegion($_move->getDestinationRegionId())->getOwner() === RegionState::OWNER_ME
 			)
 			{
 				$environment->getCurrentRound()->addOpponentMove($_move->toAttackMove());

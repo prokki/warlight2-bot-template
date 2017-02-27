@@ -90,11 +90,12 @@ class UpdateMapCommand extends ReceivableCommand
 				{
 					$__region_owner = self::_GetRegionOwnerByPlayerName($this->_updates[ $__region_id ][ 'player_name' ], $environment->getPlayer());
 
-					$__region->getState()->disableFog($this->_updates[ $__region_id ][ 'armies' ], $__region_owner);
+					/** @var Region $__region */
+					$__region->»getState()->disableFog($this->_updates[ $__region_id ][ 'armies' ], $__region_owner);
 				}
 				else
 				{
-					$__region->getState()->enableFog();
+					$__region->»getState()->enableFog();
 				}
 			}
 		}
