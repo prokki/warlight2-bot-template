@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project Warlight2BotTemplate to [Semantic Versioning](http://semver.org/).
 
 ### [Unreleased]
+
+### [0.1.1]
 #### Fixed
 - Commands [GoPlaceArmiesCommand](src/Command/GoPlaceArmiesCommand.php) and [GoAttackTransferCommand](src/Command/GoAttackTransferCommand.php) fixed.
 - Fixed some command class names.
