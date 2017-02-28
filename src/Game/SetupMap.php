@@ -81,15 +81,15 @@ class SetupMap implements Initializeable
 
 	public function __construct()
 	{
-		$this->_superRegionIds = new LoadedArray();
-		$this->_regionIds = new LoadedArray();
+		$this->_superRegionIds    = new LoadedArray();
+		$this->_regionIds         = new LoadedArray();
 		$this->_neighborRegionIds = new LoadedArray();
-		$this->_wastelandIds = new LoadedArray();
+		$this->_wastelandIds      = new LoadedArray();
 	}
 
 	/**
 	 * @param integer $super_region_id super region id
-	 * @param integer $bonus_armies [optional] reward bonus armies, if all regions of this super region is occupied by one player
+	 * @param integer $bonus_armies    [optional] reward bonus armies, if all regions of this super region is occupied by one player
 	 *
 	 * @throws InitializationException
 	 *
@@ -106,7 +106,7 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 * @param integer $region_id unique region id
+	 * @param integer $region_id       unique region id
 	 * @param integer $super_region_id id of the associated super region
 	 *
 	 * @throws InitializationException
@@ -127,7 +127,7 @@ class SetupMap implements Initializeable
 	}
 
 	/**
-	 * @param integer $region_id id of the region
+	 * @param integer   $region_id            id of the region
 	 * @param integer[] $neighbour_region_ids of neighbour regions
 	 *
 	 * @throws RuntimeException

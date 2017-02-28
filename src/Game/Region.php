@@ -7,21 +7,6 @@ use Prokki\Warlight2BotTemplate\Exception\InitializationException;
 class Region
 {
 	/**
-	 * flag to indicate a neutral region
-	 */
-	const OWNER_NEUTRAL = 1;
-
-	/**
-	 * flag to indicate a region occupied by the opponent
-	 */
-	const OWNER_OPPONENT = 2;
-
-	/**
-	 * flag to indicate a region owned by me
-	 */
-	const OWNER_ME = 3;
-
-	/**
 	 * @var integer
 	 */
 	protected $_id = 0;
@@ -47,14 +32,12 @@ class Region
 	 * @param integer     $id unique region id
 	 * @param SuperRegion $super_region
 	 */
-	public function __construct($id, $super_region)
+	public function __construct($id, SuperRegion $super_region)
 	{
-		$this->_id = $id;
-
+		$this->_id          = $id;
 		$this->_superRegion = $super_region;
 
-		$this->_state = new RegionState();
-
+		$this->_state     = new RegionState();
 		$this->_neighbors = new RegionArray();
 	}
 
@@ -69,41 +52,10 @@ class Region
 
 	/**
 	 * @return SuperRegion
-	 *
-	 * @throws InitializationException
-	 *
 	 */
 	public function getSuperRegion()
 	{
-		if( !$this->hasSuperRegion() )
-		{
-			throw InitializationException::MapNotInitialized();
-		}
-
 		return $this->_superRegion;
-	}
-
-	/**
-	 * @param SuperRegion $super_region
-	 *
-	 */
-	public function setSuperRegion($super_region)
-	{
-		if( $this->hasSuperRegion() )
-		{
-			return;
-		}
-
-		$this->_superRegion = $super_region;
-		$this->_superRegion->»addRegion($this);
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function hasSuperRegion()
-	{
-		return !is_null($this->_superRegion);
 	}
 
 	/**
@@ -135,19 +87,6 @@ class Region
 	}
 
 	/**
-	 *
-	 * ATTENTION: Call this method only on round 0.
-	 *
-	 * @return RegionState
-	 *
-	 * @throws InitializationException
-	 */
-	public function setWasteland()
-	{
-		return $this->»getState()->disableFog(6, self::OWNER_NEUTRAL);
-	}
-
-	/**
 	 * Returns the state (fog, owner, armies).
 	 *
 	 * Attention: Call method only by {@see \Prokki\Warlight2BotTemplate\Game\Map::__clone()} method and during the ap setup process to set state properties.
@@ -157,6 +96,39 @@ class Region
 	public function »getState()
 	{
 		return $this->_state;
+	}
+
+	/**
+	 *
+	 * ATTENTION: Call this method only on round 0.
+	 *
+	 * @return RegionState
+	 *
+	 * @throws InitializationException
+	 */
+	public function setWasteland()
+	{
+		return $this->disableFog(6, RegionState::OWNER_NEUTRAL);
+	}
+
+	/**
+	 * @param integer $armies
+	 * @param integer $owner
+	 *
+	 * @return RegionState
+	 */
+	public function disableFog($armies, $owner)
+	{
+		return $this->»getState()->setFog(false)->setArmies($armies)->setOwner($owner);
+	}
+
+	/**
+	 *
+	 * @return RegionState
+	 */
+	public function enableFog()
+	{
+		return $this->»getState()->setFog()->setArmies(1)->setOwner(RegionState::OWNER_UNKNOWN);
 	}
 
 	/**

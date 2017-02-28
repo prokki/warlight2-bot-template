@@ -68,9 +68,10 @@ class RegionState
 	 *
 	 * @return RegionState
 	 */
-	public function setFog($fog)
+	public function setFog($fog = true)
 	{
 		$this->_fog = $fog;
+
 		return $this;
 	}
 
@@ -101,25 +102,5 @@ class RegionState
 	{
 		$this->_armies = $armies;
 		return $this;
-	}
-
-	/**
-	 * @param integer $armies
-	 * @param integer $owner
-	 *
-	 * @return RegionState
-	 */
-	public function disableFog($armies, $owner)
-	{
-		return $this->setArmies($armies)->setOwner($owner);
-	}
-
-	/**
-	 *
-	 * @return RegionState
-	 */
-	public function enableFog()
-	{
-		return $this->setArmies(1)->setOwner(self::OWNER_UNKNOWN);
 	}
 }

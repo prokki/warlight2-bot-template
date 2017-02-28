@@ -242,7 +242,7 @@ class Map extends SetupMap
 	{
 		if( !$this->hasSuperRegion($id) )
 		{
-			throw RuntimeException::UnknownRegion($id);
+			throw RuntimeException::UnknownSuperRegion($id);
 		}
 
 		return $this->_superRegions->offsetGet($id);

@@ -30,7 +30,7 @@ class InitializationException extends \Exception
 	 */
 	public static function MapInitializationFailed()
 	{
-		return new self("Not all regions could be initialized.", 202);
+		return new self("Not all regions could be initialized.", 203);
 	}
 
 	/**

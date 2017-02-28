@@ -32,8 +32,8 @@ class SetupMapTest extends TestCase
 		$map->addSuperRegion(200, 0);
 
 		// add super region a second time throws an exception
-		$this->expectException(InitializationException::class);
-		$this->expectExceptionCode(221);
+		self::expectException(InitializationException::class);
+		self::expectExceptionCode(221);
 		$map->addSuperRegion(200, 7000);
 	}
 
@@ -64,8 +64,8 @@ class SetupMapTest extends TestCase
 		$map->addRegion(4, 300);
 
 		// add region a second time throws an exception
-		$this->expectException(InitializationException::class);
-		$this->expectExceptionCode(211);
+		self::expectException(InitializationException::class);
+		self::expectExceptionCode(211);
 		$map->addRegion(4, 300);
 	}
 
@@ -170,6 +170,7 @@ class SetupMapTest extends TestCase
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::_tryToInitialize()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::__construct()
 	 */
 	public function testTryToInitializeTwice()
 	{
@@ -184,8 +185,8 @@ class SetupMapTest extends TestCase
 		$reflection_property->setValue($map, true);
 
 		// test _tryToInitialize() throws Exception
-		$this->expectException(InitializationException::class);
-		$this->expectExceptionCode(202);
+		self::expectException(InitializationException::class);
+		self::expectExceptionCode(202);
 		$reflection_method->invoke($map);
 	}
 }
