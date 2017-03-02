@@ -15,9 +15,9 @@ class SuperRegion
 	protected $_bonusArmies = 0;
 
 	/**
-	 * @var Region[]
+	 * @var RegionArray
 	 */
-	protected $_region = array();
+	protected $_regions = null;
 
 	/**
 	 * SuperRegion constructor.
@@ -29,6 +29,7 @@ class SuperRegion
 	{
 		$this->_id          = $id;
 		$this->_bonusArmies = $bonus_armies;
+		$this->_regions     = new RegionArray();
 	}
 
 	/**
@@ -47,5 +48,13 @@ class SuperRegion
 	public function getId()
 	{
 		return $this->_id;
+	}
+
+	/**
+	 * @return RegionArray
+	 */
+	public function getRegions()
+	{
+		return $this->_regions;
 	}
 }

@@ -14,6 +14,13 @@ class RegionArray extends LoadedArray
 	 */
 	public function getOffsets()
 	{
-		return array_keys($this->getArrayCopy());
+		$offsets = array();
+
+		foreach( $this as $_offset => $_ )
+		{
+			array_push($offsets, $_offset);
+		}
+
+		return $offsets;
 	}
 }

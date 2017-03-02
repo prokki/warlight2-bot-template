@@ -56,14 +56,7 @@ class MapTest extends TestCase
 		$map = $this->_getTestMap();
 
 		$this->assertAttributeInstanceOf(RegionArray::class, '_regions', $map);
-		$this->assertEquals(
-			[
-				200 => new SuperRegion(200, 0),
-				300 => new SuperRegion(300, 7000),
-				400 => new SuperRegion(400, 21000),
-			],
-			$map->getSuperRegions()->getArrayCopy()
-		);
+		$this->assertEquals(3, count($map->getSuperRegions()->getArrayCopy()));
 	}
 
 	/**

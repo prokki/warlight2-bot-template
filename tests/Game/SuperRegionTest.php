@@ -3,6 +3,8 @@
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use PHPUnit\Framework\TestCase;
+use Prokki\Warlight2BotTemplate\Game\Map;
+use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 
 class SuperRegionTest extends TestCase
@@ -18,5 +20,22 @@ class SuperRegionTest extends TestCase
 
 		self::assertEquals(12, $super_region->getId());
 		self::assertEquals(9999, $super_region->getBonusArmies());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SuperRegion::getRegions()
+	 */
+	public function testAddRegion()
+	{
+		$map = new Map();
+
+		$map->addSuperRegion(12, 9999);
+		$map->addRegion(456, 12);
+		$map->addRegion(123, 12);
+
+		$map->initialize();
+
+		self::assertEquals(2, count($map->getSuperRegion(12)->getRegions()));
+		self::assertEquals([456, 123], $map->getSuperRegion(12)->getRegions()->getOffsets());
 	}
 }

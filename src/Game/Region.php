@@ -39,6 +39,8 @@ class Region
 
 		$this->_state     = new RegionState();
 		$this->_neighbors = new RegionArray();
+		
+		$this->_superRegion->getRegions()->offsetSet($id, $this);
 	}
 
 	/**

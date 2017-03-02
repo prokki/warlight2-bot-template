@@ -5,7 +5,6 @@ namespace Prokki\Warlight2BotTemplate\Game;
 use Prokki\Warlight2BotTemplate\Exception\InitializationException;
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
-use Prokki\Warlight2BotTemplate\Util\Bot;
 
 class Map extends SetupMap
 {
@@ -103,7 +102,9 @@ class Map extends SetupMap
 
 			foreach( $_region_ids as $__region_id )
 			{
-				$this->_regions->offsetSet($__region_id, new Region($__region_id, $_super_region));
+				$__region = new Region($__region_id, $_super_region);
+
+				$this->_regions->offsetSet($__region_id, $__region);
 			}
 		}
 	}

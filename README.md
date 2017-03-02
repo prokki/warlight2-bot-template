@@ -6,6 +6,8 @@
 
 This is a php bot template for Warlight AI Challenge 2 (http://theaigames.com/competitions/warlight-ai-challenge-2). 
 
+> Note: The project is in beta stage. Feel free to report any issues you encounter.
+
 Create a new project and install the template via Composer using the following command:
 
     composer require prokki/warlight2-bot-template
