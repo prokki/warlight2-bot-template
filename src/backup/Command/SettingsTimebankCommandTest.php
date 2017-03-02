@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsTimebankCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SettingsTimebankCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SettingsTimebankCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   settings   timebank     124654');
+		return Parser::Init()->run('   settings   timebank     124654');
 	}
 
 	/**

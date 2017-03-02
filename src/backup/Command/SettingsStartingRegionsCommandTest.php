@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingRegionsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SettingsStartingRegionsCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SettingsStartingRegionsCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   settings   starting_regions     1 3    	5 ');
+		return Parser::Init()->run('   settings   starting_regions     1 3    	5 ');
 	}
 
 	/**

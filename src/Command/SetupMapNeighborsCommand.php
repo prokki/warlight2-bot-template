@@ -2,8 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
-use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * Class SettingsTimebankCommand to set/get the timebank of your bot.
@@ -48,16 +49,16 @@ class SetupMapNeighborsCommand extends ReceivableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
 		foreach( $this->_neighbors as $_region_id => $_region_ids )
 		{
-			$environment->getMap()->addNeighbors($_region_id, $_region_ids);
+			$bot->getEnvironment()->getMap()->addNeighbors($_region_id, $_region_ids);
 		}
 
-		if( $environment->getMap()->finishAddingNeighbors() )
+		if( $bot->getEnvironment()->getMap()->finishAddingNeighbors() )
 		{
-			$environment->getCurrentRound()->setInitialMap(clone $environment->getMap());
+			$bot->getEnvironment()->getCurrentRound()->setInitialMap(clone $bot->getEnvironment()->getMap());
 		}
 	}
 

@@ -8,7 +8,7 @@ use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class UpdateMapCommandTest extends CommandTest
 {
@@ -63,7 +63,7 @@ class UpdateMapCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   update_map 1 player1 6 3 player2 2		4      neutral    7   	   ');
+		return Parser::Init()->run('   update_map 1 player1 6 3 player2 2		4      neutral    7   	   ');
 	}
 
 	/**
@@ -84,7 +84,7 @@ class UpdateMapCommandTest extends CommandTest
 	 */
 	public function testParserMissingTwoArguments()
 	{
-		CommandParser::Init()->run('update_map 1 player1');
+		Parser::Init()->run('update_map 1 player1');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class UpdateMapCommandTest extends CommandTest
 	 */
 	public function testParserMissingOneArgument()
 	{
-		CommandParser::Init()->run('update_map 1 player1');
+		Parser::Init()->run('update_map 1 player1');
 	}
 
 	/**

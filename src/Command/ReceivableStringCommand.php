@@ -2,6 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
+
 /**
  *
  * @package Prokki\Warlight2BotTemplate

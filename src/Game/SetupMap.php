@@ -2,10 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
+use Prokki\TheaigamesBotEngine\Util\ArrayObject\LoadedArray;
 use Prokki\Warlight2BotTemplate\Exception\InitializationException;
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
-use Prokki\Warlight2BotTemplate\Util\ArrayObject\LoadedArray;
-use Prokki\Warlight2BotTemplate\Util\Initializeable;
 
 /**
  * This class is used for two cases:
@@ -15,7 +14,7 @@ use Prokki\Warlight2BotTemplate\Util\Initializeable;
  *
  * @package Prokki\Warlight2BotTemplate\Game
  */
-class SetupMap implements Initializeable
+class SetupMap
 {
 	/**
 	 * the id of all super regions with their assigned amount of bonus armies

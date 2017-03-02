@@ -2,9 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
-use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
@@ -96,28 +96,28 @@ class OpponentMovesCommand extends ReceivableCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
 		foreach( $this->_moves as $_move )
 		{
 			if( get_class($_move) === TransferMove::class
-				&& $environment->getMap()->getRegion($_move->getDestinationRegionId())->getOwner() === RegionState::OWNER_ME
+				&& $bot->getEnvironment()->getMap()->getRegion($_move->getDestinationRegionId())->getOwner() === RegionState::OWNER_ME
 			)
 			{
-				$environment->getCurrentRound()->addOpponentMove($_move->toAttackMove());
+				$bot->getEnvironment()->getCurrentRound()->addOpponentMove($_move->toAttackMove());
 			}
 			else
 			{
-				$environment->getCurrentRound()->addOpponentMove($_move);
+				$bot->getEnvironment()->getCurrentRound()->addOpponentMove($_move);
 			}
 		}
 
 		// exclude round 0 because updatedMap was already set in command SetupMapOpponentStartingRegionsCommand
-		if( $environment->getCurrentRoundNo() !== 0 )
+		if( $bot->getEnvironment()->getCurrentRoundNo() !== 0 )
 		{
-			$environment->getCurrentRound()->setUpdatedMap(clone $environment->getMap());
+			$bot->getEnvironment()->getCurrentRound()->setUpdatedMap(clone $bot->getEnvironment()->getMap());
 		}
 
-		$environment->addRound();
+		$bot->getEnvironment()->addRound();
 	}
 }

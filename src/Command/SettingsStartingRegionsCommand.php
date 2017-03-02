@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\TheaigamesBotEngine\Bot\Bot;
 
 /**
  * Class SettingsStartingRegionsCommand to initialize the super regions.
@@ -14,9 +14,9 @@ class SettingsStartingRegionsCommand extends ReceivableIntListCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
-		$environment->getPlayer()->setStartingRegions($this->_value);
+		$bot->getEnvironment()->getPlayer()->setStartingRegions($this->_value);
 	}
 
 }

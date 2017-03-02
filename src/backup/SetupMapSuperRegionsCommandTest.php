@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SetupMapSuperRegionsCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   setup_map   super_regions     1   25	17    3      4    1');
+		return Parser::Init()->run('   setup_map   super_regions     1   25	17    3      4    1');
 	}
 
 	/**
@@ -34,7 +34,7 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		CommandParser::Init()->run('setup_map super_regions 1 25	17 3 4 1 3   ');
+		Parser::Init()->run('setup_map super_regions 1 25	17 3 4 1 3   ');
 	}
 
 	/**

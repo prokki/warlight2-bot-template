@@ -2,7 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Command\Computable;
 
 /**
  *
@@ -13,9 +14,9 @@ abstract class SetGlobalTimeComputableCommand extends ReceivableIntCommand imple
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
-		$environment->getPlayer()->setGlobalTime($this->_value);
+		$bot->getEnvironment()->getPlayer()->setGlobalTime($this->_value);
 	}
 
 }

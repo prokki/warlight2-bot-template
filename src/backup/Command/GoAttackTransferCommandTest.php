@@ -4,10 +4,10 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\GamePlay\AIable;
+use Prokki\Warlight2BotTemplate\GamePlay\AI;
 use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 {
@@ -16,7 +16,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   go	attack/transfer 		 9876543  	 	 ');
+		return Parser::Init()->run('   go	attack/transfer 		 9876543  	 	 ');
 	}
 
 	/**
@@ -37,7 +37,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		CommandParser::Init()->run('go attack/transfer');
+		Parser::Init()->run('go attack/transfer');
 	}
 
 	/**
@@ -54,7 +54,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	public function testComputeNoMoves()
 	{
 		$environment = new Environment();
-		$ai = $this->createMock(AIable::class);
+		$ai = $this->createMock(AI::class);
 
 		$ai->method('getAttackTransferMoves')->willReturn(array());
 		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $environment));
@@ -66,7 +66,7 @@ class GoAttackTransferCommandTest extends SetGlobalTimeComputableCommandTest
 	public function testCompute()
 	{
 		$environment = new Environment();
-		$ai = $this->createMock(AIable::class);
+		$ai = $this->createMock(AI::class);
 
 		$ai->method('getAttackTransferMoves')->willReturn([
 			new TransferMove(1, 2, 17),

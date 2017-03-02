@@ -2,8 +2,8 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
-use Prokki\Warlight2BotTemplate\Util\ArrayObject\Filterable;
-use Prokki\Warlight2BotTemplate\Util\ArrayObject\LoadedArray;
+use Prokki\TheaigamesBotEngine\Util\ArrayObject\Filterable;
+use Prokki\TheaigamesBotEngine\Util\ArrayObject\LoadedArray;
 
 class RegionArray extends LoadedArray
 {

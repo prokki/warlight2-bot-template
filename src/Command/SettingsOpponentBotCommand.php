@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\TheaigamesBotEngine\Bot\Bot;
 
 /**
  * Class SettingsYourBotCommand to set/get the name of your bot.
@@ -14,8 +14,8 @@ class SettingsOpponentBotCommand extends SettingsYourBotCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
-		$environment->getPlayer()->setNameOpponent($this->_value);
+		$bot->getEnvironment()->getPlayer()->setNameOpponent($this->_value);
 	}
 }

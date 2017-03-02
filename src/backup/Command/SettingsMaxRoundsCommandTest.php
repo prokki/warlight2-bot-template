@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsMaxRoundsCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SettingsMaxRoundsCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SettingsMaxRoundsCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   settings   max_rounds     124654');
+		return Parser::Init()->run('   settings   max_rounds     124654');
 	}
 
 	/**

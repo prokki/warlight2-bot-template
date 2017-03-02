@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\TheaigamesBotEngine\Bot\Bot;
 
 /**
  * Class SetupMapOpponentStartingRegionsCommand handles
@@ -22,11 +22,11 @@ class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
-		$opponent_pick_moves = $environment->getMap()->getUniqueOpponentPickMoves($this->_value);
+		$opponent_pick_moves = $bot->getEnvironment()->getMap()->getUniqueOpponentPickMoves($this->_value);
 
-		$environment->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
-		$environment->getCurrentRound()->setUpdatedMap(clone $environment->getMap());
+		$bot->getEnvironment()->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
+		$bot->getEnvironment()->getCurrentRound()->setUpdatedMap(clone $bot->getEnvironment()->getMap());
 	}
 }

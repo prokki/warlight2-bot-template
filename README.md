@@ -10,9 +10,9 @@ Create a new project and install the template via Composer using the following c
 
     composer require prokki/warlight2-bot-template
     
-Create your own bot implementing the [Prokki\Warlight2BotTemplate\GamePlay\AIable](src/GamePlay/AIable.php) interface.
+Create your own bot implementing the [Prokki\Warlight2BotTemplate\GamePlay\AIable](src/Bot/AIable.php) interface.
 
-Take a look to example class [Prokki\Warlight2BotTemplate\GamePlay\RandomAI](src/GamePlay/RandomAI.php) for further informations.
+Take a look to example class [Prokki\Warlight2BotTemplate\GamePlay\RandomAI](src/Bot/RandomAI.php) for further informations.
 
     class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
     {

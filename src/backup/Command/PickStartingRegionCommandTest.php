@@ -8,8 +8,8 @@ use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
-use Prokki\Warlight2BotTemplate\GamePlay\AIable;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\GamePlay\AI;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class PickStartingRegionCommandTest extends CommandTest
 {
@@ -18,7 +18,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   pick_starting_region     1234567   3      4    	1  17   	');
+		return Parser::Init()->run('   pick_starting_region     1234567   3      4    	1  17   	');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		CommandParser::Init()->run('pick_starting_region');
+		Parser::Init()->run('pick_starting_region');
 	}
 
 	/**
@@ -50,7 +50,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	 */
 	public function testParserMissingArgumentsOneArgument()
 	{
-		CommandParser::Init()->run('pick_starting_region     10000   ');
+		Parser::Init()->run('pick_starting_region     10000   ');
 	}
 
 	/**
@@ -107,7 +107,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	public function testCompute()
 	{
 		$environment = new Environment();
-		$ai          = $this->createMock(AIable::class);
+		$ai          = $this->createMock(AI::class);
 
 		$ai->method('getPickMove')->willReturn(new PickMove(3));
 

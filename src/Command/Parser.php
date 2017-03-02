@@ -2,44 +2,19 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Exception\ParserException;
+use Prokki\TheaigamesBotEngine\Exception\ParserException;
 
 /**
  * @link http://www.phptherightway.com/pages/Design-Patterns.html
  */
-class CommandParser
+class Parser implements \Prokki\TheaigamesBotEngine\Command\Parser
 {
-
-	/**
-	 * @var CommandParser
-	 */
-	private static $_Instance = null;
-
-	/**
-	 * @return CommandParser
-	 */
-	public static function Init()
-	{
-		if( is_null(self::$_Instance) )
-		{
-			self::$_Instance = new self();
-		}
-
-		return self::$_Instance;
-	}
-
-	protected function __construct() { }
-
-	private function __clone() { }
-
-	private function __wakeup() { }
-
 	/**
 	 * @param $string
 	 *
 	 * @return Command
 	 *
-	 * @throws ParserException
+	 * @throws \Prokki\TheaigamesBotEngine\Exception\ParserException
 	 */
 	public function run($string)
 	{
@@ -72,7 +47,7 @@ class CommandParser
 		}
 		else
 		{
-			throw ParserException::CommandLineNotParseable($string);
+			throw ParserException::CommandIncomplete($string);
 		}
 	}
 
@@ -81,7 +56,7 @@ class CommandParser
 	 *
 	 * @return Command
 	 *
-	 * @throws ParserException
+	 * @throws \Prokki\TheaigamesBotEngine\Exception\ParserException
 	 */
 	protected function _parseSettingsCommand($string)
 	{
@@ -130,7 +105,7 @@ class CommandParser
 	 *
 	 * @return Command
 	 *
-	 * @throws ParserException
+	 * @throws \Prokki\TheaigamesBotEngine\Exception\ParserException
 	 */
 	protected function _parseSetupMapCommand($string)
 	{
@@ -167,7 +142,7 @@ class CommandParser
 	 *
 	 * @return Command
 	 *
-	 * @throws ParserException
+	 * @throws \Prokki\TheaigamesBotEngine\Exception\ParserException
 	 */
 	protected function _parseSendableCommand($string)
 	{

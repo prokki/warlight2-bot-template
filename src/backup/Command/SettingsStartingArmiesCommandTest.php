@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingArmiesCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SettingsStartingArmiesCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SettingsStartingArmiesCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   settings   starting_armies     27    ');
+		return Parser::Init()->run('   settings   starting_armies     27    ');
 	}
 
 	/**

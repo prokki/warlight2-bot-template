@@ -2,8 +2,11 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
+use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Command\Computable;
+use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
+use Prokki\Warlight2BotTemplate\Bot\AIBot;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
-use Prokki\Warlight2BotTemplate\Game\Environment;
 
 /**
  * Class PickStartingRegionCommand handles
@@ -58,9 +61,9 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
-		$environment->getPlayer()->setGlobalTime($this->_time);
+		$bot->getEnvironment()->getPlayer()->setGlobalTime($this->_time);
 	}
 
 	/**
@@ -85,21 +88,22 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	/**
 	 * @inheritdoc
 	 */
-	public function compute($ai, Environment $environment)
+	public function compute(Bot $bot)
 	{
+		/** @var AIBot $bot */
 		// 1. get opponent pick moves
-		$opponent_pick_moves = $environment->getMap()->getUniqueOpponentPickMoves(
-			$this->_getAllPickedRegionIds($environment->getPlayer()->getStartingRegions())
+		$opponent_pick_moves = $bot->getEnvironment()->getMap()->getUniqueOpponentPickMoves(
+			$this->_getAllPickedRegionIds($bot->getEnvironment()->getPlayer()->getStartingRegions())
 		);
 		// and save to current round
-		$environment->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
+		$bot->getEnvironment()->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
 
 		// 2. calculate my pick move by AI
-		$pick_move = $ai->getPickMove($environment, $this->_region_ids);
+		$pick_move = $bot->getPickMove($this->_region_ids);
 		// and save to current round
-		$environment->getCurrentRound()->addMove($pick_move);
+		$bot->getEnvironment()->getCurrentRound()->addMove($pick_move);
 
 		// return my move as command
-		return $pick_move->_toResponseString($environment->getPlayer()->getName());
+		return $pick_move->_toResponseString($bot->getEnvironment()->getPlayer()->getName());
 	}
 }

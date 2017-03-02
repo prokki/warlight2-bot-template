@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\TheaigamesBotEngine\Bot\Bot;
 
 /**
  * Class SetupMapSuperRegionsCommand handles the initialization of super regions.
@@ -21,16 +21,16 @@ class SetupMapSuperRegionsCommand extends ReceivableTupleIntListCommand
 	/**
 	 * @inheritdoc
 	 */
-	public function apply(Environment $environment)
+	public function apply(Bot $bot)
 	{
 		foreach( $this->_value as $_id_super_region => $_bonus_armies )
 		{
-			$environment->getMap()->addSuperRegion($_id_super_region, $_bonus_armies);
+			$bot->getEnvironment()->getMap()->addSuperRegion($_id_super_region, $_bonus_armies);
 		}
 
-		if( $environment->getMap()->finishAddingSuperRegions() )
+		if( $bot->getEnvironment()->getMap()->finishAddingSuperRegions() )
 		{
-			$environment->getCurrentRound()->setInitialMap(clone $environment->getMap());
+			$bot->getEnvironment()->getCurrentRound()->setInitialMap(clone $bot->getEnvironment()->getMap());
 		}
 	}
 }

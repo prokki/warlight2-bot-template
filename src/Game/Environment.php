@@ -2,7 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
-class Environment
+use Prokki\TheaigamesBotEngine\Game\RoundBasedEnvironment;
+
+class Environment extends RoundBasedEnvironment
 {
 	/**
 	 * @var Player
@@ -14,25 +16,18 @@ class Environment
 	 */
 	protected $_map = null;
 
+
 	/**
-	 * current round number
+	 * Environment constructor.
 	 *
-	 * @var integer
+	 * @inheritdoc
 	 */
-	protected $_currentRoundNo = 0;
-
-	/**
-	 * @var \ArrayObject
-	 */
-	protected $_rounds = null;
-
-	public function __construct()
+	public function __construct($max_rounds = 0)
 	{
 		$this->_player = new Player();
 		$this->_map    = new Map();
-		$this->_rounds = new \ArrayObject();
 
-		$this->_rounds->offsetSet($this->_currentRoundNo, new Round($this->_currentRoundNo));
+		parent::__construct();
 	}
 
 	/**
@@ -52,87 +47,30 @@ class Environment
 	}
 
 	/**
-	 * @return \ArrayObject
-	 */
-	public function getRounds()
-	{
-		return $this->_rounds;
-	}
-
-	/**
-	 * Returns the actual (latest) round.
-	 *
-	 * @param integer $round_no
+	 * Overrides... to create a new Round of this package instead of Round of TheaigamesBotEngine package.
 	 *
 	 * @return Round
 	 */
-	public function getRound($round_no)
+	protected function getNewRound()
 	{
-		// TODO check if exists!
-		return $this->_rounds->offsetGet($round_no);
+		return new Round($this->_currentRoundNo);
 	}
 
 	/**
-	 * Returns the current round.
+	 * Overrides... to reference updated map of old round as initial map of new round.
 	 *
-	 * @return Round
-	 */
-	public function getCurrentRound()
-	{
-		// TODO check if exists!
-		return $this->getRound($this->_currentRoundNo);
-	}
-
-	/**
-	 * Returns the actual (latest) round number.
-	 *
-	 * @return integer
-	 */
-	public function getCurrentRoundNo()
-	{
-		return $this->_currentRoundNo;
-	}
-
-	/**
-	 * Creates the next round,
-	 * references the initial map of the next round to the current updated map,
-	 * sets the next round as current round
-	 * and returns the new current round.
-	 *
-	 * @return Round
+	 * @inheritdoc
 	 */
 	public function addRound()
 	{
+		// cache old map
 		$old_updated_map = $this->getCurrentRound()->getUpdatedMap();
 
-		++$this->_currentRoundNo;
+		// call parent method
+		/** @var Round $new_round */
+		$new_round = parent::addRound();
 
-		$new_round = new Round($this->_currentRoundNo);
-		$new_round->setInitialMap($old_updated_map);
-
-		$this->_rounds->offsetSet($this->_currentRoundNo, $new_round);
-
-		return $new_round;
+		// reference map of old round as initial map of new round
+		return $new_round->setInitialMap($old_updated_map);
 	}
-
-	/**
-	 * Returns the amount of remaing rounds.
-	 *
-	 * @return integer
-	 */
-	public function getRemainingRounds()
-	{
-		return $this->_player->getMaxRounds() - $this->_currentRoundNo;
-	}
-
-	/**
-	 * Returns `true` if the current round is the last round, else `false`.
-	 *
-	 * @return integer
-	 */
-	public function isLastRound()
-	{
-		return $this->getRemainingRounds() === 0;
-	}
-
 }

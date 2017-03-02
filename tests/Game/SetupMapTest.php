@@ -3,9 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use PHPUnit\Framework\TestCase;
+use Prokki\TheaigamesBotEngine\Util\ArrayObject\LoadedArray;
 use Prokki\Warlight2BotTemplate\Exception\InitializationException;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
-use Prokki\Warlight2BotTemplate\Util\ArrayObject\LoadedArray;
 
 class SetupMapTest extends TestCase
 {

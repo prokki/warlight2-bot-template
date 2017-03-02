@@ -4,9 +4,9 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\GamePlay\AIable;
+use Prokki\Warlight2BotTemplate\GamePlay\AI;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 {
@@ -15,7 +15,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   go	place_armies 		 9876543  	 	 ');
+		return Parser::Init()->run('   go	place_armies 		 9876543  	 	 ');
 	}
 
 	/**
@@ -36,7 +36,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	 */
 	public function testParserMissingArguments()
 	{
-		CommandParser::Init()->run('go place_armies');
+		Parser::Init()->run('go place_armies');
 	}
 
 	/**
@@ -53,7 +53,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	public function testComputeNoMoves()
 	{
 		$environment = new Environment();
-		$ai = $this->createMock(AIable::class);
+		$ai = $this->createMock(AI::class);
 
 		$ai->method('getPlaceMoves')->willReturn(array());
 		$this->assertEquals('No moves', $this->_getTestCommand()->compute($ai, $environment));
@@ -65,7 +65,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	public function testCompute()
 	{
 		$environment = new Environment();
-		$ai = $this->createMock(AIable::class);
+		$ai = $this->createMock(AI::class);
 
 		$ai->method('getPlaceMoves')->willReturn([
 			new PlaceMove(1, 2, 17),

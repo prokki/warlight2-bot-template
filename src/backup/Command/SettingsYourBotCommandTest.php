@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsYourBotCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SettingsYourBotCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SettingsYourBotCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   settings   your_bot     aéß3 bsÜä" \' 	  ßc');
+		return Parser::Init()->run('   settings   your_bot     aéß3 bsÜä" \' 	  ßc');
 	}
 
 	/**

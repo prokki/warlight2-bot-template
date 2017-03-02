@@ -7,13 +7,8 @@ use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 
-class Round
+class Round extends \Prokki\TheaigamesBotEngine\Game\Round
 {
-	/**
-	 * @var integer
-	 */
-	protected $_no = 0;
-
 	/**
 	 * @var Map
 	 */
@@ -33,16 +28,6 @@ class Round
 	 * @var Map
 	 */
 	protected $_mapAfter = null;
-
-	/**
-	 * Round constructor.
-	 *
-	 * @param     $no
-	 */
-	public function __construct($no)
-	{
-		$this->_no = $no;
-	}
 
 	/**
 	 * Adds add move as my move.

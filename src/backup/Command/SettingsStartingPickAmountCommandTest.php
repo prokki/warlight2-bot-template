@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Command;
 
 use Prokki\Warlight2BotTemplate\Command\SettingsStartingPickAmountCommand;
 use Prokki\Warlight2BotTemplate\Game\Environment;
-use Prokki\Warlight2BotTemplate\Command\CommandParser;
+use Prokki\Warlight2BotTemplate\Command\Parser;
 
 class SettingsStartingPickAmountCommandTest extends CommandTest
 {
@@ -13,7 +13,7 @@ class SettingsStartingPickAmountCommandTest extends CommandTest
 	 */
 	protected function _getTestCommand()
 	{
-		return CommandParser::Init()->run('   settings   starting_pick_amount     27    ');
+		return Parser::Init()->run('   settings   starting_pick_amount     27    ');
 	}
 
 	/**
