@@ -135,6 +135,7 @@ class SetupMap
 	 */
 	public function addNeighbors($region_id, $neighbour_region_ids)
 	{
+		// TODO only if not initilized!
 		$neighbor_regions = $this->_neighborRegionIds->offsetExists($region_id) ?
 			$this->_neighborRegionIds->offsetGet($region_id) :
 			array();

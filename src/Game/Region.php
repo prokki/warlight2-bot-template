@@ -29,18 +29,30 @@ class Region
 	/**
 	 * Region constructor.
 	 *
-	 * @param integer     $id unique region id
-	 * @param SuperRegion $super_region
+	 * @param integer $id unique region id
 	 */
-	public function __construct($id, SuperRegion $super_region)
+	public function __construct($id)
 	{
-		$this->_id          = $id;
-		$this->_superRegion = $super_region;
+		$this->_id = $id;
 
 		$this->_state     = new RegionState();
-		$this->_neighbors = new RegionArray();
-		
-		$this->_superRegion->getRegions()->offsetSet($id, $this);
+		$this->_neighbors = EnvironmentFactory::Get()->newRegionArray();
+	}
+
+	/**
+	 * Attention: Call only from _initializeRegions()
+	 *
+	 * @param SuperRegion $super_region
+	 *
+	 * @return $this
+	 */
+	public function »assignSuperRegion($super_region)
+	{
+		$this->_superRegion = $super_region;
+
+		$this->_superRegion->getRegions()->offsetSet($this->_id, $this);
+
+		return $this;
 	}
 
 	/**

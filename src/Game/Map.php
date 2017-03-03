@@ -26,8 +26,8 @@ class Map extends SetupMap
 	{
 		parent::__construct();
 
-		$this->_regions      = new RegionArray();
-		$this->_superRegions = new RegionArray();
+		$this->_regions      = EnvironmentFactory::Get()->newRegionArray();
+		$this->_superRegions = EnvironmentFactory::Get()->newSuperRegionArray();
 	}
 
 	/**
@@ -37,8 +37,8 @@ class Map extends SetupMap
 	{
 		$old_regions = $this->_regions;
 
-		$this->_regions      = new RegionArray();
-		$this->_superRegions = new RegionArray();
+		$this->_regions      = EnvironmentFactory::Get()->newRegionArray();
+		$this->_superRegions = EnvironmentFactory::Get()->newSuperRegionArray();
 
 		$this->initialize();
 
@@ -76,7 +76,7 @@ class Map extends SetupMap
 	{
 		foreach( $this->_superRegionIds as $_super_region_id => $_bonus_armies )
 		{
-			$this->_superRegions->offsetSet($_super_region_id, new SuperRegion($_super_region_id, $_bonus_armies));
+			$this->_superRegions->offsetSet($_super_region_id, EnvironmentFactory::Get()->newSuperRegion($_super_region_id, $_bonus_armies));
 		}
 	}
 
@@ -102,7 +102,7 @@ class Map extends SetupMap
 
 			foreach( $_region_ids as $__region_id )
 			{
-				$__region = new Region($__region_id, $_super_region);
+				$__region = EnvironmentFactory::Get()->newRegion($__region_id)->»assignSuperRegion($_super_region);
 
 				$this->_regions->offsetSet($__region_id, $__region);
 			}

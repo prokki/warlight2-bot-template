@@ -10,7 +10,7 @@ use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 
-class RandomAIBot extends AIBot
+class StupidRandomBot extends AIBot
 {
 
 	/**
@@ -18,7 +18,8 @@ class RandomAIBot extends AIBot
 	 */
 	public function getPickMove($region_ids)
 	{
-		$index = rand(0, count($region_ids) - 1);
+		mt_srand((double) microtime() * 1234567);
+		$index = mt_rand(0, count($region_ids) - 1);
 
 		$region = $this->_environment->getMap()->getRegion($region_ids[ $index ]);
 
@@ -34,7 +35,9 @@ class RandomAIBot extends AIBot
 			return array();
 		}
 
-		$moves = rand(
+		mt_srand((double) microtime() * 9876543);
+		
+		$moves = mt_rand(
 			max(1, floor(log($length, M_E))),
 			max(1, ceil(log($length, 2)))
 		);
@@ -116,6 +119,8 @@ class RandomAIBot extends AIBot
 	 */
 	public function getPlaceMoves()
 	{
+		mt_srand((double) microtime() * 10101010);
+		
 		$armies_to_dispense = $this->_environment->getPlayer()->getStartingArmies();
 
 		$my_region_ids = $this->_environment->getMap()->getRegions(RegionState::OWNER_ME)->getOffsets();

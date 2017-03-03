@@ -8,41 +8,70 @@ This is a php bot template for Warlight AI Challenge 2 (http://theaigames.com/co
 
 > Note: The project is in beta stage. Feel free to report any issues you encounter.
 
+### Installation
+
+#### Composer
+
 Create a new project and install the template via Composer using the following command:
 
     composer require prokki/warlight2-bot-template
-    
-Create your own bot implementing the [Prokki\Warlight2BotTemplate\GamePlay\AIable](src/Bot/AIable.php) interface.
 
-Take a look to example class [Prokki\Warlight2BotTemplate\GamePlay\RandomAI](src/Bot/RandomAI.php) for further informations.
+### Basic Usage
 
-    class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
+#### Create Your Own Bot
+
+Create your own bot by inherit from the [Prokki\Warlight2BotTemplate\Bot\AIBot](src/Bot/AIBot.php) class.
+To ensure the bot is responding correctly the [Prokki\Warlight2BotTemplate\Bot\AIBot](src/Bot/AIBot.php)
+implements the interface [Prokki\Warlight2BotTemplate\Bot\AI](src/Bot/AI.php). Following methods has t be
+overridden:
+```php
+class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
+{
+    /**
+     * Returns the pick move of the region to pick.
+     *
+     * These moves are going to build the response to the request `pick_starting_region` - see {@see \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand}.
+     *
+     * @param integer[] $region_ids
+     *
+     * @return PickMove|null
+     */
+    public function getPickMove($region_ids)
     {
-        /**
-         * Returns the id of the region to pick.
-         *
-         * @param Environment $environment
-         * @param integer[]   $region_ids
-         *
-         * @return PickMove
-         */
-        public function getPickMove(Environment $environment, $region_ids)
-        {
-            // put your code here
-        }
-        
-        public function getAttackTransferMoves(Environment $environment)
-        {
-            // put your code here
-        }
-
-        public function getPlaceMoves(Environment $environment)
-        {
-            // put your code here
-        }
+        // put your code here
     }
 
-Links:
-- Game challenge page: http://theaigames.com/competitions/warlight-ai-challenge-2
-- Game source: https://github.com/theaigames/warlight2-engine
-- Game viewer to visualize/play a (compatible) game: https://github.com/kefik/conquest-engine-gui
+    /**
+     * Returns all place moves.
+     *
+     * These moves are going to build the response to the request `go place_armies` - see {@see \Prokki\Warlight2BotTemplate\Command\GoPlaceArmiesCommand}.
+     *
+     * @return PlaceMove[]
+     */
+    public function getPlaceMoves();
+    {
+        // put your code here
+    }
+
+    /**
+     * Returns all attack and transfer moves.
+     *
+     * These moves are going to build the response to the request `go attack/transfer` - see {@see \Prokki\Warlight2BotTemplate\Command\GoAttackTransferCommand}.
+     *
+     * @return TransferMove[]|AttackMove[]
+     */
+    public function getAttackTransferMoves();
+    {
+        // put your code here
+    }
+}
+```
+
+#### Example
+
+Take a look to example class [Prokki\Warlight2BotTemplate\Bot\StupidRandomBot](src/Bot/StupidRandomBot.php) for further information.
+
+### Links
+* Game challenge page: http://theaigames.com/competitions/warlight-ai-challenge-2
+* Game source: https://github.com/theaigames/warlight2-engine
+* Game viewer to visualize/play a (compatible) game: https://github.com/kefik/conquest-engine-gui

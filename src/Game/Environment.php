@@ -24,8 +24,8 @@ class Environment extends RoundBasedEnvironment
 	 */
 	public function __construct($max_rounds = 0)
 	{
-		$this->_player = new Player();
-		$this->_map    = new Map();
+		$this->_player = EnvironmentFactory::Get()->newPlayer();
+		$this->_map    = EnvironmentFactory::Get()->newMap();
 
 		parent::__construct();
 	}
@@ -44,16 +44,6 @@ class Environment extends RoundBasedEnvironment
 	public function getMap()
 	{
 		return $this->_map;
-	}
-
-	/**
-	 * Overrides... to create a new Round of this package instead of Round of TheaigamesBotEngine package.
-	 *
-	 * @return Round
-	 */
-	protected function getNewRound()
-	{
-		return new Round($this->_currentRoundNo);
 	}
 
 	/**

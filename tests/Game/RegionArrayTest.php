@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use PHPUnit\Framework\TestCase;
+use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
 
 class RegionArrayTest extends TestCase
@@ -13,7 +14,7 @@ class RegionArrayTest extends TestCase
 	 */
 	public function testGetOffsets()
 	{
-		$regionArray = new RegionArray();
+		$regionArray = EnvironmentFactory::Get()->newRegionArray();
 
 		self::assertEmpty($regionArray->getOffsets());
 

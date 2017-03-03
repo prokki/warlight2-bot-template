@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Exception;
 
-class ParserException extends \Prokki\TheaigamesBotEngine\Exception\ParserException
+class ParserException extends \Exception
 {
 
 	/**

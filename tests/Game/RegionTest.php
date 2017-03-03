@@ -4,6 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use PHPUnit\Framework\TestCase;
 
+use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
@@ -32,7 +33,7 @@ class RegionTest extends TestCase
 	public function testSetSuperRegion()
 	{
 		$super_region = new SuperRegion(4711, 1001001);
-		$region       = new Region(123456, $super_region);
+		$region       = EnvironmentFactory::Get()->newRegion(123456)->»assignSuperRegion($super_region);
 
 		// region has a super region
 		self::assertEquals(spl_object_hash($super_region), spl_object_hash($region->getSuperRegion()));

@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Util\Debugger;
 
 /**
  * Class SetupMapWastelandsCommand to initialize the super regions.

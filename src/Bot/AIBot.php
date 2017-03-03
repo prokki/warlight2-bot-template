@@ -5,6 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Bot;
 use Prokki\TheaigamesBotEngine\Bot\Bot;
 use Prokki\Warlight2BotTemplate\Command\Parser;
 use Prokki\Warlight2BotTemplate\Game\Environment;
+use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
 
 class AIBot implements Bot, AI
 {
@@ -14,13 +15,20 @@ class AIBot implements Bot, AI
 	protected $_environment = null;
 
 	/**
+	 * @var EnvironmentFactory
+	 */
+	protected $_environmentFactory = null;
+
+	/**
 	 * @var Parser
 	 */
 	protected $_parser = null;
 
 	public function __construct()
 	{
-		$this->_environment = new Environment();
+		EnvironmentFactory::Init();
+
+		$this->_environment = EnvironmentFactory::Get()->newEnvironment();
 
 		$this->_parser = new Parser();
 	}

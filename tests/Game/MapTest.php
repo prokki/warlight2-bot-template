@@ -2,7 +2,6 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
-use PHPUnit\Framework\TestCase;
 use Prokki\Warlight2BotTemplate\Exception\InitializationException;
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 use Prokki\Warlight2BotTemplate\Game\Map;
@@ -13,50 +12,16 @@ use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 
-class MapTest extends TestCase
+class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 {
-
-	/**
-	 * Returns an initialized test map.
-	 *
-	 * @return Map
-	 */
-	protected function _getTestMap()
-	{
-		$map = new Map();
-
-		$map->addSuperRegion(200, 0);
-		$map->addSuperRegion(300, 7000);
-		$map->addSuperRegion(400, 21000);
-
-		$map->addRegion(1, 200);
-		$map->addRegion(2, 200);
-		$map->addRegion(3, 300);
-		$map->addRegion(4, 300);
-		$map->addRegion(5, 300);
-		$map->addRegion(6, 400);
-
-		$map->addNeighbors(1, [2, 3, 5]);
-		$map->addNeighbors(3, [4]);
-		$map->addNeighbors(4, [5]);
-
-		$map->addWasteland(2);
-		$map->addWasteland(6);
-
-		$map->initialize();
-
-		return $map;
-	}
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::_initializeSuperRegions()
 	 */
 	public function testInitializeSuperRegions()
 	{
-		$map = $this->_getTestMap();
-
-		$this->assertAttributeInstanceOf(RegionArray::class, '_regions', $map);
-		$this->assertEquals(3, count($map->getSuperRegions()->getArrayCopy()));
+		$this->assertAttributeInstanceOf(RegionArray::class, '_regions', $this->_map);
+		$this->assertEquals(4, count($this->_map->getSuperRegions()->getArrayCopy()));
 	}
 
 	/**
@@ -65,12 +30,10 @@ class MapTest extends TestCase
 	 */
 	public function testInitialize()
 	{
-		$map = $this->_getTestMap();
-
 		// set _initialized to true to simulate a second _tryToInitialize
 		$reflection_property = new \ReflectionProperty(SetupMap::class, '_initialized');
 		$reflection_property->setAccessible(true);
-		$this->assertTrue($reflection_property->getValue($map));
+		$this->assertTrue($reflection_property->getValue($this->_map));
 	}
 
 	/**
@@ -79,12 +42,8 @@ class MapTest extends TestCase
 	 */
 	public function testInitializeRegions()
 	{
-		$map = $this->_getTestMap();
-
-		$map->initialize();
-
-		$this->assertAttributeInstanceOf(RegionArray::class, '_regions', $map);
-		$this->assertEquals(6, count($map->getRegions()));
+		$this->assertAttributeInstanceOf(RegionArray::class, '_regions', $this->_map);
+		$this->assertEquals(9, count($this->_map->getRegions()));
 	}
 
 	/**
@@ -107,26 +66,9 @@ class MapTest extends TestCase
 	 */
 	public function testInitializeNeighbors()
 	{
-		$map = $this->_getTestMap();
-
-		$neighbors_1 = $map->getRegion(1)->getNeighbors()->getArrayCopy();
-		self::assertEquals([2, 3, 5], array_keys($neighbors_1));
-		$neighbors_2 = $map->getRegion(2)->getNeighbors()->getArrayCopy();
-		self::assertEquals([1], array_keys($neighbors_2));
-		$neighbors_3 = $map->getRegion(3)->getNeighbors()->getArrayCopy();
-		self::assertEquals([1, 4], array_keys($neighbors_3));
-		$neighbors_4 = $map->getRegion(4)->getNeighbors()->getArrayCopy();
-		self::assertEquals([3, 5], array_keys($neighbors_4));
-		$neighbors_5 = $map->getRegion(5)->getNeighbors()->getArrayCopy();
-		self::assertEquals([1, 4], array_keys($neighbors_5));
-		$neighbors_6 = $map->getRegion(6)->getNeighbors()->getArrayCopy();
-		self::assertEmpty($neighbors_6);
-
-		// initialize a region wit a missing super region throws an error
-		self::expectException(InitializationException::class);
-		self::expectExceptionCode(203);
-		$map->addNeighbors(1, [7]);
-		$map->initialize();
+		self::assertEquals([1, 3, 5, 8], $this->_map->getRegion(4)->getNeighbors()->getOffsets());
+		self::assertEquals([4], $this->_map->getRegion(3)->getNeighbors()->getOffsets());
+		self::assertEquals([4, 5, 6, 9], $this->_map->getRegion(8)->getNeighbors()->getOffsets());
 	}
 
 	/**
@@ -139,7 +81,7 @@ class MapTest extends TestCase
 		// initialize a region wit a missing super region throws an error
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
-		$map->addNeighbors(1, []);
+		$map->addNeighbors(12345, []);
 		$map->initialize();
 	}
 
@@ -164,17 +106,15 @@ class MapTest extends TestCase
 	 */
 	public function testInitializeWastelands()
 	{
-		$map = $this->_getTestMap();
+		self::assertEquals(2, $this->_map->getRegion(1)->getArmies());
+		self::assertEquals(6, $this->_map->getRegion(2)->getArmies());
+		self::assertEquals(6, $this->_map->getRegion(4)->getArmies());
 
-		self::assertEquals(2, $map->getRegion(1)->getArmies());
-		self::assertEquals(6, $map->getRegion(2)->getArmies());
-		self::assertEquals(6, $map->getRegion(6)->getArmies());
-
-		// initialize an unknown region
+		// try to set wasteland to an unknown region with id 12345
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
-		$map->addWasteland(7);
-		$map->initialize();
+		$this->_map->addWasteland(12345);
+		$this->_map->initialize();
 	}
 
 	/**
@@ -216,14 +156,12 @@ class MapTest extends TestCase
 	 */
 	public function testGetRegion()
 	{
-		$map = $this->_getTestMap();
+		self::assertEquals(Region::class, get_class($this->_map->getRegion(6)));
 
-		self::assertEquals(Region::class, get_class($map->getRegion(6)));
-
-		// region with id 7 is not known
+		// region with id 12345 is not known
 		self::expectException(RuntimeException::class);
 		self::expectExceptionCode(301);
-		self::assertEquals($map->getRegion(7));
+		self::assertEquals($this->_map->getRegion(12345));
 	}
 
 	/**
@@ -234,12 +172,11 @@ class MapTest extends TestCase
 		$map = new Map();
 		self::assertEquals(RegionArray::class, get_class($map->getRegions()));
 
-		$map = $this->_getTestMap();
-		self::assertEquals(RegionArray::class, get_class($map->getRegions()));
-		self::assertEquals(6, count($map->getRegions(RegionState::OWNER_NEUTRAL)));
+		self::assertEquals(RegionArray::class, get_class($this->_map->getRegions()));
+		self::assertEquals(9, count($this->_map->getRegions(RegionState::OWNER_NEUTRAL)));
 
-		$map->getRegion(1)->»getState()->setOwner(RegionState::OWNER_UNKNOWN);
-		self::assertEquals(5, count($map->getRegions(RegionState::OWNER_NEUTRAL)));
+		$this->_map->getRegion(1)->»getState()->setOwner(RegionState::OWNER_UNKNOWN);
+		self::assertEquals(8, count($this->_map->getRegions(RegionState::OWNER_NEUTRAL)));
 	}
 
 	/**
@@ -250,9 +187,8 @@ class MapTest extends TestCase
 		$map = new Map();
 		self::assertEquals(RegionArray::class, get_class($map->getSuperRegions()));
 
-		$map = $this->_getTestMap();
-		self::assertEquals(RegionArray::class, get_class($map->getSuperRegions()));
-		self::assertEquals(3, count($map->getSuperRegions()));
+		self::assertEquals(RegionArray::class, get_class($this->_map->getSuperRegions()));
+		self::assertEquals(4, count($this->_map->getSuperRegions()));
 	}
 
 	/**
@@ -260,13 +196,12 @@ class MapTest extends TestCase
 	 */
 	public function testGetSuperRegion()
 	{
-		$map = $this->_getTestMap();
-		self::assertEquals(SuperRegion::class, get_class($map->getSuperRegion(200)));
+		self::assertEquals(SuperRegion::class, get_class($this->_map->getSuperRegion(1)));
 
 		// super region with id 12345 is not known
 		self::expectException(RuntimeException::class);
 		self::expectExceptionCode(311);
-		self::assertEquals($map->getSuperRegion(12345));
+		$this->_map->getSuperRegion(12345);
 	}
 
 	/**
@@ -274,11 +209,9 @@ class MapTest extends TestCase
 	 */
 	public function testGetUniqueOpponentPickMoves()
 	{
-		$map = $this->_getTestMap();
-
-		for( $i = 1; $i <= 6; $i++ )
+		foreach( $this->_map->getRegions() as $_region )
 		{
-			self::assertEquals(RegionState::OWNER_NEUTRAL, $map->getRegion(3)->getOwner());
+			self::assertEquals(RegionState::OWNER_NEUTRAL, $_region->getOwner());
 		}
 
 		// two regions are picked => two pick moves are returned 
@@ -287,16 +220,16 @@ class MapTest extends TestCase
 				new PickMove(3),
 				new PickMove(5),
 			],
-			$map->getUniqueOpponentPickMoves([3, 5])
+			$this->_map->getUniqueOpponentPickMoves([3, 5])
 		);
 
 		// already picked region are picked a second time => no moves are returned
-		self::assertEmpty($map->getUniqueOpponentPickMoves([3, 5]));
+		self::assertEmpty($this->_map->getUniqueOpponentPickMoves([3, 5]));
 
 		// another region is picked => a single move is returned
 		self::assertEquals(
 			[new PickMove(2)],
-			$map->getUniqueOpponentPickMoves([2])
+			$this->_map->getUniqueOpponentPickMoves([2])
 		);
 	}
 
@@ -307,11 +240,9 @@ class MapTest extends TestCase
 	 */
 	public function testClone()
 	{
-		$map = $this->_getTestMap();
+		$cloned_map = clone $this->_map;
 
-		$cloned_map = clone $map;
-
-		self::assertEquals($map, $cloned_map);
-		self::assertNotEquals(spl_object_hash($map), spl_object_hash($cloned_map));
+		self::assertEquals($this->_map, $cloned_map);
+		self::assertNotEquals(spl_object_hash($this->_map), spl_object_hash($cloned_map));
 	}
 }

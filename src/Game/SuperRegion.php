@@ -29,7 +29,7 @@ class SuperRegion
 	{
 		$this->_id          = $id;
 		$this->_bonusArmies = $bonus_armies;
-		$this->_regions     = new RegionArray();
+		$this->_regions     = EnvironmentFactory::Get()->newRegionArray();
 	}
 
 	/**
