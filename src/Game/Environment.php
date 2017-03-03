@@ -53,14 +53,13 @@ class Environment extends RoundBasedEnvironment
 	 */
 	public function addRound()
 	{
-		// cache old map
-		$old_updated_map = $this->getCurrentRound()->getUpdatedMap();
-
 		// call parent method
 		/** @var Round $new_round */
 		$new_round = parent::addRound();
 
+		$this->_map->renewStates();
+
 		// reference map of old round as initial map of new round
-		return $new_round->setInitialMap($old_updated_map);
+		return $new_round->setInitialMap(clone $this->_map);
 	}
 }

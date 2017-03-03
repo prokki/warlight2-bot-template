@@ -12,7 +12,7 @@ class Round extends \Prokki\TheaigamesBotEngine\Game\Round
 	/**
 	 * @var Map
 	 */
-	protected $_mapBefore = null;
+	protected $_initialMap = null;
 
 	/**
 	 * @var PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[]
@@ -23,11 +23,6 @@ class Round extends \Prokki\TheaigamesBotEngine\Game\Round
 	 * @var PickMove[]|PlaceMove[]|TransferMove[]|AttackMove[]
 	 */
 	protected $_opponentMoves = array();
-
-	/**
-	 * @var Map
-	 */
-	protected $_mapAfter = null;
 
 	/**
 	 * Adds add move as my move.
@@ -88,31 +83,10 @@ class Round extends \Prokki\TheaigamesBotEngine\Game\Round
 	 *
 	 * @return $this
 	 */
-	public function setInitialMap(Map $map)
+	public function setInitialMap($map)
 	{
-		$this->_mapBefore = $map;
+		$this->_initialMap = $map;
 		return $this;
-	}
-
-	/**
-	 * Sets detected opponent moves.
-	 *
-	 * @param Map $map
-	 *
-	 * @return $this
-	 */
-	public function setUpdatedMap(Map $map)
-	{
-		$this->_mapAfter = $map;
-		return $this;
-	}
-
-	/**
-	 * @return Map
-	 */
-	public function getUpdatedMap()
-	{
-		return $this->_mapAfter;
 	}
 
 	/**

@@ -24,10 +24,13 @@ class AIBot implements Bot, AI
 	 */
 	protected $_parser = null;
 
+	/**
+	 * AIBot constructor.
+	 *
+	 * Required: EnvironmentFactory must be initialized, see {@see \Prokki\Warlight2BotTemplate\Game\EnvironmentFactory::Init()}.
+	 */
 	public function __construct()
 	{
-		EnvironmentFactory::Init();
-
 		$this->_environment = EnvironmentFactory::Get()->newEnvironment();
 
 		$this->_parser = new Parser();

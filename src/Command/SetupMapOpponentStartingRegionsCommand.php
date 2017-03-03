@@ -27,6 +27,5 @@ class SetupMapOpponentStartingRegionsCommand extends ReceivableIntListCommand
 		$opponent_pick_moves = $bot->getEnvironment()->getMap()->getUniqueOpponentPickMoves($this->_value);
 
 		$bot->getEnvironment()->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
-		$bot->getEnvironment()->getCurrentRound()->setUpdatedMap(clone $bot->getEnvironment()->getMap());
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Bot;
 
+use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
 use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
@@ -12,6 +13,21 @@ use Prokki\Warlight2BotTemplate\Game\RegionState;
 
 class StupidRandomBot extends AIBot
 {
+
+	/**
+	 * StupidRandomBot
+	 *
+	 * @inheritdoc
+	 */
+	public function __construct($init_inventory = true)
+	{
+		if( $init_inventory )
+		{
+			EnvironmentFactory::Init();
+		}
+
+		parent::__construct();
+	}
 
 	/**
 	 * @inheritdoc

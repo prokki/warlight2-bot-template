@@ -25,6 +25,11 @@ class RegionState
 	const OWNER_ME = 8;
 
 	/**
+	 * flag to indicate a region owned by me
+	 */
+	const OWNER_ALL = self::OWNER_UNKNOWN | self::OWNER_NEUTRAL | self::OWNER_OPPONENT | self::OWNER_ME;
+
+	/**
 	 * @var boolean
 	 */
 	protected $_fog = false;

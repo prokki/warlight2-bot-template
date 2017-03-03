@@ -67,6 +67,11 @@ class Map extends SetupMap
 		return true;
 	}
 
+	public function renewStates()
+	{
+
+	}
+
 	/**
 	 * Initializes the {@see \Prokki\Warlight2BotTemplate\Game\Map::_superRegions} property.
 	 *
@@ -102,7 +107,9 @@ class Map extends SetupMap
 
 			foreach( $_region_ids as $__region_id )
 			{
-				$__region = EnvironmentFactory::Get()->newRegion($__region_id)->»assignSuperRegion($_super_region);
+				$__region = EnvironmentFactory::Get()->newRegion($__region_id);
+
+				$__region->»assignSuperRegion($_super_region);
 
 				$this->_regions->offsetSet($__region_id, $__region);
 			}

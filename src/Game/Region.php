@@ -152,7 +152,7 @@ class Region
 	 *
 	 * @param RegionState $state
 	 */
-	public function »setState(RegionState $state)
+	public function »setState($state)
 	{
 		$this->_state = $state;
 	}

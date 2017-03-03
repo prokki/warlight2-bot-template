@@ -111,13 +111,7 @@ class OpponentMovesCommand extends ReceivableCommand
 				$bot->getEnvironment()->getCurrentRound()->addOpponentMove($_move);
 			}
 		}
-
-		// exclude round 0 because updatedMap was already set in command SetupMapOpponentStartingRegionsCommand
-		if( $bot->getEnvironment()->getCurrentRoundNo() !== 0 )
-		{
-			$bot->getEnvironment()->getCurrentRound()->setUpdatedMap(clone $bot->getEnvironment()->getMap());
-		}
-
+		
 		$bot->getEnvironment()->addRound();
 	}
 }
