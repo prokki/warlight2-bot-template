@@ -196,25 +196,12 @@ class Map extends SetupMap
 	/**
 	 * Returns all regions.
 	 *
-	 * @param integer $owner one or multiple owner (see {@see ReggionState} constants) logically combined,
-	 *                       example: `getRegions(RegionState::OWNER_ME | RegionState::OWNER_NEUTRAL)`
-	 *
 	 * @return RegionArray
 	 *
 	 */
-	public function getRegions($owner = null)
+	public function getRegions()
 	{
-
-		if( is_null($owner) )
-		{
-			return $this->_regions;
-		}
-
-		return $this->_regions->filter(function ($_region) use ($owner)
-		{
-			/** @var Region $_region */
-			return $_region->getOwner() & $owner;
-		});
+		return $this->_regions;
 	}
 
 	/**

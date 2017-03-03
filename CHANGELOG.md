@@ -8,15 +8,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Added
 * Adapted classes to use environmental factory classes [EnvironmentFactory](src/Game/EnvironmentFactory.php).
+* Added class [SuperRegionArray](src/Game/SuperRegionArray.php) to differentiate to [RegionArray](src/Game/RegionArray.php).
 
 #### Fixed
 * All super regions will be initialized with references to assigned regions.
     
 #### Changed
 * Bot engine outsourced to https://github.com/prokki/theaigames-bot-engine
-* Commands updated to use Bot instead of AIable (and [Environment](src/Game/Environment.php))
-* Renamed AI to [AIBot.php](src/Bot/AIBot.php), RandomBot to [StupidRandomBot.php](src/Bot/StupidRandomBot.php)
-* Method RegionArray::getOffsets() does not use getArrayCopy() anymore.
+* Commands updated to use Bot instead of `AIable` (and [Environment](src/Game/Environment.php))
+* Renamed class AI to [AIBot.php](src/Bot/AIBot.php), class RandomBot to [StupidRandomBot.php](src/Bot/StupidRandomBot.php)
+* Method `RegionArray::getOffsets()` does not use `getArrayCopy()` anymore.
+* Method to filter regions by owner moved from [Map](src/Game/Map.php) (method `getRegions()`)
+to [RegionArray](src/Game/RegionArray.php). 
+
 
 ### [0.1.2] - 2017-03-02
 

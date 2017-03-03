@@ -11,6 +11,7 @@ use Prokki\Warlight2BotTemplate\Game\RegionArray;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\SetupMap;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
+use Prokki\Warlight2BotTemplate\Game\SuperRegionArray;
 
 class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 {
@@ -66,9 +67,9 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 	 */
 	public function testInitializeNeighbors()
 	{
-		self::assertEquals([1, 3, 5, 8], $this->_map->getRegion(4)->getNeighbors()->getOffsets());
-		self::assertEquals([4], $this->_map->getRegion(3)->getNeighbors()->getOffsets());
-		self::assertEquals([4, 5, 6, 9], $this->_map->getRegion(8)->getNeighbors()->getOffsets());
+		self::assertEquals([1, 3, 5, 8], $this->_map->getRegion(4)->getNeighbors()->getIds());
+		self::assertEquals([4], $this->_map->getRegion(3)->getNeighbors()->getIds());
+		self::assertEquals([4, 5, 6, 9], $this->_map->getRegion(8)->getNeighbors()->getIds());
 	}
 
 	/**
@@ -173,10 +174,10 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		self::assertEquals(RegionArray::class, get_class($map->getRegions()));
 
 		self::assertEquals(RegionArray::class, get_class($this->_map->getRegions()));
-		self::assertEquals(9, count($this->_map->getRegions(RegionState::OWNER_NEUTRAL)));
+		self::assertEquals(9, count($this->_map->getRegions()->filterOwner(RegionState::OWNER_NEUTRAL)));
 
 		$this->_map->getRegion(1)->»getState()->setOwner(RegionState::OWNER_UNKNOWN);
-		self::assertEquals(8, count($this->_map->getRegions(RegionState::OWNER_NEUTRAL)));
+		self::assertEquals(8, count($this->_map->getRegions()->filterOwner(RegionState::OWNER_NEUTRAL)));
 	}
 
 	/**
@@ -185,9 +186,9 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 	public function testGetSuperRegions()
 	{
 		$map = new Map();
-		self::assertEquals(RegionArray::class, get_class($map->getSuperRegions()));
+		self::assertEquals(SuperRegionArray::class, get_class($map->getSuperRegions()));
 
-		self::assertEquals(RegionArray::class, get_class($this->_map->getSuperRegions()));
+		self::assertEquals(SuperRegionArray::class, get_class($this->_map->getSuperRegions()));
 		self::assertEquals(4, count($this->_map->getSuperRegions()));
 	}
 

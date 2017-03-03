@@ -36,7 +36,7 @@ class StupidRandomBot extends AIBot
 		}
 
 		mt_srand((double) microtime() * 9876543);
-		
+
 		$moves = mt_rand(
 			max(1, floor(log($length, M_E))),
 			max(1, ceil(log($length, 2)))
@@ -66,7 +66,7 @@ class StupidRandomBot extends AIBot
 	 */
 	public function getAttackTransferMoves()
 	{
-		$source_regions = $this->_environment->getMap()->getRegions(RegionState::OWNER_ME);
+		$source_regions = $this->_environment->getMap()->getRegions()->filterOwner(RegionState::OWNER_ME);
 
 		$chosen_source_seq = self::_ChooseIndexes(count($source_regions));
 
@@ -120,10 +120,10 @@ class StupidRandomBot extends AIBot
 	public function getPlaceMoves()
 	{
 		mt_srand((double) microtime() * 10101010);
-		
+
 		$armies_to_dispense = $this->_environment->getPlayer()->getStartingArmies();
 
-		$my_region_ids = $this->_environment->getMap()->getRegions(RegionState::OWNER_ME)->getOffsets();
+		$my_region_ids = $this->_environment->getMap()->getRegions()->filterOwner(RegionState::OWNER_ME)->getIds();
 
 		$armies_to_place = array();
 
