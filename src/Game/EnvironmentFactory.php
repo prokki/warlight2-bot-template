@@ -60,6 +60,14 @@ class EnvironmentFactory extends RoundBasedEnvironmentFactory
 	}
 
 	/**
+	 * @return RegionState
+	 */
+	public function newRegionState()
+	{
+		return new RegionState();
+	}
+
+	/**
 	 * @param integer $_super_region_id
 	 * @param integer $_bonus_armies
 	 *

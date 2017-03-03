@@ -35,7 +35,7 @@ class Region
 	{
 		$this->_id = $id;
 
-		$this->_state     = new RegionState();
+		$this->_state     = EnvironmentFactory::Get()->newRegionState();
 		$this->_neighbors = EnvironmentFactory::Get()->newRegionArray();
 	}
 
