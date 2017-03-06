@@ -10,11 +10,11 @@ abstract class MapTest extends TestCase
 {
 	/**
 	 * ```
-	 *        2           4
-	 *        ┌───┐       ┌───┐       Y
-	 *    1   │ 1 │   3   │#2#│       ┌─┐  Two regions included in one
-	 *    ┌───┼   ┼───┬───┼   ┤       ├ ┤  super region (with id Y)
-	 *    │ 3 │#4#│ 5   6 │ 7 │       └─┘
+	 *        2(12)       4(4)
+	 *        ┌───┐       ┌───┐       Y(BONUS)
+	 *   1(20)│ 1 │ 3(18) │#2#│       ┌─┐  Two regions included in one
+	 *    ┌───┼   ┼───┬───┼   ┤       ├ ┤  super region (with id Y and an
+	 *    │ 3 │#4#│ 5   6 │ 7 │       └─┘  amount of BONUS bonus armies)
 	 *    └───┼───┘   ┼   ┼   ┤
 	 *        │     8     │ 9 │       #X# Wastelands
 	 *        └───────────┴───┘
@@ -29,9 +29,9 @@ abstract class MapTest extends TestCase
 		$this->_map = new Map();
 
 		$this->_map->addSuperRegionSetUp(1, 20);
-		$this->_map->addSuperRegionSetUp(2, 19);
+		$this->_map->addSuperRegionSetUp(2, 12);
 		$this->_map->addSuperRegionSetUp(3, 18);
-		$this->_map->addSuperRegionSetUp(4, 17);
+		$this->_map->addSuperRegionSetUp(4, 4);
 
 		$this->_map->addRegionSetUp(1, 2);
 		$this->_map->addRegionSetUp(2, 4);
