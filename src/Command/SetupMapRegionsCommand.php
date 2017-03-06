@@ -23,7 +23,7 @@ class SetupMapRegionsCommand extends ReceivableTupleIntListCommand
 	{
 		foreach( $this->_value as $_id_region => $_id_super_region )
 		{
-			$bot->getEnvironment()->getMap()->addRegion($_id_region, $_id_super_region);
+			$bot->getEnvironment()->getMap()->addRegionSetUp($_id_region, $_id_super_region);
 		}
 
 		if( $bot->getEnvironment()->getMap()->finishAddingRegions() )

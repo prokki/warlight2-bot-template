@@ -25,7 +25,7 @@ class SetupMapSuperRegionsCommand extends ReceivableTupleIntListCommand
 	{
 		foreach( $this->_value as $_id_super_region => $_bonus_armies )
 		{
-			$bot->getEnvironment()->getMap()->addSuperRegion($_id_super_region, $_bonus_armies);
+			$bot->getEnvironment()->getMap()->addSuperRegionSetUp($_id_super_region, $_bonus_armies);
 		}
 
 		if( $bot->getEnvironment()->getMap()->finishAddingSuperRegions() )

@@ -18,7 +18,7 @@ class SetupMapWastelandsCommand extends ReceivableIntListCommand
 	{
 		foreach( $this->_value as $_region_id )
 		{
-			$bot->getEnvironment()->getMap()->addWasteland($_region_id);
+			$bot->getEnvironment()->getMap()->addWastelandSetUp($_region_id);
 		}
 
 		if( $bot->getEnvironment()->getMap()->finishAddingWasteland() )

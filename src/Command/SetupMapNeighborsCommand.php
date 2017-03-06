@@ -53,7 +53,7 @@ class SetupMapNeighborsCommand extends ReceivableCommand
 	{
 		foreach( $this->_neighbors as $_region_id => $_region_ids )
 		{
-			$bot->getEnvironment()->getMap()->addNeighbors($_region_id, $_region_ids);
+			$bot->getEnvironment()->getMap()->addNeighborsSetUp($_region_id, $_region_ids);
 		}
 
 		if( $bot->getEnvironment()->getMap()->finishAddingNeighbors() )
