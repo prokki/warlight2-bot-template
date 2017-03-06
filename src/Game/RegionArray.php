@@ -3,10 +3,9 @@
 namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\Filterable;
-use Prokki\TheaigamesBotEngine\Util\ArrayObject\LoadedArray;
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\GetOffsetable;
 
-class RegionArray extends LoadedArray
+class RegionArray extends \ArrayObject
 {
 	use Filterable, GetOffsetable;
 
