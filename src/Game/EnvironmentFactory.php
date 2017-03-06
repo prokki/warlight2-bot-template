@@ -4,6 +4,11 @@ namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\TheaigamesBotEngine\Game\RoundBasedEnvironmentFactory;
 
+/**
+ * This class represents the factory class to get new game objects.
+ *
+ * @package Prokki\Warlight2BotTemplate
+ */
 class EnvironmentFactory extends RoundBasedEnvironmentFactory
 {
 

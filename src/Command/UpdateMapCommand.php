@@ -2,10 +2,9 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Bot;
 use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
-use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
 

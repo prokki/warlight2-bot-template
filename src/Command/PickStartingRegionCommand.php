@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Bot;
 use Prokki\TheaigamesBotEngine\Command\Computable;
 use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
 use Prokki\TheaigamesBotEngine\Util\Debugger;
@@ -98,13 +98,19 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 		);
 		// and save to current round
 		$bot->getEnvironment()->getCurrentRound()->addOpponentMoves($opponent_pick_moves);
-		
+
 
 		// 2. calculate my pick move by AI
 		$pick_move = $bot->getPickMove($this->_region_ids);
+
+		if( is_null($pick_move) )
+		{
+			return '';
+		}
+
 		// and save to current round
 		$bot->getEnvironment()->getCurrentRound()->addMove($pick_move);
-		
+
 		// return my move as command
 		return $pick_move->_toResponseString($bot->getEnvironment()->getPlayer()->getName());
 	}

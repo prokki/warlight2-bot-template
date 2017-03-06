@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\Bot;
+namespace Prokki\Warlight2BotTemplate;
 
 use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
 

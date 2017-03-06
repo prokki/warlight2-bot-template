@@ -67,6 +67,9 @@ class Map extends SetupMap
 		return true;
 	}
 
+	/**
+	 * Recalculates map state, region states, super region states, etc. at the beginning of each round.
+	 */
 	public function renewStates()
 	{
 

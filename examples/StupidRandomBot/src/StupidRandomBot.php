@@ -1,21 +1,30 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\Bot;
+namespace Prokki\Warlight2BotTemplate\Examples\StupidRandomBot;
 
-use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
+use Prokki\Warlight2BotTemplate\AIBot;
+use Prokki\Warlight2BotTemplate\Examples\StupidRandomBot\Game\EnvironmentFactory;
+use Prokki\Warlight2BotTemplate\Examples\StupidRandomBot\Game\RegionState;
 use Prokki\Warlight2BotTemplate\Game\Move\AttackMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PickMove;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
-use Prokki\Warlight2BotTemplate\Game\RegionState;
 
+/**
+ * StupidRandomBot is a simple bot used to describe how to use the Warlight2BotTemplate.
+ *
+ * @package Prokki\Warlight2BotTemplate\StupidRandomBot
+ */
 class StupidRandomBot extends AIBot
 {
 
 	/**
-	 * StupidRandomBot
+	 * The constructor of your bot is not necessary, but advisable.
+	 *
+	 * Especially if you your bot uses overridden classes you have to *initialize
+	 * your custom `EnvironmentFactory`*.
 	 *
 	 * @inheritdoc
 	 */

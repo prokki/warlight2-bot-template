@@ -26,7 +26,8 @@
   },
   "autoload-dev": {
 	"classmap": [
-	  "tests/"
+	  "tests/",
+	  "examples/"
 	]
   },
   "require-dev": {

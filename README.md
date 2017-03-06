@@ -1,7 +1,7 @@
 ## Warlight2BotTemplate
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/prokki/warlight2-bot/blob/master/LICENSE)
-[![Packagist](https://img.shields.io/badge/Packagist-0.1.1-blue.svg?style=flat)](https://packagist.org/packages/prokki/warlight2-bot-template)
+[![Packagist](https://img.shields.io/badge/Packagist-0.2.1-blue.svg?style=flat)](https://packagist.org/packages/prokki/warlight2-bot-template)
 [![Minimum PHP Version](https://img.shields.io/badge/PHP-%3D5.6.13-8892BF.svg)](https://php.net/)
 
 This is a php bot template for Warlight AI Challenge 2 (http://theaigames.com/competitions/warlight-ai-challenge-2). 
@@ -16,16 +16,20 @@ Create a new project and install the template via Composer using the following c
 
     composer require prokki/warlight2-bot-template
 
-### Basic Usage
+### Usage
 
 #### Create Your Own Bot
 
-Create your own bot by inherit from the [Prokki\Warlight2BotTemplate\Bot\AIBot](src/Bot/AIBot.php) class.
-To ensure the bot is responding correctly the [Prokki\Warlight2BotTemplate\Bot\AIBot](src/Bot/AIBot.php)
-implements the interface [Prokki\Warlight2BotTemplate\Bot\AI](src/Bot/AI.php). Following methods has t be
-overridden:
+Create your own bot by inherit from the [Prokki\Warlight2BotTemplate\AIBot](src/AIBot.php) class.
+To ensure the bot is responding correctly the class has to implement the
+[Prokki\Warlight2BotTemplate\Bot\AI](src/AI.php) interface.
+
+Following methods has to be overridden:
 ```php
-class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
+
+use Prokki\TheaigamesBotEngine\Bot;
+
+class AIBot implements Bot, AI
 {
     /**
      * Returns the pick move of the region to pick.
@@ -67,9 +71,17 @@ class YOUR_AI implements Prokki\Warlight2BotTemplate\GamePlay\AIable
 }
 ```
 
-#### Example
+#### Customize Game Classes
 
-Take a look to example class [Prokki\Warlight2BotTemplate\Bot\StupidRandomBot](src/Bot/StupidRandomBot.php) for further information.
+To add heuristic data, static data or other custom data for your invincible bot,
+you can add custom classes to manage additional information. But instead of adding extra classes the bot engine provides a better way to add custom information
+for your bot: You can extend game related base classes with own properties and methods.
+
+The `\Prokki\TheaigamesBotEngine\Game\EnvironmentFactory` implements the factory pattern to create all game
+related objects with one class. Overriding this class gives you the power to use custom classes with custom
+properties.
+
+Take a look to example [Prokki\Warlight2BotTemplate\Example\StupidRandomBot](examples/StupidRandomBot/src/StupidRandomBot.php) for further information.
 
 ### Links
 * Game challenge page: http://theaigames.com/competitions/warlight-ai-challenge-2

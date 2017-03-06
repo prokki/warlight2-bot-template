@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Command;
 
-use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Bot;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 
 /**

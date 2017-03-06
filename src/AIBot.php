@@ -1,8 +1,8 @@
 <?php
 
-namespace Prokki\Warlight2BotTemplate\Bot;
+namespace Prokki\Warlight2BotTemplate;
 
-use Prokki\TheaigamesBotEngine\Bot\Bot;
+use Prokki\TheaigamesBotEngine\Bot;
 use Prokki\Warlight2BotTemplate\Command\Parser;
 use Prokki\Warlight2BotTemplate\Game\Environment;
 use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
