@@ -43,7 +43,7 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getSuperRegions()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::hasSuperRegion()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegionSetUp()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SuperRegion::getBonusArmies()
 	 *
 	 * @inheritdoc

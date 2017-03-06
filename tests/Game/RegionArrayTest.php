@@ -2,26 +2,59 @@
 
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
-use PHPUnit\Framework\TestCase;
-use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
+use Prokki\Warlight2BotTemplate\Examples\StupidRandomBot\Game\RegionState;
+use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
+use Prokki\Warlight2BotTemplate\Test\MapTest;
 
-class RegionArrayTest extends TestCase
+class RegionArrayTest extends MapTest
 {
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::getOffsets()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::getIds()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::addRegion()
 	 */
-	public function testGetOffsets()
+	public function testGetIds()
 	{
-		$regionArray = EnvironmentFactory::Get()->newRegionArray();
+		$regions = new RegionArray();
 
-		self::assertEmpty($regionArray->getOffsets());
+		self::assertEmpty($regions);
+		self::assertEmpty($regions->getIds());
 
-		$regionArray->offsetSet(1, 'a');
-		$regionArray->offsetSet(4711, 'b');
-		$regionArray->offsetSet('c', 'c');
+		$regions->addRegion(new Region(4711));
+		$regions->addRegion(new Region(815));
 
-		self::assertEquals([1, 4711, 'c'], $regionArray->getOffsets());
+		self::assertEquals([4711, 815], $regions->getIds());
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::get()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::hasRegion()
+	 */
+	public function testGet()
+	{
+		$regions = new RegionArray();
+
+		$region_1 = new Region(4711);
+		$region_2 = new Region(815);
+
+		$regions->addRegion($region_1);
+		$regions->addRegion($region_2);
+
+		// super region with ID 815 exists
+		self::assertTrue($regions->hasRegion(815));
+		self::assertEquals($region_2, $regions->get(815));
+		// super region with ID 1 does not exist
+		self::assertFalse($regions->hasRegion(1));
+		self::assertNull($regions->get(1));
+	}
+
+	/**
+	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::filterOwner()
+	 */
+	public function testFilterOwner()
+	{
+		self::assertEquals(9, count($this->_map->getRegions()->filterOwner(RegionState::OWNER_NEUTRAL)));
+		self::assertEmpty($this->_map->getRegions()->filterOwner(RegionState::OWNER_ME));
 	}
 }

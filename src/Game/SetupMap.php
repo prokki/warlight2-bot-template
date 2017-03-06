@@ -93,7 +93,7 @@ class SetupMap
 	 * @throws InitializationException
 	 *
 	 */
-	public function addSuperRegion($super_region_id, $bonus_armies = 0)
+	public function addSuperRegionSetUp($super_region_id, $bonus_armies = 0)
 	{
 		// if $this->_superRegionIds->setLoaded() throw!
 		if( $this->_superRegionIds->offsetExists($super_region_id) )
@@ -110,7 +110,7 @@ class SetupMap
 	 *
 	 * @throws InitializationException
 	 */
-	public function addRegion($region_id, $super_region_id)
+	public function addRegionSetUp($region_id, $super_region_id)
 	{
 		$regions = $this->_regionIds->offsetExists($super_region_id) ? $this->_regionIds->offsetGet($super_region_id) : array();
 
@@ -133,7 +133,7 @@ class SetupMap
 	 *
 	 * @author Falko Matthies <falko.m@web.de>
 	 */
-	public function addNeighbors($region_id, $neighbour_region_ids)
+	public function addNeighborsSetUp($region_id, $neighbour_region_ids)
 	{
 		// TODO only if not initilized!
 		$neighbor_regions = $this->_neighborRegionIds->offsetExists($region_id) ?
@@ -148,7 +148,7 @@ class SetupMap
 	/**
 	 * @param integer $region_id id of the wasteland region
 	 */
-	public function addWasteland($region_id)
+	public function addWastelandSetUp($region_id)
 	{
 		$this->_wastelandIds->offsetSet($region_id, $region_id);
 	}

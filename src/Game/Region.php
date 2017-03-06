@@ -50,7 +50,7 @@ class Region
 	{
 		$this->_superRegion = $super_region;
 
-		$this->_superRegion->getRegions()->offsetSet($this->_id, $this);
+		$this->_superRegion->getRegions()->addRegion($this);
 
 		return $this;
 	}
@@ -82,7 +82,7 @@ class Region
 	 */
 	public function addNeighbor($region, $vice_versa = true)
 	{
-		$this->_neighbors->offsetSet($region->_id, $region);
+		$this->_neighbors->addRegion($region);
 
 		if( $vice_versa )
 		{

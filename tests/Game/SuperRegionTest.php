@@ -29,9 +29,9 @@ class SuperRegionTest extends TestCase
 	{
 		$map = new Map();
 
-		$map->addSuperRegion(12, 9999);
-		$map->addRegion(456, 12);
-		$map->addRegion(123, 12);
+		$map->addSuperRegionSetUp(12, 9999);
+		$map->addRegionSetUp(456, 12);
+		$map->addRegionSetUp(123, 12);
 
 		$map->initialize();
 

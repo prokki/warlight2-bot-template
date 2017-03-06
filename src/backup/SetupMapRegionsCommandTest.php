@@ -43,7 +43,7 @@ class SetupMapRegionsCommandTest extends CommandTest
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addRegionSetUp()
 	 *
 	 * @inheritdoc
 	 */

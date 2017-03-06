@@ -15,7 +15,7 @@ class Map extends SetupMap
 	protected $_regions = null;
 
 	/**
-	 * @var RegionArray
+	 * @var SuperRegionArray
 	 */
 	protected $_superRegions = null;
 
@@ -69,6 +69,8 @@ class Map extends SetupMap
 
 	/**
 	 * Recalculates map state, region states, super region states, etc. at the beginning of each round.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function renewStates()
 	{
@@ -84,7 +86,7 @@ class Map extends SetupMap
 	{
 		foreach( $this->_superRegionIds as $_super_region_id => $_bonus_armies )
 		{
-			$this->_superRegions->offsetSet($_super_region_id, EnvironmentFactory::Get()->newSuperRegion($_super_region_id, $_bonus_armies));
+			$this->_superRegions->addSuperRegion(EnvironmentFactory::Get()->newSuperRegion($_super_region_id, $_bonus_armies));
 		}
 	}
 
@@ -110,11 +112,9 @@ class Map extends SetupMap
 
 			foreach( $_region_ids as $__region_id )
 			{
-				$__region = EnvironmentFactory::Get()->newRegion($__region_id);
-
-				$__region->»assignSuperRegion($_super_region);
-
-				$this->_regions->offsetSet($__region_id, $__region);
+				$this->_regions->addRegion(
+					EnvironmentFactory::Get()->newRegion($__region_id)->»assignSuperRegion($_super_region)
+				);
 			}
 		}
 	}
@@ -178,7 +178,7 @@ class Map extends SetupMap
 	 */
 	public function hasRegion($id)
 	{
-		return $this->_regions->offsetExists($id);
+		return $this->_regions->hasRegion($id);
 	}
 
 	/**
@@ -200,7 +200,7 @@ class Map extends SetupMap
 			throw RuntimeException::UnknownRegion($id);
 		}
 
-		return $this->_regions->offsetGet($id);
+		return $this->_regions->get($id);
 	}
 
 	/**
@@ -224,7 +224,7 @@ class Map extends SetupMap
 	 */
 	public function hasSuperRegion($id)
 	{
-		return $this->_superRegions->offsetExists($id);
+		return $this->_superRegions->hasSuperRegion($id);
 	}
 
 	/**
@@ -243,7 +243,7 @@ class Map extends SetupMap
 			throw RuntimeException::UnknownSuperRegion($id);
 		}
 
-		return $this->_superRegions->offsetGet($id);
+		return $this->_superRegions->get($id);
 	}
 
 	/**

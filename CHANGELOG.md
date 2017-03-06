@@ -8,10 +8,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### [0.3.0] - 2017-03-06
 
+#### Added
+* Continued to complete unit tests.
+
 #### Changed
 * new namespaces for examples [Prokki\Warlight2BotTemplate\Examples](examples/).
 * [StupidRandomBot.php](examples/StupidRandomBot/src/StupidRandomBot.php) moved to example directory.
 * Base classes for bots moved to root directory [/src](src/).
+* Added getter and setter to [RegionArray](src/Game/RegionArray.php) and [SuperRegionArray](src/Game/SuperRegionArray.php) to abstract ArrayObject
+(avoid using `offset*()` methods) 
 
 ### [0.2.0] - 2017-03-03
 

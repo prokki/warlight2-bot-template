@@ -53,7 +53,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 	public function testInitializeRegionWithMissingSuperRegion()
 	{
 		$map = new Map();
-		$map->addRegion(1, 200);
+		$map->addRegionSetUp(1, 200);
 
 		// initialize a region wit a missing super region throws an error
 		self::expectException(InitializationException::class);
@@ -82,7 +82,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		// initialize a region wit a missing super region throws an error
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
-		$map->addNeighbors(12345, []);
+		$map->addNeighborsSetUp(12345, []);
 		$map->initialize();
 	}
 
@@ -92,13 +92,13 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 	public function testInitializeNeighborsWithUnknownNeighborRegion()
 	{
 		$map = new Map();
-		$map->addSuperRegion(200, 0);
-		$map->addRegion(1, 200);
+		$map->addSuperRegionSetUp(200, 0);
+		$map->addRegionSetUp(1, 200);
 
 		// initialize a region wit a missing super region throws an error
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
-		$map->addNeighbors(1, [2]);
+		$map->addNeighborsSetUp(1, [2]);
 		$map->initialize();
 	}
 
@@ -114,7 +114,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		// try to set wasteland to an unknown region with id 12345
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
-		$this->_map->addWasteland(12345);
+		$this->_map->addWastelandSetUp(12345);
 		$this->_map->initialize();
 	}
 

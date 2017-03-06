@@ -1,5 +1,9 @@
 <?php
 
+use Prokki\Warlight2BotTemplate\Game\EnvironmentFactory;
+
+EnvironmentFactory::Init();
+
 function rand_string($length)
 {
 	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -15,5 +19,3 @@ function rand_string($length)
 
 	return $randomString;
 }
-
-include __DIR__ . '/../vendor/autoload.php';
