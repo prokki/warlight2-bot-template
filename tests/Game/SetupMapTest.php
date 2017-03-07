@@ -146,14 +146,14 @@ class SetupMapTest extends TestCase
 		$this->assertEquals([2 => 2], $this->getObjectAttribute($map, '_wastelandIds')->getArrayCopy());
 	}
 
-	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::initialize()
-	 */
-	public function testInitialize()
-	{
-		$map = new SetupMap();
-		$this->assertFalse($map->initialize());
-	}
+//	/**
+//	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::initialize()
+//	 */
+//	public function testInitialize()
+//	{
+//		$map = new SetupMap();
+//		$this->assertFalse($map->initialize());
+//	}
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::_tryToInitialize()

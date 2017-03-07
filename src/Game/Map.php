@@ -40,21 +40,25 @@ class Map extends SetupMap
 		$this->_regions      = EnvironmentFactory::Get()->newRegionArray();
 		$this->_superRegions = EnvironmentFactory::Get()->newSuperRegionArray();
 
-		$this->initialize();
+		$this->_initializeSetUp(false);
 
 		foreach( $old_regions as $_old_region )
 		{
 			/** @var Region $_old_region */
 			$this->getRegion($_old_region->getId())->»setState(clone $_old_region->»getState());
 		}
+
+		$this->_initialize();
 	}
 
 	/**
-	 * Returns `true` if the map is initialized successfully, else `false`.
+	 * Override this method in class {@see \Prokki\Warlight2BotTemplate\Game\SetUpMap} to return `true`.
 	 *
-	 * @return boolean
+	 * @param boolean $execute_initialize
+	 *
+	 * @inheritdoc
 	 */
-	public function initialize()
+	protected function _initializeSetUp($execute_initialize = true)
 	{
 		$this->_initializeSuperRegions();
 
@@ -66,7 +70,20 @@ class Map extends SetupMap
 
 		$this->_initialized = true;
 
+		if( $execute_initialize )
+		{
+			$this->_initialize();
+		}
+
 		return true;
+	}
+
+	/**
+	 * Initializes all states
+	 */
+	protected function _initialize()
+	{
+
 	}
 
 	/**

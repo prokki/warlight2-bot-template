@@ -33,7 +33,7 @@ class SuperRegionTest extends TestCase
 		$map->addRegionSetUp(456, 12);
 		$map->addRegionSetUp(123, 12);
 
-		$map->initialize();
+		$map = clone $map;
 
 		self::assertEquals(2, count($map->getSuperRegion(12)->getRegions()));
 		self::assertEquals([456, 123], $map->getSuperRegion(12)->getRegions()->getIds());

@@ -26,10 +26,10 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 	}
 
 	/**
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::initialize()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::_initializeSetUp()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::__construct()
 	 */
-	public function testInitialize()
+	public function testInitializeSetUp()
 	{
 		// set _initialized to true to simulate a second _tryToInitialize
 		$reflection_property = new \ReflectionProperty(SetupMap::class, '_initialized');
@@ -58,7 +58,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		// initialize a region wit a missing super region throws an error
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
-		$map->initialize();
+		clone $map;
 	}
 
 	/**
@@ -83,7 +83,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
 		$map->addNeighborsSetUp(12345, []);
-		$map->initialize();
+		clone $map;
 	}
 
 	/**
@@ -99,7 +99,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
 		$map->addNeighborsSetUp(1, [2]);
-		$map->initialize();
+		clone $map;
 	}
 
 	/**
@@ -115,7 +115,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 		self::expectException(InitializationException::class);
 		self::expectExceptionCode(203);
 		$this->_map->addWastelandSetUp(12345);
-		$this->_map->initialize();
+		clone $this->_map;
 	}
 
 	/**
@@ -241,9 +241,15 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 	 */
 	public function testClone()
 	{
+		$this->_map->getRegion(1)->»getState()->setOwner(RegionState::OWNER_OPPONENT);
+
 		$cloned_map = clone $this->_map;
 
 		self::assertEquals($this->_map, $cloned_map);
 		self::assertNotEquals(spl_object_hash($this->_map), spl_object_hash($cloned_map));
+		self::assertNotEquals(spl_object_hash($this->_map->getRegion(1)), spl_object_hash($cloned_map->getRegion(1)));
+		self::assertNotEquals(spl_object_hash($this->_map->getRegion(1)->»getState()), spl_object_hash($cloned_map->getRegion(1)->»getState()));
+
+		self::assertEquals(RegionState::OWNER_OPPONENT, $this->_map->getRegion(1)->»getState()->getOwner());
 	}
 }

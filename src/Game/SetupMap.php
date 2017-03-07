@@ -154,11 +154,11 @@ class SetupMap
 	}
 
 	/**
-	 * Override this method in class {@see \Prokki\Warlight2BotTemplate\Game\Map} to return `true`.
+	 * Returns `true` if the map is initialized successfully, else `false`.
 	 *
-	 * @inheritdoc
+	 * @return boolean
 	 */
-	public function initialize()
+	protected function _initializeSetUp()
 	{
 		return $this->_initialized;
 	}
@@ -190,7 +190,7 @@ class SetupMap
 			return false;
 		}
 
-		return $this->initialize();
+		return $this->_initializeSetUp();
 	}
 
 	/**

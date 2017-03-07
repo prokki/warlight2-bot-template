@@ -26,40 +26,40 @@ abstract class MapTest extends TestCase
 
 	public function setUp()
 	{
-		$this->_map = new Map();
+		$_map = new Map();
 
-		$this->_map->addSuperRegionSetUp(1, 20);
-		$this->_map->addSuperRegionSetUp(2, 12);
-		$this->_map->addSuperRegionSetUp(3, 18);
-		$this->_map->addSuperRegionSetUp(4, 4);
+		$_map->addSuperRegionSetUp(1, 20);
+		$_map->addSuperRegionSetUp(2, 12);
+		$_map->addSuperRegionSetUp(3, 18);
+		$_map->addSuperRegionSetUp(4, 4);
 
-		$this->_map->addRegionSetUp(1, 2);
-		$this->_map->addRegionSetUp(2, 4);
-		$this->_map->addRegionSetUp(3, 1);
-		$this->_map->addRegionSetUp(4, 2);
-		$this->_map->addRegionSetUp(5, 3);
-		$this->_map->addRegionSetUp(6, 3);
-		$this->_map->addRegionSetUp(7, 4);
-		$this->_map->addRegionSetUp(8, 3);
-		$this->_map->addRegionSetUp(9, 4);
+		$_map->addRegionSetUp(1, 2);
+		$_map->addRegionSetUp(2, 4);
+		$_map->addRegionSetUp(3, 1);
+		$_map->addRegionSetUp(4, 2);
+		$_map->addRegionSetUp(5, 3);
+		$_map->addRegionSetUp(6, 3);
+		$_map->addRegionSetUp(7, 4);
+		$_map->addRegionSetUp(8, 3);
+		$_map->addRegionSetUp(9, 4);
 
-		$this->_map->addNeighborsSetUp(1, [4]);
-		$this->_map->addNeighborsSetUp(2, [7]);
-		$this->_map->addNeighborsSetUp(3, [4]);
-		$this->_map->addNeighborsSetUp(4, [5, 8]);
-		$this->_map->addNeighborsSetUp(5, [6, 8]);
-		$this->_map->addNeighborsSetUp(6, [7, 8]);
-		$this->_map->addNeighborsSetUp(7, [9]);
-		$this->_map->addNeighborsSetUp(8, [9]);
+		$_map->addNeighborsSetUp(1, [4]);
+		$_map->addNeighborsSetUp(2, [7]);
+		$_map->addNeighborsSetUp(3, [4]);
+		$_map->addNeighborsSetUp(4, [5, 8]);
+		$_map->addNeighborsSetUp(5, [6, 8]);
+		$_map->addNeighborsSetUp(6, [7, 8]);
+		$_map->addNeighborsSetUp(7, [9]);
+		$_map->addNeighborsSetUp(8, [9]);
 
-		$this->_map->addWastelandSetUp(2);
-		$this->_map->addWastelandSetUp(4);
+		$_map->addWastelandSetUp(2);
+		$_map->addWastelandSetUp(4);
 
-		$this->_map->initialize();
+		$this->_map = clone $_map;
 	}
 
 	public function tearDown()
 	{
-		$this->_map = null;
+		$_map = null;
 	}
 }
