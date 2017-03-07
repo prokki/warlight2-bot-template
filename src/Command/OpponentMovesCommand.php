@@ -84,11 +84,7 @@ class OpponentMovesCommand extends ReceivableCommand
 					break;
 
 				default:
-					var_dump("FEHLER!!!");
-					var_dump($this->_moves);
-					var_dump($this->_attack_transfer_moves);
-					var_dump($values);
-					die();
+					// TODO throw exception
 			}
 		}
 	}
@@ -111,7 +107,7 @@ class OpponentMovesCommand extends ReceivableCommand
 				$bot->getEnvironment()->getCurrentRound()->addOpponentMove($_move);
 			}
 		}
-		
+
 		$bot->getEnvironment()->addRound();
 	}
 }

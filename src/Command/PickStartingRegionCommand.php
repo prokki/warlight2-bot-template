@@ -5,8 +5,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 use Prokki\TheaigamesBotEngine\Bot;
 use Prokki\TheaigamesBotEngine\Command\Computable;
 use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
-use Prokki\TheaigamesBotEngine\Util\Debugger;
-use Prokki\Warlight2BotTemplate\Bot\AIBot;
+use Prokki\Warlight2BotTemplate\AIBot;
 use Prokki\Warlight2BotTemplate\Exception\ParserException;
 
 /**
@@ -51,7 +50,7 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 
 		if( count($values) < 2 )
 		{
-			throw ParserException::CommandMissingArguments($input, 'At least two parameter are necessary: The remaining time and at least one region to pick from.');
+			throw \Prokki\TheaigamesBotEngine\Exception\ParserException::CommandMissingArguments($input, 'At least two parameter are necessary: The remaining time and at least one region to pick from.');
 		}
 
 		$this->_time = array_shift($values);
@@ -91,7 +90,6 @@ class PickStartingRegionCommand extends ReceivableCommand implements Computable
 	 */
 	public function compute(Bot $bot)
 	{
-		/** @var AIBot $bot */
 		// 1. get opponent pick moves
 		$opponent_pick_moves = $bot->getEnvironment()->getMap()->getUniqueOpponentPickMoves(
 			$this->_getAllPickedRegionIds($bot->getEnvironment()->getPlayer()->getStartingRegions())

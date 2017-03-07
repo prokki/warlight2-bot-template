@@ -18,5 +18,6 @@ abstract class SetGlobalTimeComputableCommand extends ReceivableIntCommand imple
 	{
 		$bot->getEnvironment()->getPlayer()->setGlobalTime($this->_value);
 	}
+	
 
 }
