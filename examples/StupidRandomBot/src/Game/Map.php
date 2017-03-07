@@ -16,9 +16,12 @@ class Map extends \Prokki\Warlight2BotTemplate\Game\Map
 	/**
 	 * Recalculates map state, region states, super region states, etc. at the beginning of each round.
 	 */
-	public function renewStates()
+	public function initialize()
 	{
-		parent::renewStates();
+		if( !parent::initialize() )
+		{
+			return false;
+		}
 
 		foreach( $this->getRegions() as $_region )
 		{
@@ -27,5 +30,7 @@ class Map extends \Prokki\Warlight2BotTemplate\Game\Map
 
 			$_region_state->updateWeather();
 		}
+
+		return true;
 	}
 }

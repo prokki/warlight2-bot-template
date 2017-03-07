@@ -57,8 +57,6 @@ class Environment extends RoundBasedEnvironment
 		/** @var Round $new_round */
 		$new_round = parent::addRound();
 
-		$this->_map->renewStates();
-
 		// reference map of old round as initial map of new round
 		return $new_round->setInitialMap(clone $this->_map);
 	}

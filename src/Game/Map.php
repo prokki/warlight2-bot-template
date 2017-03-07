@@ -51,6 +51,8 @@ class Map extends SetupMap
 
 	/**
 	 * Returns `true` if the map is initialized successfully, else `false`.
+	 *
+	 * @return boolean
 	 */
 	public function initialize()
 	{
@@ -65,16 +67,6 @@ class Map extends SetupMap
 		$this->_initialized = true;
 
 		return true;
-	}
-
-	/**
-	 * Recalculates map state, region states, super region states, etc. at the beginning of each round.
-	 *
-	 * @codeCoverageIgnore
-	 */
-	public function renewStates()
-	{
-
 	}
 
 	/**

@@ -23,7 +23,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 #### Added
 * Adapted classes to use environmental factory classes [EnvironmentFactory](src/Game/EnvironmentFactory.php).
 * Added class [SuperRegionArray](src/Game/SuperRegionArray.php) to differentiate to [RegionArray](src/Game/RegionArray.php).
-* Possibility to update the map (or its content objects) with new method `Map::renewStates()`.
 * Constant `RegionState::OWNER_ALL` added.
 
 #### Fixed
