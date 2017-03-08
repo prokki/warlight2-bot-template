@@ -79,6 +79,8 @@ class Region
 	 * @param boolean $vice_versa [optional] `true` to add this object as neighbor for the submitted region, else `false`, default is `true`
 	 *
 	 * @throws InitializationException
+	 *
+	 * @return $this
 	 */
 	public function addNeighbor($region, $vice_versa = true)
 	{
@@ -88,6 +90,8 @@ class Region
 		{
 			$region->addNeighbor($this, false);
 		}
+
+		return $this;
 	}
 
 	/**
@@ -116,7 +120,7 @@ class Region
 	 *
 	 * ATTENTION: Call this method only on round 0.
 	 *
-	 * @return RegionState
+	 * @return $this
 	 *
 	 * @throws InitializationException
 	 */
@@ -129,20 +133,24 @@ class Region
 	 * @param integer $armies
 	 * @param integer $owner
 	 *
-	 * @return RegionState
+	 * @return $this
 	 */
 	public function disableFog($armies, $owner)
 	{
-		return $this->»getState()->setFog(false)->setArmies($armies)->setOwner($owner);
+		$this->»getState()->setFog(false)->setArmies($armies)->setOwner($owner);
+
+		return $this;
 	}
 
 	/**
 	 *
-	 * @return RegionState
+	 * @return $this
 	 */
 	public function enableFog()
 	{
-		return $this->»getState()->setFog()->setArmies(1)->setOwner(RegionState::OWNER_UNKNOWN);
+		$this->»getState()->setFog()->setArmies(1)->setOwner(RegionState::OWNER_UNKNOWN);
+
+		return $this;
 	}
 
 	/**
@@ -151,10 +159,14 @@ class Region
 	 * Attention: Call method only by {@see \Prokki\Warlight2BotTemplate\Game\Map::__clone()} method.
 	 *
 	 * @param RegionState $state
+	 *
+	 * @return $this
 	 */
 	public function »setState($state)
 	{
 		$this->_state = $state;
+
+		return $this;
 	}
 
 	/**
