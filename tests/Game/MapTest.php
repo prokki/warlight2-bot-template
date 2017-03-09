@@ -39,7 +39,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::_initializeRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::hasSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::has()
 	 */
 	public function testInitializeRegions()
 	{
@@ -63,7 +63,7 @@ class MapTest extends \Prokki\Warlight2BotTemplate\Test\MapTest
 
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::_initializeNeighbors()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::hasRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::has()
 	 */
 	public function testInitializeNeighbors()
 	{

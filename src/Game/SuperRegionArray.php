@@ -27,7 +27,7 @@ class SuperRegionArray extends \ArrayObject
 	 */
 	public function get($id)
 	{
-		if( !$this->hasSuperRegion($id) )
+		if( !$this->has($id) )
 		{
 			throw RuntimeException::UnknownSuperRegion($id);
 		}
@@ -39,7 +39,7 @@ class SuperRegionArray extends \ArrayObject
 	 *
 	 * @return $this
 	 */
-	public function addSuperRegion($super_region)
+	public function add($super_region)
 	{
 		$this->offsetSet($super_region->getId(), $super_region);
 		return $this;
@@ -50,7 +50,7 @@ class SuperRegionArray extends \ArrayObject
 	 *
 	 * @return boolean
 	 */
-	public function hasSuperRegion($super_region_id)
+	public function has($super_region_id)
 	{
 		return $this->offsetExists($super_region_id);
 	}

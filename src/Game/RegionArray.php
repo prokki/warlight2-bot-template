@@ -27,7 +27,7 @@ class RegionArray extends \ArrayObject
 	 */
 	public function get($id)
 	{
-		if( !$this->hasRegion($id) )
+		if( !$this->has($id) )
 		{
 			throw RuntimeException::UnknownRegion($id);
 		}
@@ -40,7 +40,7 @@ class RegionArray extends \ArrayObject
 	 *
 	 * @return $this
 	 */
-	public function addRegion($region)
+	public function add($region)
 	{
 		$this->offsetSet($region->getId(), $region);
 		return $this;
@@ -51,7 +51,7 @@ class RegionArray extends \ArrayObject
 	 *
 	 * @return boolean
 	 */
-	public function hasRegion($region)
+	public function has($region)
 	{
 		$region_key = is_integer($region) ? $region : $region->getId();
 

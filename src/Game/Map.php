@@ -95,7 +95,7 @@ class Map extends SetupMap
 	{
 		foreach( $this->_superRegionIds as $_super_region_id => $_bonus_armies )
 		{
-			$this->_superRegions->addSuperRegion(EnvironmentFactory::Get()->newSuperRegion($_super_region_id, $_bonus_armies));
+			$this->_superRegions->add(EnvironmentFactory::Get()->newSuperRegion($_super_region_id, $_bonus_armies));
 		}
 	}
 
@@ -112,7 +112,7 @@ class Map extends SetupMap
 	{
 		foreach( $this->_regionIds as $_super_region_id => $_region_ids )
 		{
-			if( !$this->_superRegions->hasSuperRegion($_super_region_id) )
+			if( !$this->_superRegions->has($_super_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
 			}
@@ -121,7 +121,7 @@ class Map extends SetupMap
 
 			foreach( $_region_ids as $__region_id )
 			{
-				$this->_regions->addRegion(
+				$this->_regions->add(
 					EnvironmentFactory::Get()->newRegion($__region_id)->»assignSuperRegion($_super_region)
 				);
 			}
@@ -140,7 +140,7 @@ class Map extends SetupMap
 		// 2. initialize neighbors
 		foreach( $this->_neighborRegionIds as $_region_id => $_neighbor_region_ids )
 		{
-			if( !$this->_regions->hasRegion($_region_id) )
+			if( !$this->_regions->has($_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
 			}
@@ -150,7 +150,7 @@ class Map extends SetupMap
 
 			foreach( $_neighbor_region_ids as $__neighbor_region_id )
 			{
-				if( !$this->_regions->hasRegion($__neighbor_region_id) )
+				if( !$this->_regions->has($__neighbor_region_id) )
 				{
 					throw InitializationException::MapInitializationFailed();
 				}
@@ -168,7 +168,7 @@ class Map extends SetupMap
 		// 2. initialize neighbors
 		foreach( $this->_wastelandIds as $_region_id )
 		{
-			if( !$this->_regions->hasRegion($_region_id) )
+			if( !$this->_regions->has($_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
 			}

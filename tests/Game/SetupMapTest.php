@@ -12,7 +12,7 @@ class SetupMapTest extends TestCase
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegionSetUp()
 	 */
-	public function testAddSuperRegion()
+	public function testAdd()
 	{
 		$map = new SetupMap();
 		$map->addSuperRegionSetUp(200, 0);
@@ -26,7 +26,7 @@ class SetupMapTest extends TestCase
 	/**
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegionSetUp()
 	 */
-	public function testAddSuperRegionTwice()
+	public function testAddTwice()
 	{
 		$map = new SetupMap();
 		$map->addSuperRegionSetUp(200, 0);

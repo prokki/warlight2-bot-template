@@ -41,7 +41,7 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 	 * @covers \Prokki\Warlight2BotTemplate\Command\SetupMapSuperRegionsCommand::apply()
 	 * @covers \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::getSuperRegions()
-	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::hasSuperRegion()
+	 * @covers \Prokki\Warlight2BotTemplate\Game\Map::has()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\RegionArray::isLoaded()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SetupMap::addSuperRegionSetUp()
 	 * @covers \Prokki\Warlight2BotTemplate\Game\SuperRegion::getBonusArmies()
@@ -60,8 +60,8 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 		self::assertTrue($environment->getMap()->getSuperRegions()->isLoaded());
 		self::assertEquals(3, count($environment->getMap()->getSuperRegions()));
 		self::assertArrayHasKey(1, $environment->getMap()->getSuperRegions());
-		self::assertTrue($environment->getMap()->getSuperRegions()->hasSuperRegion(17));
-		self::assertTrue($environment->getMap()->getSuperRegions()->hasSuperRegion(4));
+		self::assertTrue($environment->getMap()->getSuperRegions()->has(17));
+		self::assertTrue($environment->getMap()->getSuperRegions()->has(4));
 		self::assertInternalType('integer', $environment->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
 		self::assertEquals(3, $environment->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
 	}
