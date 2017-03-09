@@ -10,7 +10,7 @@ namespace Prokki\Warlight2BotTemplate\Game;
  *
  * @package Prokki\Warlight2BotTemplate
  */
-class SuperRegion
+class SuperRegion implements SupraRegional
 {
 
 	/**
@@ -60,10 +60,19 @@ class SuperRegion
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function hasRegion($region)
+	{
+		return $this->_regions->has($region);
+	}
+
+	/**
 	 * @return RegionArray
 	 */
 	public function getRegions()
 	{
 		return $this->_regions;
 	}
+
 }

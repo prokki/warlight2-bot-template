@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Added
 * Interface [SupraRegional](src/Game/SupraRegional.php) added.
-* [SuperRegionArray](src/Game/SuperRegionArray.php) extends new interface [SupraRegional](src/Game/SupraRegional.php).
+* [SuperRegionArray](src/Game/SuperRegionArray.php) and [SuperRegion](src/Game/SuperRegion.php) extending new interface [SupraRegional](src/Game/SupraRegional.php).
 
 #### Fixed
 * Bug in method [RegionArray](src/Game/RegionArray.php)::`filterOwner()` fixed
