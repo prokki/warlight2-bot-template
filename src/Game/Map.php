@@ -45,7 +45,7 @@ class Map extends SetupMap
 		foreach( $old_regions as $_old_region )
 		{
 			/** @var Region $_old_region */
-			$this->getRegion($_old_region->getId())->»setState(clone $_old_region->»getState());
+			$this->_regions->get($_old_region->getId())->»setState(clone $_old_region->»getState());
 		}
 
 		$this->_initialize();
@@ -112,12 +112,12 @@ class Map extends SetupMap
 	{
 		foreach( $this->_regionIds as $_super_region_id => $_region_ids )
 		{
-			if( !$this->hasSuperRegion($_super_region_id) )
+			if( !$this->_superRegions->hasSuperRegion($_super_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
 			}
 
-			$_super_region = $this->getSuperRegion($_super_region_id);
+			$_super_region = $this->_superRegions->get($_super_region_id);
 
 			foreach( $_region_ids as $__region_id )
 			{
@@ -140,22 +140,22 @@ class Map extends SetupMap
 		// 2. initialize neighbors
 		foreach( $this->_neighborRegionIds as $_region_id => $_neighbor_region_ids )
 		{
-			if( !$this->hasRegion($_region_id) )
+			if( !$this->_regions->hasRegion($_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
 			}
 
 			/** @var Region $_region */
-			$_region = $this->getRegion($_region_id);
+			$_region = $this->_regions->get($_region_id);
 
 			foreach( $_neighbor_region_ids as $__neighbor_region_id )
 			{
-				if( !$this->hasRegion($__neighbor_region_id) )
+				if( !$this->_regions->hasRegion($__neighbor_region_id) )
 				{
 					throw InitializationException::MapInitializationFailed();
 				}
 
-				$_region->addNeighbor($this->getRegion($__neighbor_region_id));
+				$_region->addNeighbor($this->_regions->get($__neighbor_region_id));
 			}
 		}
 	}
@@ -168,48 +168,13 @@ class Map extends SetupMap
 		// 2. initialize neighbors
 		foreach( $this->_wastelandIds as $_region_id )
 		{
-			if( !$this->hasRegion($_region_id) )
+			if( !$this->_regions->hasRegion($_region_id) )
 			{
 				throw InitializationException::MapInitializationFailed();
 			}
 
-			$this->getRegion($_region_id)->setWasteland();
+			$this->_regions->get($_region_id)->setWasteland();
 		}
-	}
-
-	/**
-	 * Returns `true` if the specified region exists, else `false`.
-	 *
-	 * @param integer $id id of the region
-	 *
-	 * @return boolean
-	 *
-	 */
-	public function hasRegion($id)
-	{
-		return $this->_regions->hasRegion($id);
-	}
-
-	/**
-	 * Returns a region by id.
-	 *
-	 * If the related region does not exists, an exception is thrown. To avoid exception, use {@see Map::hasRegion()} before.
-	 *
-	 * @param integer $id
-	 *
-	 * @return Region
-	 *
-	 * @throws RuntimeException
-	 *
-	 */
-	public function getRegion($id)
-	{
-		if( !$this->hasRegion($id) )
-		{
-			throw RuntimeException::UnknownRegion($id);
-		}
-
-		return $this->_regions->get($id);
 	}
 
 	/**
@@ -224,38 +189,6 @@ class Map extends SetupMap
 	}
 
 	/**
-	 * Returns `true` if the specified super region exists, else `false`.
-	 *
-	 * @param integer $id id of the super region
-	 *
-	 * @return boolean
-	 *
-	 */
-	public function hasSuperRegion($id)
-	{
-		return $this->_superRegions->hasSuperRegion($id);
-	}
-
-	/**
-	 * Returns a super region by id or `null` if the id does not exsists.
-	 *
-	 * @param integer $id
-	 *
-	 * @return SuperRegion
-	 *
-	 * @throws RuntimeException
-	 */
-	public function getSuperRegion($id)
-	{
-		if( !$this->hasSuperRegion($id) )
-		{
-			throw RuntimeException::UnknownSuperRegion($id);
-		}
-
-		return $this->_superRegions->get($id);
-	}
-
-	/**
 	 * Returns all super regions.
 	 *
 	 * @return RegionArray
@@ -264,7 +197,6 @@ class Map extends SetupMap
 	{
 		return $this->_superRegions;
 	}
-
 
 	/**
 	 * Checks all submitted regions if they were already picked by a player,
@@ -282,7 +214,7 @@ class Map extends SetupMap
 
 		foreach( $region_ids as $_region_id )
 		{
-			$_region = $this->getRegion($_region_id);
+			$_region = $this->_regions->get($_region_id);
 
 			// region cannot be picked twice (region was picked already)
 			if( in_array($_region->getOwner(), [RegionState::OWNER_ME, RegionState::OWNER_OPPONENT]) )

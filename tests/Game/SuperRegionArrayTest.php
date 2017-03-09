@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use PHPUnit\Framework\TestCase;
+use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 use Prokki\Warlight2BotTemplate\Game\SuperRegion;
 use Prokki\Warlight2BotTemplate\Game\SuperRegionArray;
 
@@ -44,6 +45,8 @@ class SuperRegionArrayTest extends TestCase
 		self::assertEquals($super_region_2, $super_regions->get(815));
 		// super region with ID 1 does not exist
 		self::assertFalse($super_regions->hasSuperRegion(1));
-		self::assertNull($super_regions->get(1));
+		self::expectException(RuntimeException::class);
+		self::expectExceptionCode(311);
+		$super_regions->get(1);
 	}
 }

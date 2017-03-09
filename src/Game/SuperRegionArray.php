@@ -4,6 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\Filterable;
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\GetOffsetable;
+use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 
 class SuperRegionArray extends \ArrayObject
 {
@@ -20,13 +21,15 @@ class SuperRegionArray extends \ArrayObject
 	/**
 	 * @param integer $id
 	 *
-	 * @return SuperRegion|null
+	 * @return SuperRegion
+	 *
+	 * @throws RuntimeException
 	 */
 	public function get($id)
 	{
 		if( !$this->hasSuperRegion($id) )
 		{
-			return null;
+			throw RuntimeException::UnknownSuperRegion($id);
 		}
 		return $this->offsetGet($id);
 	}

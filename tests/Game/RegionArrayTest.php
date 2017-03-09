@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Test\Game;
 
 use Prokki\Warlight2BotTemplate\Examples\StupidRandomBot\Game\RegionState;
+use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 use Prokki\Warlight2BotTemplate\Game\Region;
 use Prokki\Warlight2BotTemplate\Game\RegionArray;
 use Prokki\Warlight2BotTemplate\Test\MapTest;
@@ -46,7 +47,9 @@ class RegionArrayTest extends MapTest
 		self::assertEquals($region_2, $regions->get(815));
 		// super region with ID 1 does not exist
 		self::assertFalse($regions->hasRegion(1));
-		self::assertNull($regions->get(1));
+		self::expectException(RuntimeException::class);
+		self::expectExceptionCode(301);
+		$regions->get(12345);
 	}
 
 	/**

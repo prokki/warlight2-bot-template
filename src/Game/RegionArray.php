@@ -4,6 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Game;
 
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\Filterable;
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\GetOffsetable;
+use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 
 class RegionArray extends \ArrayObject
 {
@@ -20,13 +21,15 @@ class RegionArray extends \ArrayObject
 	/**
 	 * @param integer $id
 	 *
-	 * @return Region|null
+	 * @return Region
+	 *
+	 * @throws RuntimeException
 	 */
 	public function get($id)
 	{
 		if( !$this->hasRegion($id) )
 		{
-			return null;
+			throw RuntimeException::UnknownRegion($id);
 		}
 
 		return $this->offsetGet($id);
@@ -44,13 +47,15 @@ class RegionArray extends \ArrayObject
 	}
 
 	/**
-	 * @param integer $region_id
+	 * @param Region|integer $region
 	 *
 	 * @return boolean
 	 */
-	public function hasRegion($region_id)
+	public function hasRegion($region)
 	{
-		return $this->offsetExists($region_id);
+		$region_key = is_integer($region) ? $region : $region->getId();
+
+		return $this->offsetExists($region_key);
 	}
 
 	/**

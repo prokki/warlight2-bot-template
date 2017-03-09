@@ -60,8 +60,8 @@ class SetupMapSuperRegionsCommandTest extends CommandTest
 		self::assertTrue($environment->getMap()->getSuperRegions()->isLoaded());
 		self::assertEquals(3, count($environment->getMap()->getSuperRegions()));
 		self::assertArrayHasKey(1, $environment->getMap()->getSuperRegions());
-		self::assertTrue($environment->getMap()->hasSuperRegion(17));
-		self::assertTrue($environment->getMap()->hasSuperRegion(4));
+		self::assertTrue($environment->getMap()->getSuperRegions()->hasSuperRegion(17));
+		self::assertTrue($environment->getMap()->getSuperRegions()->hasSuperRegion(4));
 		self::assertInternalType('integer', $environment->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
 		self::assertEquals(3, $environment->getMap()->getSuperRegions()->offsetGet(17)->getBonusArmies());
 	}

@@ -46,7 +46,7 @@ class StupidRandomBot extends AIBot
 		mt_srand((double) microtime() * 1234567);
 		$index = mt_rand(0, count($region_ids) - 1);
 
-		$region = $this->_environment->getMap()->getRegion($region_ids[ $index ]);
+		$region = $this->_environment->getMap()->getRegions()->get($region_ids[ $index ]);
 
 		$region->»getState()->setOwner(RegionState::OWNER_ME);
 
