@@ -72,7 +72,7 @@ class RegionArray extends \ArrayObject
 		return $this->filter(function ($_region) use ($owner)
 		{
 			/** @var Region $_region */
-			return $_region->getOwner() & $owner;
+			return ( $_region->getOwner() & $owner ) === $_region->getOwner();
 		});
 	}
 }

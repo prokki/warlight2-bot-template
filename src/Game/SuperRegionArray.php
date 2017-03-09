@@ -6,7 +6,7 @@ use Prokki\TheaigamesBotEngine\Util\ArrayObject\Filterable;
 use Prokki\TheaigamesBotEngine\Util\ArrayObject\GetOffsetable;
 use Prokki\Warlight2BotTemplate\Exception\RuntimeException;
 
-class SuperRegionArray extends \ArrayObject
+class SuperRegionArray extends \ArrayObject implements SupraRegional
 {
 	use Filterable, GetOffsetable;
 
@@ -46,12 +46,50 @@ class SuperRegionArray extends \ArrayObject
 	}
 
 	/**
-	 * @param integer $super_region_id
+	 * @param SuperRegion|integer $super_region
 	 *
 	 * @return boolean
 	 */
-	public function has($super_region_id)
+	public function has($super_region)
 	{
-		return $this->offsetExists($super_region_id);
+		$super_region_key = is_integer($super_region) ? $super_region : $super_region->getId();
+
+		return $this->offsetExists($super_region_key);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hasRegion($region)
+	{
+		foreach( $this as $_super_region )
+		{
+			/** @var SuperRegion $_super_region */
+			if( $_super_region->has($region) )
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getRegions()
+	{
+		$regions = EnvironmentFactory::Get()->newRegionArray();
+
+		foreach( $this as $_super_region )
+		{
+			/** @var SuperRegion $_super_region */
+			foreach( $_super_region->getRegions() as $__region )
+			{
+				$regions->add($__region);
+			}
+		}
+
+		return $regions;
 	}
 }

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### [Unreleased]
 
+#### Added
+* Interface [SupraRegional](src/Game/SupraRegional.php) added.
+* [SuperRegionArray](src/Game/SuperRegionArray.php) extends new interface [SupraRegional](src/Game/SupraRegional.php).
+
+#### Fixed
+* Bug in method [RegionArray](src/Game/RegionArray.php)::`filterOwner()` fixed
+
+#### Changed
+* `Map::hasRegion()` and `Map::getRegion()` removed, access is possible via [Map](src/Game/Map.php)`::getRegions()` methods
+* Methods of [RegionArray](src/Game/RegionArray.php) and [SuperRegionArray](src/Game/SuperRegionArray.php) renamed
+
 ### [0.3.0] - 2017-03-08
 
 #### Added

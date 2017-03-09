@@ -107,7 +107,7 @@ class Region
 	/**
 	 * Returns the state (fog, owner, armies).
 	 *
-	 * Attention: Call method only by {@see \Prokki\Warlight2BotTemplate\Game\Map::__clone()} method and during the ap setup process to set state properties.
+	 * *Attention*: Call method only by {@see \Prokki\Warlight2BotTemplate\Game\Map::__clone()} method and during the ap setup process to set state properties.
 	 *
 	 * @return RegionState
 	 */

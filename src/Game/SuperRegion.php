@@ -2,8 +2,17 @@
 
 namespace Prokki\Warlight2BotTemplate\Game;
 
+/**
+ * Class SuperRegion
+ *
+ * SuperRegion does not extend RegionArray to use the advantage of the {@see \Prokki\Warlight2BotTemplate\Game\EnvironmentFactory},
+ * see property {\Prokki\Warlight2BotTemplate\Game\SuperRegion::_regions}.
+ *
+ * @package Prokki\Warlight2BotTemplate
+ */
 class SuperRegion
 {
+
 	/**
 	 * @var integer
 	 */
