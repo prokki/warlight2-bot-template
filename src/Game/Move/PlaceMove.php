@@ -2,8 +2,6 @@
 
 namespace Prokki\Warlight2BotTemplate\Game\Move;
 
-use Prokki\Warlight2BotTemplate\Game\Player;
-
 class PlaceMove extends PickMove
 {
 	/**
@@ -20,10 +18,10 @@ class PlaceMove extends PickMove
 	 *
 	 * @param integer $armies
 	 */
-	public function __construct($destination_region_id, $armies)
+	public function __construct($destination_region, $armies)
 	{
-		parent::__construct($destination_region_id);
-		
+		parent::__construct($destination_region);
+
 		$this->_armies = $armies;
 	}
 
@@ -42,6 +40,6 @@ class PlaceMove extends PickMove
 	 */
 	public function _toResponseString($player_name)
 	{
-		return sprintf("%s place_armies %d %s", $player_name, $this->getDestinationRegionId(), $this->getArmies());
+		return sprintf("%s place_armies %d %s", $player_name, $this->_destinationRegionId, $this->_armies);
 	}
 }

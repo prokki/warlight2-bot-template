@@ -9,6 +9,8 @@ namespace Prokki\Warlight2BotTemplate\Game;
  * see property {\Prokki\Warlight2BotTemplate\Game\SuperRegion::_regions}.
  *
  * @package Prokki\Warlight2BotTemplate
+ *
+ * @todo    maybe remove method hasRegion() (and replace my getRegions()->has())
  */
 class SuperRegion implements SupraRegional
 {
@@ -75,4 +77,37 @@ class SuperRegion implements SupraRegional
 		return $this->_regions;
 	}
 
+	/**
+	 * Returns `true` if the super regions has at least one region that is owned by the submitted owner.
+	 *
+	 * @param integer $owner one of the `RegionState::OWNER_` constants
+	 *
+	 * @return boolean
+	 */
+	public function isOccupiedByOwner($owner)
+	{
+		return count($this->_regions->filterOwner($owner)) > 0;
+	}
+
+	/**
+	 * Returns `true` if all regions of the super regions is owned by the submitted owner.
+	 *
+	 * @param integer $owner one of the `RegionState::OWNER_` constants
+	 *
+	 * @return boolean
+	 */
+	public function isFullyOccupiedByOwner($owner)
+	{
+		return count($this->_regions->filterOwner($owner)) === count($this->_regions);
+	}
+
+	/**
+	 * Returns `true` if all regions of the super regions is owned either by ME or by the OPPONENT, else `false`.
+	 *
+	 * @return boolean
+	 */
+	public function isFullyOccupied()
+	{
+		return $this->isFullyOccupiedByOwner(RegionState::OWNER_ME) || $this->isFullyOccupiedByOwner(RegionState::OWNER_OPPONENT);
+	}
 }

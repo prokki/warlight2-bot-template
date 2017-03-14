@@ -31,7 +31,7 @@ class GoPlaceArmiesCommandTest extends SetGlobalTimeComputableCommandTest
 	/**
 	 * @covers                \Prokki\Warlight2BotTemplate\Command\ReceivableIntCommand::_parseArguments()
 	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingArguments()

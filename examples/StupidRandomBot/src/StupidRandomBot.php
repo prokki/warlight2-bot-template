@@ -152,17 +152,19 @@ class StupidRandomBot extends AIBot
 
 		$armies_to_place = array();
 
-		$circa_placements = min(count($my_region_ids), rand(1, ceil(log($armies_to_dispense, 1.75))));
+		$circa_placements = min(count($my_region_ids), (int) mt_rand(1, (int) ceil(log($armies_to_dispense, 1.75))));
 
 		$placement_round_no = 1;
 
 		do
 		{
+			mt_srand((double) microtime() * 10101010);
+
 			$_already_placed_armies = array_sum($armies_to_place);
 
 			$_max_armies_to_place_this_round = $armies_to_dispense - $_already_placed_armies;
 
-			$_armies_this_round = rand(1, $_max_armies_to_place_this_round - $circa_placements + $placement_round_no);
+			$_armies_this_round = (int) mt_rand(1, $_max_armies_to_place_this_round - $circa_placements + $placement_round_no);
 
 			array_push($armies_to_place, $_armies_this_round);
 

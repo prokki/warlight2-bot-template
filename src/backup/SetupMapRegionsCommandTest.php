@@ -30,7 +30,7 @@ class SetupMapRegionsCommandTest extends CommandTest
 	/**
 	 * @covers                \Prokki\Warlight2BotTemplate\Command\ReceivableTupleIntListCommand::_parseArguments()
 	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingArguments()

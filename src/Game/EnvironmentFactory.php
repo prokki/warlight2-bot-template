@@ -85,7 +85,7 @@ class EnvironmentFactory extends RoundBasedEnvironmentFactory
 	}
 
 	/**
-	 * @return RegionArray
+	 * @return SuperRegionArray
 	 */
 	public function newSuperRegionArray()
 	{

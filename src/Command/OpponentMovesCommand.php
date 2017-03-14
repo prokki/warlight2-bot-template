@@ -4,7 +4,7 @@ namespace Prokki\Warlight2BotTemplate\Command;
 
 use Prokki\TheaigamesBotEngine\Bot;
 use Prokki\TheaigamesBotEngine\Command\ReceivableCommand;
-use Prokki\Warlight2BotTemplate\Exception\ParserException;
+use Prokki\Warlight2BotTemplate\Exception\CommandException;
 use Prokki\Warlight2BotTemplate\Game\Move\PlaceMove;
 use Prokki\Warlight2BotTemplate\Game\Move\TransferMove;
 use Prokki\Warlight2BotTemplate\Game\RegionState;
@@ -51,7 +51,7 @@ class OpponentMovesCommand extends ReceivableCommand
 		{
 			if( count($values) < 2 )
 			{
-				throw ParserException::CommandMissingArguments($input, 'Take a look to the documentation.');
+				throw CommandException::CommandMissingArguments($input, 'Take a look to the documentation.');
 			}
 
 			switch( trim($values[ 1 ]) )
@@ -60,7 +60,7 @@ class OpponentMovesCommand extends ReceivableCommand
 
 					if( count($values) < 4 )
 					{
-						throw ParserException::CommandMissingArguments($input, 'Take a look to the documentation.');
+						throw CommandException::CommandMissingArguments($input, 'Take a look to the documentation.');
 					}
 
 					array_push($this->_moves, new PlaceMove((int) $values[ 2 ], (int) $values[ 3 ]));
@@ -74,7 +74,7 @@ class OpponentMovesCommand extends ReceivableCommand
 
 					if( count($values) < 5 )
 					{
-						throw ParserException::CommandMissingArguments($input, 'Take a look to the documentation.');
+						throw CommandException::CommandMissingArguments($input, 'Take a look to the documentation.');
 					}
 
 					array_push($this->_moves, new TransferMove((int) $values[ 2 ], (int) $values[ 3 ], (int) $values[ 4 ]));
@@ -107,7 +107,7 @@ class OpponentMovesCommand extends ReceivableCommand
 				$bot->getEnvironment()->getCurrentRound()->addOpponentMove($_move);
 			}
 		}
-
+		
 		$bot->getEnvironment()->addRound();
 	}
 }

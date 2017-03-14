@@ -1,7 +1,7 @@
 ## Warlight2BotTemplate
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/prokki/warlight2-bot/blob/master/LICENSE)
-[![Packagist](https://img.shields.io/badge/Packagist-0.3.0-blue.svg?style=flat)](https://packagist.org/packages/prokki/warlight2-bot-template)
+[![Packagist](https://img.shields.io/badge/Packagist-0.4.0-blue.svg?style=flat)](https://packagist.org/packages/prokki/warlight2-bot-template)
 [![Minimum PHP Version](https://img.shields.io/badge/PHP-%3C%3D5.6.13-8892BF.svg)](https://php.net/)
 
 This is a php bot template for Warlight AI Challenge 2 (http://theaigames.com/competitions/warlight-ai-challenge-2). 

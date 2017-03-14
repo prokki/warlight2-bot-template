@@ -3,6 +3,7 @@
 namespace Prokki\Warlight2BotTemplate\Game\Move;
 
 use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Region;
 
 /**
  * A PickMove represents a move of request `pick_starting_region` (see {@see \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand}).
@@ -21,11 +22,11 @@ class PickMove implements Move
 	/**
 	 * PickMove constructor.
 	 *
-	 * @param integer $destination_region_id
+	 * @param integer|Region $destination_region
 	 */
-	public function __construct($destination_region_id)
+	public function __construct($destination_region)
 	{
-		$this->_destinationRegionId = $destination_region_id;
+		$this->_destinationRegionId = is_integer($destination_region) ? $destination_region : $destination_region->getId();
 	}
 
 	/**
@@ -43,6 +44,6 @@ class PickMove implements Move
 	 */
 	public function _toResponseString($player_name)
 	{
-		return sprintf("%d", $this->getDestinationRegionId());
+		return sprintf("%d", $this->_destinationRegionId);
 	}
 }

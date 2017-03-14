@@ -34,7 +34,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	/**
 	 * @covers                \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
 	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingArguments()
@@ -45,7 +45,7 @@ class PickStartingRegionCommandTest extends CommandTest
 	/**
 	 * @covers                \Prokki\Warlight2BotTemplate\Command\PickStartingRegionCommand::_parseArguments()
 	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingArgumentsOneArgument()

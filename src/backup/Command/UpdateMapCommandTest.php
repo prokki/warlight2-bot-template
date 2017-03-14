@@ -42,7 +42,7 @@ class UpdateMapCommandTest extends CommandTest
 	/**
 	 *
 	 * @covers \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_GetRegionOwnerByPlayerName()
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 105
 	 *
 	 */
@@ -79,7 +79,7 @@ class UpdateMapCommandTest extends CommandTest
 	/**
 	 * @covers                \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_parseArguments()
 	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingTwoArguments()
@@ -90,7 +90,7 @@ class UpdateMapCommandTest extends CommandTest
 	/**
 	 * @covers                \Prokki\Warlight2BotTemplate\Command\UpdateMapCommand::_parseArguments()
 	 *
-	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\ParserException
+	 * @expectedException \Prokki\Warlight2BotTemplate\Exception\CommandException
 	 * @expectedExceptionCode 104
 	 */
 	public function testParserMissingOneArgument()

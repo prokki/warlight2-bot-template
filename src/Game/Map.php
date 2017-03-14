@@ -191,7 +191,7 @@ class Map extends SetupMap
 	/**
 	 * Returns all super regions.
 	 *
-	 * @return RegionArray
+	 * @return SuperRegionArray
 	 */
 	public function getSuperRegions()
 	{
@@ -203,7 +203,7 @@ class Map extends SetupMap
 	 * sets the owner to the opponent for the regions which are not picked yet and
 	 * returns {@see PickMove}s for these regions.
 	 *
-	 * @param integer $region_ids ids of the regions to check
+	 * @param integer[] $region_ids ids of the regions to check
 	 *
 	 * @return PickMove[] pick moves for all unpicked regions
 	 *

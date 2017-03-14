@@ -53,9 +53,9 @@ class RegionArray extends \ArrayObject
 	 */
 	public function has($region)
 	{
-		$region_key = is_integer($region) ? $region : $region->getId();
+		$region_id = is_integer($region) ? $region : $region->getId();
 
-		return $this->offsetExists($region_key);
+		return $this->offsetExists($region_id);
 	}
 
 	/**

@@ -16,7 +16,6 @@ class Environment extends RoundBasedEnvironment
 	 */
 	protected $_map = null;
 
-
 	/**
 	 * Environment constructor.
 	 *
@@ -57,7 +56,9 @@ class Environment extends RoundBasedEnvironment
 		/** @var Round $new_round */
 		$new_round = parent::addRound();
 
+		$this->_map = clone $this->_map;
+
 		// reference map of old round as initial map of new round
-		return $new_round->setInitialMap(clone $this->_map);
+		return $new_round->setInitialMap($this->_map);
 	}
 }

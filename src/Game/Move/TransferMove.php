@@ -2,7 +2,7 @@
 
 namespace Prokki\Warlight2BotTemplate\Game\Move;
 
-use Prokki\Warlight2BotTemplate\Game\Player;
+use Prokki\Warlight2BotTemplate\Game\Region;
 
 class TransferMove extends PlaceMove
 {
@@ -14,15 +14,15 @@ class TransferMove extends PlaceMove
 	/**
 	 * PlaceMove constructor.
 	 *
-	 * @param integer $source_region_id
+	 * @param integer|Region $source_region
 	 *
 	 * @inheritdoc
 	 */
-	public function __construct($source_region_id, $destination_region_id, $armies)
+	public function __construct($source_region, $destination_region, $armies)
 	{
-		parent::__construct($destination_region_id, $armies);
+		parent::__construct($destination_region, $armies);
 
-		$this->_sourceRegionId = $source_region_id;
+		$this->_sourceRegionId = is_integer($source_region) ? $source_region : $source_region->getId();
 	}
 
 	/**
@@ -40,9 +40,9 @@ class TransferMove extends PlaceMove
 	{
 		return sprintf("%s attack/transfer %d %d %d",
 			$player_name,
-			$this->getSourceRegionId(),
-			$this->getDestinationRegionId(),
-			$this->getArmies()
+			$this->_sourceRegionId,
+			$this->_destinationRegionId,
+			$this->_armies
 		);
 	}
 
@@ -53,6 +53,6 @@ class TransferMove extends PlaceMove
 	 */
 	public function toAttackMove()
 	{
-		return new AttackMove($this->getSourceRegionId(), $this->getDestinationRegionId(), $this->getArmies());
+		return new AttackMove($this->_sourceRegionId, $this->_destinationRegionId, $this->_armies);
 	}
 }

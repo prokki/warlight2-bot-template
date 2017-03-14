@@ -4,18 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project Warlight2BotTemplate to [Semantic Versioning](http://semver.org/).
 
-### [Unreleased]
+### [0.4.0] - 2017-03-14
 
 #### Added
 * Interface [SupraRegional](src/Game/SupraRegional.php) added.
 * [SuperRegionArray](src/Game/SuperRegionArray.php) and [SuperRegion](src/Game/SuperRegion.php) extending new interface [SupraRegional](src/Game/SupraRegional.php).
 
 #### Fixed
-* Bug in method [RegionArray](src/Game/RegionArray.php)::`filterOwner()` fixed
+* Bug in method [RegionArray](src/Game/RegionArray.php)::`filterOwner()` fixed.
+* Bug with cloning map in method [Environment](src/Game/Environment.php)::`addRound()` fixed.
 
 #### Changed
-* `Map::hasRegion()` and `Map::getRegion()` removed, access is possible via [Map](src/Game/Map.php)`::getRegions()` methods
-* Methods of [RegionArray](src/Game/RegionArray.php) and [SuperRegionArray](src/Game/SuperRegionArray.php) renamed
+* `Map::hasRegion()` and `Map::getRegion()` removed, access is possible via [Map](src/Game/Map.php)`::getRegions()` methods.
+* Methods of [RegionArray](src/Game/RegionArray.php) and [SuperRegionArray](src/Game/SuperRegionArray.php) renamed.
+* class `ParserEception` renamed to [CommandException](src/Exception/CommandException.php).
 
 ### [0.3.0] - 2017-03-08
 
